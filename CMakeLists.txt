@@ -1,0 +1,85 @@
+cmake_minimum_required(VERSION 3.26)
+project(Project_Startup_Code)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(.)
+include_directories(CMUgraphicsLib)
+include_directories(CMUgraphicsLib/jpeg)
+
+add_executable(Project_Startup_Code
+        CMUgraphicsLib/jpeg/jcomapi.c
+        CMUgraphicsLib/jpeg/jconfig.h
+        CMUgraphicsLib/jpeg/jcparam.c
+        CMUgraphicsLib/jpeg/jdapimin.c
+        CMUgraphicsLib/jpeg/jdapistd.c
+        CMUgraphicsLib/jpeg/jdatasrc.c
+        CMUgraphicsLib/jpeg/jdcoefct.c
+        CMUgraphicsLib/jpeg/jdcolor.c
+        CMUgraphicsLib/jpeg/jdct.h
+        CMUgraphicsLib/jpeg/jddctmgr.c
+        CMUgraphicsLib/jpeg/jdhuff.c
+        CMUgraphicsLib/jpeg/jdhuff.h
+        CMUgraphicsLib/jpeg/jdinput.c
+        CMUgraphicsLib/jpeg/jdmainct.c
+        CMUgraphicsLib/jpeg/jdmarker.c
+        CMUgraphicsLib/jpeg/jdmaster.c
+        CMUgraphicsLib/jpeg/jdmerge.c
+        CMUgraphicsLib/jpeg/jdphuff.c
+        CMUgraphicsLib/jpeg/jdpostct.c
+        CMUgraphicsLib/jpeg/jdsample.c
+        CMUgraphicsLib/jpeg/jdtrans.c
+        CMUgraphicsLib/jpeg/jerror.c
+        CMUgraphicsLib/jpeg/jerror.h
+        CMUgraphicsLib/jpeg/jidctflt.c
+        CMUgraphicsLib/jpeg/jidctfst.c
+        CMUgraphicsLib/jpeg/jidctint.c
+        CMUgraphicsLib/jpeg/jidctred.c
+        CMUgraphicsLib/jpeg/jinclude.h
+        CMUgraphicsLib/jpeg/jmemmgr.c
+        CMUgraphicsLib/jpeg/jmemnobs.c
+        CMUgraphicsLib/jpeg/jmemsys.h
+        CMUgraphicsLib/jpeg/jmorecfg.h
+        CMUgraphicsLib/jpeg/jpegint.h
+        CMUgraphicsLib/jpeg/jpeglib.h
+        CMUgraphicsLib/jpeg/jquant1.c
+        CMUgraphicsLib/jpeg/jquant2.c
+        CMUgraphicsLib/jpeg/jutils.c
+        CMUgraphicsLib/jpeg/jversion.h
+        CMUgraphicsLib/auxil.cpp
+        CMUgraphicsLib/auxil.h
+        CMUgraphicsLib/CMUgraphics.cpp
+        CMUgraphicsLib/CMUgraphics.h
+        CMUgraphicsLib/colors.cpp
+        CMUgraphicsLib/colors.h
+        CMUgraphicsLib/error.h
+        CMUgraphicsLib/image.cpp
+        CMUgraphicsLib/image.h
+        CMUgraphicsLib/jpegload.c
+        CMUgraphicsLib/jpegload.h
+        CMUgraphicsLib/keyqueue.cpp
+        CMUgraphicsLib/keyqueue.h
+        CMUgraphicsLib/mousequeue.cpp
+        CMUgraphicsLib/mousequeue.h
+        CMUgraphicsLib/version.h
+        CMUgraphicsLib/windowinput.cpp
+        CMUgraphicsLib/windowinput.h
+        Shapes/allshapes.cpp
+        Bricks.cpp
+        Bricks.h
+        collidable.cpp
+        collidable.h
+        controller.cpp
+        controller.h
+        DEFS.h
+        drawable.cpp
+        drawable.h
+        game.cpp
+        game.h
+        gameConfig.h
+        grid.cpp
+        grid.h
+        main.cpp
+        resource.h
+        toolbar.cpp
+        toolbar.h)
