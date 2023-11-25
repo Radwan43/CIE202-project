@@ -40,9 +40,9 @@ point collidable::CheckCollision(collidable* object1, collidable* object2) {
 		}
 
 	}
-	else if (((point1.x >= point2.x - width1) && (point1.x <= point2.y + width2)) && ((point1.y == point2.y - height2) || (point1.y == point2.x + height1))) {
+	else if (((point1.x >= point2.x - width1) && (point1.x <= point2.x + width2)) && ((point1.y == point2.y - height2) || (point1.y == point2.y + height1))) {
 
-		if (point1.y == point2.y - height2) { CollisionPoint.x = point1.y; }
+		if (point1.y == point2.y - height2) { CollisionPoint.y = point1.y; }
 		else { CollisionPoint.y = point2.y; };
 
 		if (point1.x > point2.x) {
