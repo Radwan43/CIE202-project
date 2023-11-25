@@ -20,6 +20,14 @@ public:
 	virtual void onClick();
 };
 
+//////////////////////////////////////////////////////  class iconSaveLevel   //////////////////////////////////////////////
+class iconSaveLevel :public toolbarIcon
+{
+public:
+	iconSaveLevel(point r_uprleft, int r_width, int r_height, game* r_pGame);
+	virtual void onClick();
+};
+
 ////////////////////////////////////////////////////  class iconExit   //////////////////////////////////////////////
 class iconExit :public toolbarIcon
 {
@@ -39,6 +47,8 @@ class toolbar:public drawable
 		ICON_ADD_NORM,		//add normal brick
 
 		//TODO: Add more icons names here
+
+		ICON_SAVE,
 
 		ICON_EXIT,		//Exit icon
 

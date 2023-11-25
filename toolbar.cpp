@@ -17,6 +17,19 @@ iconAddNormalBrick::iconAddNormalBrick(point r_uprleft, int r_width, int r_heigh
 	toolbarIcon(r_uprleft, r_width, r_height,  r_pGame)
 {}
 
+////////////////////////////////////////////////////  class iconSaveLevel   //////////////////////////////////////////////
+
+iconSaveLevel::iconSaveLevel(point r_uprleft, int r_width, int r_height, game* r_pGame) :
+	toolbarIcon(r_uprleft, r_width, r_height, r_pGame)
+{}
+
+void iconSaveLevel::onClick()
+{
+	//TO DO: add code for cleanup and game exit here
+
+}
+
+
 void iconAddNormalBrick::onClick()
 {
 	
@@ -59,6 +72,7 @@ toolbar::toolbar(point r_uprleft, int wdth, int hght, game* pG):
 	//First prepare List of images for each icon
 	//To control the order of these images in the menu, reoder them in enum ICONS above	
 	iconsImages[ICON_ADD_NORM] = "images\\ToolbarIcons\\NormalBrickIcon.jpg";
+	iconsImages[ICON_SAVE] = "images\\ToolbarIcons\\NormalBrickIcon.jpg";
 	iconsImages[ICON_EXIT] = "images\\ToolbarIcons\\ExitIcon.jpg";
 
 	point p;
@@ -70,6 +84,8 @@ toolbar::toolbar(point r_uprleft, int wdth, int hght, game* pG):
 	//For each icon in the tool bar
 	//	1- Create an object setting its upper left corner, width and height
 	iconsList[ICON_ADD_NORM] = new iconAddNormalBrick(p, config.iconWidth, height, pGame);
+	p.x+= config.iconWidth;
+	iconsList[ICON_SAVE] = new iconSaveLevel(p, config.iconWidth, height, pGame);
 	p.x+= config.iconWidth;
 	iconsList[ICON_EXIT] = new iconExit(p, config.iconWidth, height, pGame);
 
