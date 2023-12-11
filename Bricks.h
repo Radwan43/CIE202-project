@@ -18,7 +18,7 @@ class brick :public collidable
 private:
 	BrickType type;
 protected:
-	int strength;
+	int strength{};
 public:
 	brick(point r_uprleft, int r_width, int r_height, game* r_pGame,BrickType type);
 	void strengthCheck();
