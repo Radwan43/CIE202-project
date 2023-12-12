@@ -1,10 +1,15 @@
 #include "collidable.h"
 
-collidable::collidable(point r_uprleft, int r_width, int r_height, game* r_pGame):
-			drawable(r_uprleft, r_width, r_height,  r_pGame)
+collidable::collidable(point r_uprleft, int r_width, int r_height, game* r_pGame) :
+    drawable(r_uprleft, r_width, r_height, r_pGame)
 {
-
 }
+
+collidable::collidable(point r_uprleft, int r_width, int r_height, game* r_pGame, const string& shapeType) :
+    drawable(r_uprleft, r_width, r_height, r_pGame, shapeType)
+{
+}
+
 
 bool collidable::is_collided(int u1, int u2, int v1, int v2, int width1, int width2, int height1, int height2) {
 	if ((is_onLine(u1, u2, width2) || is_onLine(u2, u1, width1)) && (is_inRange(v1, v2, height1, height2))) {
