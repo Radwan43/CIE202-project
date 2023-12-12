@@ -140,6 +140,9 @@ void game::go() const
 				isExit=gameToolbar->handleClick(x, y);
 			}
 		}
+		if (gameMode == MODE_PLAY) {
+			
+		}
 
 	} while (!isExit);
 }

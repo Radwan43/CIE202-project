@@ -79,7 +79,9 @@ int grid::addBrick(BrickType brkType, point clickedPoint)
 	case BRK_NRM:	//The new brick to add is Normal Brick
 		brickMatrix[gridCellRowIndex][gridCellColIndex] = new normalBrick(newBrickUpleft, config.brickWidth, config.brickHeight, pGame);
 		break;
-
+	case BRK_HRD:
+		brickMatrix[gridCellRowIndex][gridCellColIndex] = new hardBrick(newBrickUpleft, config.brickWidth, config.brickHeight, pGame);
+		break;
 		//TODO: 
 		// handle more types
 	}

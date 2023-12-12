@@ -21,6 +21,7 @@ protected:
 	int strength{};
 public:
 	brick(point r_uprleft, int r_width, int r_height, game* r_pGame,BrickType type);
+	~brick();
 	void strengthCheck();
 };
 
