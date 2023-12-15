@@ -121,6 +121,8 @@
     <ClCompile Include="collidable.cpp">
       <Filter>Base Classes</Filter>
     </ClCompile>
+    <ClCompile Include="paddle.cpp" />
+    <ClCompile Include="Ball.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -198,6 +200,7 @@
     <ClInclude Include="collidable.h">
       <Filter>Base Classes</Filter>
     </ClInclude>
+    <ClInclude Include="paddle.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Base Classes">

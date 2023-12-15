@@ -1,6 +1,5 @@
 #include "grid.h"
-#include "game.h"
-#include "gameConfig.h"
+
 
 grid::grid(point r_uprleft, int wdth, int hght, game* pG):
 	drawable(r_uprleft, wdth, hght, pG)
@@ -57,6 +56,17 @@ void grid::draw() const
 
 }
 
+brick*** grid::getMatrix() { 
+	return brickMatrix; 
+}
+
+int grid::getrows() {
+	return this->rows;
+}
+int grid::getcols() {
+	return this->cols;
+}
+
 int grid::addBrick(BrickType brkType, point clickedPoint)
 {
 	//TODO:
@@ -86,4 +96,18 @@ int grid::addBrick(BrickType brkType, point clickedPoint)
 		// handle more types
 	}
 	return 1;
+}
+
+void grid::delBrick(int gridCellRowIndex, int gridCellColIndex) {
+	brickMatrix[gridCellRowIndex][gridCellColIndex] = nullptr;
+	window* pW = pGame->getWind();
+	point brickPoint;
+	brickPoint.x= uprLft.x + gridCellColIndex * config.brickWidth;
+	brickPoint.y= uprLft.y + gridCellRowIndex * config.brickHeight;
+	pW->SetBrush(config.bkGrndColor);
+	pW->SetPen(config.bkGrndColor, 1);
+	pW->DrawRectangle(brickPoint.x, brickPoint.y, brickPoint.x+config.brickWidth, brickPoint.y+config.brickHeight);
+	cout << endl<<"brick deleted" << endl;
+
+	
 }

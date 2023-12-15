@@ -28,11 +28,20 @@ public:
 	virtual void onClick();
 };
 
+
 //////////////////////////////////////////////////////  class iconLoadLevel   //////////////////////////////////////////////
 class iconLoadLevel :public toolbarIcon
 {
 public:
 	iconLoadLevel(point r_uprleft, int r_width, int r_height, game* r_pGame);
+	virtual void onClick();
+};
+
+//////////////////////////////////////////////////////  class iconiconDelBrick   //////////////////////////////////////////////
+class iconDelBrick :public toolbarIcon
+{
+public:
+	iconDelBrick(point r_uprleft, int r_width, int r_height, game* r_pGame);
 	virtual void onClick();
 };
 

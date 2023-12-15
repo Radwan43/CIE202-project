@@ -1,4 +1,6 @@
 #pragma once
+#include "gameConfig.h"
+#include "game.h"
 
 //This file contains all classes bricks classes 
 #include "collidable.h"
@@ -21,8 +23,8 @@ protected:
 	int strength{};
 public:
 	brick(point r_uprleft, int r_width, int r_height, game* r_pGame,BrickType type);
-	~brick();
 	void strengthCheck();
+	~brick();
 };
 
 

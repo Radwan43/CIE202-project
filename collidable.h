@@ -1,6 +1,7 @@
 #pragma once
 #include "drawable.h"
 
+///////////////////////////////////////   collidable classes   /////////////////////////////////
 // Base class for all collidable objects (objects that may collide with other objects)
 class collidable : public drawable
 {

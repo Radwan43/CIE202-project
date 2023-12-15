@@ -8,6 +8,12 @@ brick::brick(point r_uprleft, int r_width, int r_height, game* r_pGame,BrickType
 	this->type = type;
 }
 
+brick::~brick() {
+	int gridCellRowIndex = (uprLft.y-config.toolBarHeight) / config.brickHeight;
+	int gridCellColIndex = uprLft.x / config.brickWidth;
+	pGame->getGrid()->delBrick(gridCellRowIndex, gridCellColIndex);
+}
+
 void brick::strengthCheck() {
 	if (strength > 1) {
 		strength--;

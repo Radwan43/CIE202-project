@@ -29,6 +29,37 @@ void iconSaveLevel::onClick()
 
 }
 
+////////////////////////////////////////////////////  class iconDelBrick   //////////////////////////////////////////////
+
+iconDelBrick::iconDelBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) :
+	toolbarIcon(r_uprleft, r_width, r_height, r_pGame)
+{}
+
+void iconDelBrick::onClick()
+{
+
+	//TO DO: add code for cleanup and game exit here
+
+
+	pGame->printMessage("Click on bricks cells to delete  ==> Right-Click to stop <==");
+	int x, y;
+	clicktype t = pGame->getMouseClick(x, y);
+	while (t == LEFT_CLICK)
+	{
+		point clicked;
+		clicked.x = x;
+		clicked.y = y;
+		grid* pGrid = pGame->getGrid();
+		if (pGame->getGrid()->getMatrix()[(clicked.y - uprLft.y) / config.brickHeight - 1][clicked.x / config.brickWidth] != NULL) {
+			delete pGame->getGrid()->getMatrix()[(clicked.y - uprLft.y) / config.brickHeight - 1][clicked.x / config.brickWidth];
+		};
+		pGrid->draw();
+		t = pGame->getMouseClick(x, y);
+	}
+	pGame->printMessage("");
+
+}
+
 ////////////////////////////////////////////////////  class iconLoadLevel   //////////////////////////////////////////////
 
 iconLoadLevel::iconLoadLevel(point r_uprleft, int r_width, int r_height, game* r_pGame) :
@@ -147,9 +178,10 @@ toolbar::toolbar(point r_uprleft, int wdth, int hght, game* pG) :
 	//	1- Create an object setting its upper left corner, width and height
 	iconsList[ICON_ADD_NORM] = new iconAddNormalBrick(p, config.iconWidth, height, pGame);
 	p.x += config.iconWidth;
-	iconsList[ICON_SAVE] = new iconSaveLevel(p, config.iconWidth, height, pGame);
+	iconsList[ICON_LOAD] = new iconDelBrick(p, config.iconWidth, height, pGame);
 	p.x += config.iconWidth;
-	iconsList[ICON_LOAD] = new iconLoadLevel(p, config.iconWidth, height, pGame);
+	//I REPLACED THE POSITIONS AND MADE THE "LOAD ICON" DO THE DELETE BRICK FUNCTION
+	iconsList[ICON_SAVE] = new iconSaveLevel(p, config.iconWidth, height, pGame);
 	p.x += config.iconWidth;
 	iconsList[ICON_PLAY] = new iconPlay(p, config.iconWidth, height, pGame);
 	p.x += config.iconWidth;
