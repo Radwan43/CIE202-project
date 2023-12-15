@@ -4,6 +4,7 @@
 #include <thread>
 #include "gameConfig.h"
 #include "game.h"
+#include <iostream> 
 
 class Ball : public collidable
 {
@@ -17,7 +18,6 @@ private:
     const double PI = 3.14159265359;
     int radius;
     double thetta;
-    int step_x, step_y;
     int speed;
     bool moving;
 public:
