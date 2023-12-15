@@ -45,16 +45,19 @@ void iconDelBrick::onClick()
 	int x, y;
 	clicktype t = pGame->getMouseClick(x, y);
 	while (t == LEFT_CLICK)
-	{
-		point clicked;
-		clicked.x = x;
-		clicked.y = y;
-		grid* pGrid = pGame->getGrid();
-		if (pGame->getGrid()->getMatrix()[(clicked.y - uprLft.y) / config.brickHeight - 1][clicked.x / config.brickWidth] != NULL) {
-			delete pGame->getGrid()->getMatrix()[(clicked.y - uprLft.y) / config.brickHeight - 1][clicked.x / config.brickWidth];
-		};
-		pGrid->draw();
-		t = pGame->getMouseClick(x, y);
+	{	
+		if (y > config.toolBarHeight) {
+
+			point clicked;
+			clicked.x = x;
+			clicked.y = y;
+			grid* pGrid = pGame->getGrid();
+			if (pGame->getGrid()->getMatrix()[(clicked.y - uprLft.y) / config.brickHeight - 1][clicked.x / config.brickWidth] != NULL) {
+				delete pGame->getGrid()->getMatrix()[(clicked.y - uprLft.y) / config.brickHeight - 1][clicked.x / config.brickWidth];
+			};
+			pGrid->draw();
+			t = pGame->getMouseClick(x, y);
+		}
 	}
 	pGame->printMessage("");
 

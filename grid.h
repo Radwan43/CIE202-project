@@ -7,7 +7,10 @@
 #include <iostream>
 
 
+
 class game;
+class brick;
+enum BrickType;
 
 class grid:public drawable
 {

@@ -4,6 +4,11 @@
 #include "grid.h"
 #include "paddle.h"
 #include "Ball.h"
+#include <iostream>
+#include "gameConfig.h"
+
+class grid;
+class Ball;
 //Main class that coordinates the game operation
 class game
 {
@@ -48,7 +53,7 @@ public:
 
 	window* getWind() const;		//returns a pointer to the graphics window
 
-	void movePaddle() {}
+	void movePaddle();
 
 	grid* getGrid() const;
 

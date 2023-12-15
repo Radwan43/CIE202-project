@@ -1,7 +1,6 @@
 #include "game.h"
-#include "gameConfig.h"
-#include "paddle.h"
-#include <iostream>
+
+
 
 game* thisGame; 
 game::game()
@@ -62,7 +61,7 @@ clicktype game::getMouseClick(int& x, int& y) const
 	return pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
-void movePaddle() {
+void game::movePaddle() {
 	thisGame->getWind()->SetPen(LAVENDER, 1);
 	thisGame->getWind()->SetBrush(LAVENDER);
 	point point = { 200,500 };
@@ -166,7 +165,9 @@ void game::go() const
 	
 	do
 	{
+		//getKeyboardClick(Key);
 		printMessage("Ready...");
+		//thepaddle->movePaddle(Key, thepaddle);
 		getMouseClick(x, y);	//Get the coordinates of the user click
 		if (gameMode == MODE_DSIGN)		//Game is in the Desgin mode
 		{
