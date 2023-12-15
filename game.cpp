@@ -41,7 +41,7 @@ game::game()
 
 	ball = new Ball({ config.windWidth / 2 + 50, 480}, 10, this);
 	ball->draw();
-
+	
 	//5- Create the ball
 	//TODO: Add code to create and draw the ball
 
@@ -163,12 +163,10 @@ void game::go() const
 
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - Brick Breaker (CIE202-project) - - - - - - - - - -");
-
+	
 	do
 	{
-		getKeyboardClick(Key);
 		printMessage("Ready...");
-		thepaddle->movePaddle(Key, thepaddle);
 		getMouseClick(x, y);	//Get the coordinates of the user click
 		if (gameMode == MODE_DSIGN)		//Game is in the Desgin mode
 		{
@@ -179,7 +177,11 @@ void game::go() const
 			}
 		}
 		if (gameMode == MODE_PLAY) {
-			
+			//create paddle and ball here
+			//Allow movement of paddle
+			//change toolbar to only show pause, score, lives, time
+			//Press space to launch ball 
+
 		}
 
 	} while (!isExit);
