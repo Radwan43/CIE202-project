@@ -201,6 +201,7 @@
       <Filter>Base Classes</Filter>
     </ClInclude>
     <ClInclude Include="paddle.h" />
+    <ClInclude Include="Ball.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Base Classes">
