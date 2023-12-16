@@ -33,10 +33,10 @@ class game
 	Ball* ball;
 	const string lives= "Lives: ";
 	const string score = "Score: ";
-	const string time = "Time: ";
-	const int* livesPtr;
-	const int* scorePtr;
-	const int* timePtr;
+	const string time = "Time (s): ";
+	int livesPtr;
+	int scorePtr;
+	int timePtr;
 
 public:
 	game();
@@ -50,6 +50,15 @@ public:
 
 	window* CreateWind(int, int, int, int) const; //creates the game window
 
+	void setScore(int score);
+	int getScore();
+
+	void setTimer(int time);
+	int getTimer();
+	void startTimer();
+
+	void setLives(int lives);
+	int getLives();
 
 	void clearStatusBar() const;	//Clears the status bar
 

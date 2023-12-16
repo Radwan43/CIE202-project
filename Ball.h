@@ -10,7 +10,6 @@
 
 #define MAX_ANGLE 0.785f //45 degrees in radians
 class brick;
-
 class Ball : public collidable
 {
     void collisionAction() override;

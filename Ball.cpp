@@ -60,7 +60,7 @@ void Ball::moveBall() {
     if (moving == 1) {
         window* pWin = pGame->getWind();
 
-        //for (int i = 0; i < 10; i++) {
+        int br = 0;
         pWin->SetBrush(config.bkGrndColor);
         pWin->SetPen(config.bkGrndColor, 1);
         pWin->DrawCircle(uprLft.x + radius, uprLft.y + radius, radius);
@@ -85,36 +85,38 @@ void Ball::moveBall() {
                         lastcollidedBrick = pGame->getGrid()->getMatrix()[row][col];
                         this->collisionAction();
                         pGame->getGrid()->getMatrix()[row][col]->collisionAction();
+                        br = 1;
                         break;
                     }
                 }
             }
         }
         // Check collisions with paddle
-        if ((CheckCollision(this, ptpaddle).x != 0 ) ) {
-            collidedWithPaddle = true;
-            cout << "collided with paddle";
-            this->collisionAction();
-        }
+        if (br == 0) {
+            if ((CheckCollision(this, ptpaddle).x != 0)) {
+                collidedWithPaddle = true;
+                cout << "collided with paddle";
+                this->collisionAction();
+            }
         // Check collisions with walls
-        else if (uprLft.y <= config.toolBarHeight) {
-            collidedWithWallTop = true;
-            this->collisionAction();
-        }
-        else if (uprLft.x <= config.statusBarHeight+2*radius) {
-            collidedWithWallLeft = true;
-            this->collisionAction();
-        }
-        else if (uprLft.x + radius*2 >= pGame->getWind()->GetWidth()) {
-            collidedWithWallRight = true;
-            this->collisionAction();
-        }
-        else if (uprLft.y + radius*2 >= pGame->getWind()->GetHeight()) {
-            collidedWithWallBottom = true;
-            this->collisionAction();
-        }
+            else if (uprLft.y <= config.toolBarHeight) {
+                collidedWithWallTop = true;
+                this->collisionAction();
+            }
+            else if (uprLft.x <= config.statusBarHeight + 2 * radius) {
+                collidedWithWallLeft = true;
+                this->collisionAction();
+            }
+            else if (uprLft.x + radius * 2 >= pGame->getWind()->GetWidth()) {
+                collidedWithWallRight = true;
+                this->collisionAction();
+            }
+            else if (uprLft.y + radius * 2 >= pGame->getWind()->GetHeight()) {
+                collidedWithWallBottom = true;
+                this->collisionAction();
+            }
 
-
+        }
 
 
         draw();
@@ -164,7 +166,7 @@ void Ball::collisionAction() {
             lastcollidedBrick = nullptr;
         }
         else if (collidedWithWallBottom) { //destrust ball and respawn on paddle and decrement life by 1
-            //life --
+            pGame->setLives(pGame->getLives() - 1);
             this->setAttatched(1);
             this->MoveAttatchedBall();
             this->set_motion(0);
@@ -192,12 +194,7 @@ void Ball::collisionAction() {
     pGame->getGrid()->draw();
 
     return;
-    //this->moveBall();
-    // Implement collision action for normalpaddle
-    // Implement collision action for walls
-    // Implement collision action with bricks
-    // Implement collision action with bottom (respawn ball attatched to paddle, life--)
-}
+}   
 
 
 void Ball::MoveAttatchedBall() {
