@@ -14,7 +14,11 @@ public:
     int getHeight() const;
     void setHeight(int r_height);
 
-    void movePaddle(char key, paddle* paddle);
+    void drawFirst();
+    void draw();
+
+    void movePaddle(char key);
+
 
 private:
     point uprLft;
@@ -27,4 +31,5 @@ public:
     normalpaddle(const point& r_uprleft, int r_width, int r_height, game* r_pGame);
 
      void collisionAction() override;
+     void draw();
 };

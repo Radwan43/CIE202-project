@@ -6,6 +6,7 @@
 #include "game.h"
 #include "paddle.h"
 #include "Bricks.h"
+#include <iostream> 
 
 #define MAX_ANGLE 0.785f //45 degrees in radians
 
@@ -21,7 +22,6 @@ private:
     const double PI = 3.14159265359;
     int radius;
     double thetta;
-    int step_x, step_y;
     int speed;
     bool moving;
     bool collidedWithPaddle = false;

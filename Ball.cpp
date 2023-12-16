@@ -5,13 +5,10 @@ Ball::Ball(point r_uprleft, int r_radius, game* r_pGame) :
     collidable(r_uprleft, 2 * r_radius, 2 * r_radius, r_pGame, "circle"),
     radius(r_radius)
 {
-    thetta = PI/4;
+    thetta = PI/2;
 
-    speed = 10;
-
-    step_x = speed * cos(thetta);
-    
-    step_y = -speed * sin(thetta);
+    speed = 2;
+    std::cout << std::endl << cos(thetta) << " " << sin(thetta)<<std::endl;
 
     moving = 0;
 }
@@ -23,34 +20,34 @@ void Ball::set_motion(bool moving) {
 void Ball::setTrajectory(double thetta) {
     this->thetta = thetta;
 
-    step_x = speed * cos(thetta);
-    step_y = -speed * sin(thetta);
 }
 
 void Ball::setSpeed(double speed) {
-    step_x *= speed / this->speed;
-    step_y *= speed / this->speed;
     this->speed = speed;
 }
 
 void Ball::moveBall() {
 
+    bool shouldBreak = 0;
     while (moving = 1) {
+        char kp;
+        window* pWin = pGame->getWind();
 
-        int x_stepsMoved, Y_stepsMoved;
-        x_stepsMoved = 0;
-        Y_stepsMoved = 0;
-        for (int i = 0; i < abs(step_x) && i < abs(step_y); i++) {
-            if (x_stepsMoved != abs(step_x)) {
-                uprLft.x += step_x / abs(step_x);
-                x_stepsMoved++;
-            }
-            if (Y_stepsMoved != abs(step_y)) {
-                uprLft.y += step_y / abs(step_y);
-                Y_stepsMoved++;
-            }
-
-
+        double xt = 0, yt = 0;
+        for (int i = 0; i < 10; i++) {
+            pWin->SetBrush(config.bkGrndColor);
+            pWin->SetPen(config.bkGrndColor, 1);
+            pWin->DrawCircle(uprLft.x + radius, uprLft.y + radius, radius);
+            xt += speed*cos(thetta);
+            yt += speed*sin(thetta);
+            if (abs(xt) >= 1) {
+                this->uprLft.x += xt;
+                xt -= int(xt);
+            };
+            if (abs(yt) >= 1) {
+                this->uprLft.y -= yt;
+                yt -= int(yt);
+            };
 
             for (int row = 0; row < pGame->getGrid()->getrows(); row++) {
                 for (int col = 0; col < pGame->getGrid()->getcols(); col++) {
@@ -61,11 +58,12 @@ void Ball::moveBall() {
                             lastcollidedBrick = CollisionPoint;
                             this->collisionAction();
                             pGame->getGrid()->getMatrix()[row][col]->collisionAction();
+                            shouldBreak = 1;
+                            break;
                         }
-                        CollisionPoint.x = 0;
-                        CollisionPoint.y = 0;
                     }
                 }
+                if (shouldBreak) break;
             }
             // Check collisions with walls
             if (uprLft.y <= 0) {
@@ -91,16 +89,19 @@ void Ball::moveBall() {
             }
 
 
+                
+
+                draw();
+                if (shouldBreak) break;
+                std::this_thread::sleep_for(std::chrono::nanoseconds(5000));
+
+
+
+
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-        window* pWin = pGame->getWind();
-        pWin->SetBrush(config.bkGrndColor);
-        pWin->SetPen(config.bkGrndColor, 1);
-        pWin->DrawCircle(uprLft.x + radius-step_x, uprLft.y + radius-step_y, radius);
-
-        draw();
+        if (shouldBreak) break;
     }
+    if (shouldBreak) this->collisionAction();
 }
 
 
@@ -156,6 +157,12 @@ void Ball::collisionAction() {
         thetta = newTheta;
         collidedWithPaddle = false;
     }
+    this->setTrajectory(-1*this->thetta);
+    this->moveBall();
+    // Implement collision action for normalpaddle
+    // Implement collision action for walls
+    // Implement collision action with bricks
+    // Implement collision action with bottom (respawn ball attatched to paddle, life--)
 }
 
 
