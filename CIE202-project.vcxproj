@@ -169,6 +169,7 @@
     <ClCompile Include="collidable.cpp" />
     <ClCompile Include="drawable.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="GameTimer.cpp" />
     <ClCompile Include="grid.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="paddle.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="drawable.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameConfig.h" />
+    <ClInclude Include="GameTimer.h" />
     <ClInclude Include="grid.h" />
     <ClInclude Include="paddle.h" />
     <ClInclude Include="toolbar.h" />

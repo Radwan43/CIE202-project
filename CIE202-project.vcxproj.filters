@@ -123,6 +123,7 @@
     </ClCompile>
     <ClCompile Include="paddle.cpp" />
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="GameTimer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -202,6 +203,7 @@
     </ClInclude>
     <ClInclude Include="paddle.h" />
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="GameTimer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Base Classes">
