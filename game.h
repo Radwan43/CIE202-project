@@ -30,6 +30,12 @@ class game
 	grid* bricksGrid;
 	paddle* thepaddle;
 	Ball* ball;
+	const string lives= "Lives: ";
+	const string score = "Score: ";
+	const string time = "Time: ";
+	const int* livesPtr;
+	const int* scorePtr;
+	const int* timePtr;
 
 public:
 	game();
