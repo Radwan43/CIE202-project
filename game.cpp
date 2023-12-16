@@ -29,7 +29,6 @@ game::game()
 	bricksGrid->draw();
 
 	//4- Create the Paddle
-	//TODO: Add code to create and draw the paddle
 	point paddleUpperleft;
 	paddleUpperleft.x = config.windWidth / 2;
 	paddleUpperleft.y = 500;
@@ -38,11 +37,11 @@ game::game()
 	thepaddle = new normalpaddle(paddleUpperleft, 100, 20, this);
 	thepaddle->draw();
 
+	//5- Create the ball
 	ball = new Ball({ config.windWidth / 2 + 50, 480}, 10, this);
 	ball->draw();
 	
-	//5- Create the ball
-	//TODO: Add code to create and draw the ball
+	
 
 	//6- Create and clear the status bar
 	clearStatusBar();

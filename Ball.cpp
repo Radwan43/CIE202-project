@@ -159,10 +159,6 @@ void Ball::collisionAction() {
     }
     this->setTrajectory(-1*this->thetta);
     this->moveBall();
-    // Implement collision action for normalpaddle
-    // Implement collision action for walls
-    // Implement collision action with bricks
-    // Implement collision action with bottom (respawn ball attatched to paddle, life--)
 }
 
 
