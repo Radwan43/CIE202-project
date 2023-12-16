@@ -40,6 +40,11 @@ game::game()
 
 	//6- Create and clear the status bar
 	clearStatusBar();
+
+	//7- Create the score, time, and lives
+	timePtr = 0;
+	livesPtr = 3;
+	scorePtr = 0;
 	
 }
 
@@ -154,27 +159,36 @@ Ball* game::getBall() const {
 }
 
 void game::setScore(int score) {
-	scorePtr = &score;
+	scorePtr = score;
 }
 
 int game::getScore() {
-	return *scorePtr;
+	return scorePtr;
 }
 
 void game::setTimer(int time) {
-	timePtr = &time;
+	timePtr = time;
 }
 
 int game::getTimer() {
-	return *timePtr;
+	return timePtr;
+}
+
+void game::startTimer() {
+	while (true) {
+		timePtr++;
+		pWind->SetPen(config.penColor, 50);
+		pWind->SetFont(24, BOLD, BY_NAME, "Arial");
+		pWind->DrawString(10, config.windHeight - (int)(0.85 * config.statusBarHeight), time + to_string(timePtr));
+	}
 }
 
 void game::setLives(int lives) {
-	livesPtr = &lives;
+	livesPtr = lives;
 }
 
 int game::getLives() {
-	return *livesPtr;
+	return livesPtr;
 }
 
 

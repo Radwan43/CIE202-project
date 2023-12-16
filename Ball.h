@@ -31,7 +31,7 @@ private:
     bool collidedWithWallRight = false;
     paddle* ptpaddle;
     float maxAngle = MAX_ANGLE;
-    point lastcollidedBrick;
+    brick* lastcollidedBrick;
     bool moving, attatched;
     double xt, yt;
 

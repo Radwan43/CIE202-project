@@ -33,9 +33,9 @@ class game
 	const string lives= "Lives: ";
 	const string score = "Score: ";
 	const string time = "Time (s): ";
-	int* livesPtr;
-	int* scorePtr;
-	int* timePtr;
+	int livesPtr;
+	int scorePtr;
+	int timePtr;
 
 public:
 	game();
@@ -54,6 +54,7 @@ public:
 
 	void setTimer(int time);
 	int getTimer();
+	void startTimer();
 
 	void setLives(int lives);
 	int getLives();

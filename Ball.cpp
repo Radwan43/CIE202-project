@@ -11,6 +11,8 @@ Ball::Ball(point r_uprleft, int r_radius, game* r_pGame) :
     xt = 0;
     yt = 0;
 
+    ptpaddle = pGame->getPaddle();
+    lastcollidedBrick = nullptr;
     moving = 0;
     attatched = 1;
 }
@@ -70,45 +72,43 @@ void Ball::moveBall() {
         };
 
 
-            for (int row = 0; row < pGame->getGrid()->getrows(); row++) {
-                for (int col = 0; col < pGame->getGrid()->getcols(); col++) {
-                    if (pGame->getGrid()->getMatrix()[row][col]) {
-                        point CollisionPoint = CheckCollision(this, pGame->getGrid()->getMatrix()[row][col]);
-                        if (CollisionPoint.x != 0 || CollisionPoint.y != 0) {
-                            collidedWithBrick = true;
-                            lastcollidedBrick = CollisionPoint;
-                            this->collisionAction();
-                            pGame->getGrid()->getMatrix()[row][col]->collisionAction();
-                            shouldBreak = 1;
-                            break;
-                        }
+        for (int row = 0; row < pGame->getGrid()->getrows(); row++) {
+            for (int col = 0; col < pGame->getGrid()->getcols(); col++) {
+                if (pGame->getGrid()->getMatrix()[row][col]) {
+                    point CollisionPoint = CheckCollision(this, pGame->getGrid()->getMatrix()[row][col]);
+                    if (CollisionPoint.x != 0 || CollisionPoint.y != 0) {
+                        collidedWithBrick = true;
+                        lastcollidedBrick = pGame->getGrid()->getMatrix()[row][col];
+                        this->collisionAction();
+                        pGame->getGrid()->getMatrix()[row][col]->collisionAction();
+                        break;
                     }
                 }
             }
-            // Check collisions with walls
-            if (uprLft.y <= 0) {
-                collidedWithWallTop = true;
-                this->collisionAction();
-            }
-            else if (uprLft.x <= 0) {
-                collidedWithWallLeft = true;
-                this->collisionAction();
-            }
-            else if (uprLft.x + radius >= pGame->getWind()->GetWidth()) {
-                collidedWithWallRight = true;
-                this->collisionAction();
-            }
-            else if (uprLft.y + radius >= pGame->getWind()->GetHeight()) {
-                collidedWithWallBottom = true;
-                this->collisionAction();
-            }
-            // Check collisions with paddle
-            else if (CheckCollision(this, ptpaddle).x != 0 || CheckCollision(this, ptpaddle).y != 0) {
-				collidedWithPaddle = true;
-				this->collisionAction();
-            }
+        }
+        // Check collisions with walls
+        if (uprLft.y <= config.toolBarHeight) {
+            collidedWithWallTop = true;
+            this->collisionAction();
+        }
+        else if (uprLft.x <= 0) {
+            collidedWithWallLeft = true;
+            this->collisionAction();
+        }
+        else if (uprLft.x + radius*2 >= pGame->getWind()->GetWidth()) {
+            collidedWithWallRight = true;
+            this->collisionAction();
+        }
+        else if (uprLft.y + radius*2 >= pGame->getWind()->GetHeight()) {
+            collidedWithWallBottom = true;
+            this->collisionAction();
+        }
+        // Check collisions with paddle
+        else if ((CheckCollision(this, ptpaddle).x != 0 )|| (CheckCollision(this, ptpaddle).y != 0)) {
+            collidedWithPaddle = true;
+            this->collisionAction();
+        }
 
-        if (shouldBreak) { moving = 0; };
 
 
 
@@ -134,10 +134,10 @@ void Ball::collisionAction() {
     bool bottomLcol = false;
     bool bottomRcol = false;
     if (collidedWithBrick) {
-        if ((lastcollidedBrick.x == uprLft.x) && (lastcollidedBrick.y == uprLft.y)) { topLcol = true; }
-        else if ((lastcollidedBrick.x == (uprLft.x + radius)) && (lastcollidedBrick.y == (uprLft.y))) { topRcol = true; }
-        else if ((lastcollidedBrick.x == (uprLft.x + radius)) && (lastcollidedBrick.y == (uprLft.y + radius))) { bottomRcol = true; }
-        else if ((lastcollidedBrick.x == (uprLft.x)) && (lastcollidedBrick.y == (uprLft.y + radius))) { bottomLcol = true; }
+        if ((lastcollidedBrick->getUprleft().x == uprLft.x) && (lastcollidedBrick->getUprleft().y == uprLft.y)) { topLcol = true; }
+        else if ((lastcollidedBrick->getUprleft().x == (uprLft.x + radius)) && (lastcollidedBrick->getUprleft().y == (uprLft.y))) { topRcol = true; }
+        else if ((lastcollidedBrick->getUprleft().x == (uprLft.x + radius)) && (lastcollidedBrick->getUprleft().y == (uprLft.y + radius))) { bottomRcol = true; }
+        else if ((lastcollidedBrick->getUprleft().x == (uprLft.x)) && (lastcollidedBrick->getUprleft().y == (uprLft.y + radius))) { bottomLcol = true; }
     }
 
     //collision action with bricks and walls
@@ -146,36 +146,39 @@ void Ball::collisionAction() {
         topLcol = topRcol = bottomLcol = bottomRcol = false;
     }
     else if (collidedWithBrick || collidedWithWallBottom || collidedWithWallLeft || collidedWithWallRight || collidedWithWallTop) {
-        if (collidedWithWallLeft || collidedWithWallRight || is_collided(uprLft.x, lastcollidedBrick.x, uprLft.y, lastcollidedBrick.y, radius, 60, radius, 30)) {
+        if (collidedWithWallLeft || collidedWithWallRight || lastcollidedBrick!=nullptr &&(is_collided(uprLft.x, lastcollidedBrick->getUprleft().x, uprLft.y, lastcollidedBrick->getUprleft().y, radius, 60, radius, 30))) {
 			thetta = PI - thetta; // Reflect horizontally
 			collidedWithWallRight = collidedWithWallLeft = false;
 		}
-        else if (collidedWithWallTop || is_collided(uprLft.y, lastcollidedBrick.y, uprLft.x, lastcollidedBrick.x, -30, -radius, 60, radius)) {
+        else if (collidedWithWallTop || lastcollidedBrick != nullptr && is_collided(uprLft.y, lastcollidedBrick->getUprleft().y, uprLft.x, lastcollidedBrick->getUprleft().x, -30, -radius, 60, radius)) {
             thetta = -thetta; // Reflect vertically
             collidedWithWallTop = false;
         }
-        else if (collidedWithWallBottom) { //destruct ball and respawn on paddle and decrement life by 1
+        else if (collidedWithWallBottom) { //destrust ball and respawn on paddle and decrement life by 1
             pGame->setLives(pGame->getLives() - 1);
-            delete this;
-            //respawn ball on paddle
-            Ball* newball = new Ball({ ptpaddle->getUpperLeft().x + ptpaddle->getWidth() / 2, ptpaddle->getUpperLeft().y - radius }, radius, pGame);
+            this->setAttatched(1);
+            this->MoveAttatchedBall();
+            this->set_motion(0);
+            this->setTrajectory(PI / 2);
+
             collidedWithWallBottom = false;
+            //respawn ball on paddle
         }
     }
 
     //collision action with paddle
-    if (collidedWithPaddle) {
-        point relativeHitPoint;
-        relativeHitPoint.x = uprLft.x - ptpaddle->getUpperLeft().x;
-        relativeHitPoint.y = uprLft.y - ptpaddle->getUpperLeft().y;
-        double normalizedHitPos = relativeHitPoint.x / ptpaddle->getWidth();
-        double newTheta = PI / 2 + normalizedHitPos * maxAngle;
+     if (collidedWithPaddle) {
+        int relativeHitPoint;
+        relativeHitPoint = uprLft.x + this->radius -(ptpaddle->getUpperLeft().x+ptpaddle->getWidth());
+        //relativeHitPoint.y = uprLft.y - ptpaddle->getUpperLeft().y;
+        double normalizedHitPos = relativeHitPoint / (ptpaddle->getWidth()/2);
+        double newTheta = (PI / 2) - (PI / 4) * normalizedHitPos;
         thetta = newTheta;
         collidedWithPaddle = false;
     }
     xt = 0;
     yt = 0;
-    this->setTrajectory(-1*this->thetta);
+
     return;
 }   
 
