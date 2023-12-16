@@ -161,7 +161,7 @@ void Ball::collisionAction() {
             lastcollidedBrick = nullptr;
         }
         else if (collidedWithWallBottom) { //destrust ball and respawn on paddle and decrement life by 1
-            //life --
+            pGame->setLives(pGame->getLives() - 1);
             this->setAttatched(1);
             this->MoveAttatchedBall();
             this->set_motion(0);
@@ -189,12 +189,7 @@ void Ball::collisionAction() {
     pGame->getGrid()->draw();
 
     return;
-    //this->moveBall();
-    // Implement collision action for normalpaddle
-    // Implement collision action for walls
-    // Implement collision action with bricks
-    // Implement collision action with bottom (respawn ball attatched to paddle, life--)
-}
+}   
 
 
 void Ball::MoveAttatchedBall() {
