@@ -72,6 +72,7 @@ public:
 
 	void setMode(int gameMode) const;
 	
+	int getMode()const;
 
 	grid* getGrid() const;
 

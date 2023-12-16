@@ -20,10 +20,7 @@ public:
     void movePaddle(char key);
 
 
-private:
-    point uprLft;
-    int width;
-    int height;
+
 };
 
 class normalpaddle : public paddle {
