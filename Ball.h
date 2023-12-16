@@ -4,6 +4,10 @@
 #include <thread>
 #include "gameConfig.h"
 #include "game.h"
+#include "paddle.h"
+#include "Bricks.h"
+
+#define MAX_ANGLE 0.785f //45 degrees in radians
 
 class Ball : public collidable
 {
@@ -20,6 +24,15 @@ private:
     int step_x, step_y;
     int speed;
     bool moving;
+    bool collidedWithPaddle = false;
+    bool collidedWithBrick = false;
+    bool collidedWithWallTop = false;
+    bool collidedWithWallBottom = false;
+    bool collidedWithWallLeft = false;
+    bool collidedWithWallRight = false;
+    paddle* ptpaddle;
+    float maxAngle = MAX_ANGLE;
+    point lastcollidedBrick;
 public:
     void set_motion(bool moving);
     void setTrajectory(double thetta);
