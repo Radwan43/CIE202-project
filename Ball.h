@@ -19,10 +19,19 @@ private:
     int radius;
     double thetta;
     int speed;
-    bool moving;
+    bool moving, attatched;
+    double xt, yt;
+
 public:
+    bool isMoving();
+    bool isAttatched();
     void set_motion(bool moving);
     void setTrajectory(double thetta);
     void setSpeed(double speed);
+    void setAttatched(bool attatched);
     void moveBall();
+    void MoveAttatchedBall();
+    point getUprleft();
+    int getRadius();
+
 };

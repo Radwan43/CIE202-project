@@ -1,13 +1,13 @@
 #include "game.h"
 
-
+enum MODE;
 
 game* thisGame; 
 game::game()
 {
 	thisGame = this;
 	//Initialize playgrond parameters
-	gameMode = MODE_DSIGN;
+	gameMode = new MODE(MODE_DSIGN);
 
 
 	//1 - Create the main window
@@ -30,19 +30,13 @@ game::game()
 
 	//4- Create the Paddle
 	//TODO: Add code to create and draw the paddle
-	point paddleUpperleft;
-	paddleUpperleft.x = config.windWidth / 2;
-	paddleUpperleft.y = 500;
-
-
-	thepaddle = new normalpaddle(paddleUpperleft, 100, 20, this);
+	thepaddle = new normalpaddle({ config.windWidth / 2 , 500 }, 100, 20, this);
 	thepaddle->draw();
 
-	ball = new Ball({ config.windWidth / 2 + 50, 480}, 10, this);
-	ball->draw();
-	
 	//5- Create the ball
 	//TODO: Add code to create and draw the ball
+	ball = new Ball({ config.windWidth / 2 , 480}, 10, this);
+	ball->draw();
 
 	//6- Create and clear the status bar
 	clearStatusBar();
@@ -116,7 +110,9 @@ window* game::getWind() const		//returns a pointer to the graphics window
 	return pWind;
 }
 
-
+void game::setMode(int gameMode) const {//0 for design mode 1 for play mode
+	*this->gameMode = MODE(gameMode);
+}
 
 string game::getSrting() const
 {
@@ -148,6 +144,13 @@ grid* game::getGrid() const
 	return bricksGrid;
 }
 
+paddle* game::getPaddle() const {
+	return this->thepaddle;
+}
+
+Ball* game::getBall() const {
+	return ball;
+}
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -162,15 +165,18 @@ void game::go() const
 
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - Brick Breaker (CIE202-project) - - - - - - - - - -");
-	
+	//int i = 0;
 	do
-	{
+	{	
 		//getKeyboardClick(Key);
 		printMessage("Ready...");
 		//thepaddle->movePaddle(Key, thepaddle);
 
-		waitMouseClick(x, y);	//Get the coordinates of the user click
-		if (gameMode == MODE_DSIGN)		//Game is in the Desgin mode
+		pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
+		//if (i == 1) { *gameMode = MODE_PLAY; }
+		//else { *gameMode = MODE_DSIGN; };
+
+		if (*gameMode == MODE_DSIGN)		//Game is in the Desgin mode
 		{
 			//[1] If user clicks on the Toolbar
 			if (y >= 0 && y < config.toolBarHeight)
@@ -178,13 +184,46 @@ void game::go() const
 				isExit = gameToolbar->handleClick(x, y);
 			}
 		}
-		if (gameMode == MODE_PLAY) {
-			//create paddle and ball here
-			//Allow movement of paddle
-			//change toolbar to only show pause, score, lives, time
-			//Press space to launch ball 
+		if (*gameMode == MODE_PLAY) {
+			printMessage("Play!");
+			while (true) {
 
+				//pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
+				ktype = pWind->GetKeyPress(Key);
+				switch (ktype) {
+				case ESCAPE:
+					*gameMode = MODE_DSIGN;
+					break;
+
+				case ASCII:
+					if (Key == ' ') {
+						if (!ball->isMoving()) {
+							ball->set_motion(1);
+							ball->setAttatched(0);
+						}
+						break;
+					}
+					break;
+				}
+
+				ball->moveBall();
+
+				thepaddle->movePaddle(Key);
+
+				if (*gameMode == MODE_DSIGN) break;
+
+
+
+				//create paddle and ball here
+				//Allow movement of paddle and ball
+				//change toolbar to only show pause, score, lives, time
+				//Press space to launch ball 
+				//paint over grid lines
+				//press escape to return (delete ball and paddle)
+				//pWind->GetKeyPress
+			}
 		}
+		//i++;
 
 	} while (!isExit);
 

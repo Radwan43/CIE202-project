@@ -19,7 +19,7 @@ class game
 		MODE_PLAY	//Playing mode
 	};
 
-	MODE gameMode;
+	MODE* gameMode;
 
 	/// Add more members if needed
 
@@ -28,7 +28,7 @@ class game
 	window* pWind;	//Pointer to the CMU graphics window
 	toolbar* gameToolbar;
 	grid* bricksGrid;
-	normalpaddle* thepaddle;
+	paddle* thepaddle;
 	Ball* ball;
 
 public:
@@ -55,7 +55,14 @@ public:
 
 	void movePaddle();
 
+	void setMode(int gameMode) const;
+	
+
 	grid* getGrid() const;
+
+	paddle* getPaddle() const;
+
+	Ball* getBall() const;
 
 	// add the ball
 
