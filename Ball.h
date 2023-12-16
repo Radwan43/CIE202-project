@@ -23,7 +23,6 @@ private:
     int radius;
     double thetta;
     int speed;
-    bool moving;
     bool collidedWithPaddle = false;
     bool collidedWithBrick = false;
     bool collidedWithWallTop = false;

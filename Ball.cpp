@@ -143,22 +143,23 @@ void Ball::collisionAction() {
     //collision action with bricks and walls
     if (topLcol || topRcol || bottomLcol || bottomRcol) {
         thetta = PI + thetta;
-        topLcol, topRcol, bottomLcol, bottomRcol = false;
+        topLcol = topRcol = bottomLcol = bottomRcol = false;
     }
     else if (collidedWithBrick || collidedWithWallBottom || collidedWithWallLeft || collidedWithWallRight || collidedWithWallTop) {
         if (collidedWithWallLeft || collidedWithWallRight || is_collided(uprLft.x, lastcollidedBrick.x, uprLft.y, lastcollidedBrick.y, radius, 60, radius, 30)) {
 			thetta = PI - thetta; // Reflect horizontally
-			collidedWithWallRight, collidedWithWallLeft = false;
+			collidedWithWallRight = collidedWithWallLeft = false;
 		}
         else if (collidedWithWallTop || is_collided(uprLft.y, lastcollidedBrick.y, uprLft.x, lastcollidedBrick.x, -30, -radius, 60, radius)) {
             thetta = -thetta; // Reflect vertically
             collidedWithWallTop = false;
         }
-        else if (collidedWithWallBottom) { //destrust ball and respawn on paddle and decrement life by 1
-            //life --
+        else if (collidedWithWallBottom) { //destruct ball and respawn on paddle and decrement life by 1
+            pGame->setLives(pGame->getLives() - 1);
             delete this;
             //respawn ball on paddle
             Ball* newball = new Ball({ ptpaddle->getUpperLeft().x + ptpaddle->getWidth() / 2, ptpaddle->getUpperLeft().y - radius }, radius, pGame);
+            collidedWithWallBottom = false;
         }
     }
 
@@ -176,12 +177,7 @@ void Ball::collisionAction() {
     yt = 0;
     this->setTrajectory(-1*this->thetta);
     return;
-    //this->moveBall();
-    // Implement collision action for normalpaddle
-    // Implement collision action for walls
-    // Implement collision action with bricks
-    // Implement collision action with bottom (respawn ball attatched to paddle, life--)
-}
+}   
 
 
 void Ball::MoveAttatchedBall() {

@@ -40,6 +40,7 @@ game::game()
 
 	//6- Create and clear the status bar
 	clearStatusBar();
+	
 }
 
 game::~game()
@@ -150,6 +151,30 @@ paddle* game::getPaddle() const {
 
 Ball* game::getBall() const {
 	return ball;
+}
+
+void game::setScore(int score) {
+	scorePtr = &score;
+}
+
+int game::getScore() {
+	return *scorePtr;
+}
+
+void game::setTimer(int time) {
+	timePtr = &time;
+}
+
+int game::getTimer() {
+	return *timePtr;
+}
+
+void game::setLives(int lives) {
+	livesPtr = &lives;
+}
+
+int game::getLives() {
+	return *livesPtr;
 }
 
 

@@ -37,8 +37,7 @@ void normalBrick::collisionAction()
 	//Add reflection
 
 	//Add score change
-
-	/*score++;*/
+	pGame->setScore(pGame->getScore() + 1);
 }
 
 
@@ -55,7 +54,6 @@ void hardBrick::collisionAction()
 	strengthCheck();
 	//Add reflection
 	
-	//Add score change
-
-	/*score++;*/
+	//score change
+	pGame->setScore(pGame->getScore() + 1);
 }
