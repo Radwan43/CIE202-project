@@ -52,7 +52,6 @@ void Ball::setSpeed(double speed) {
 
 void Ball::moveBall() {
 
-    bool shouldBreak = 0;
     if (moving == 1) {
         window* pWin = pGame->getWind();
 
@@ -148,11 +147,14 @@ void Ball::collisionAction() {
     else if (collidedWithBrick || collidedWithWallBottom || collidedWithWallLeft || collidedWithWallRight || collidedWithWallTop) {
         if (collidedWithWallLeft || collidedWithWallRight || lastcollidedBrick!=nullptr &&(is_collided(uprLft.x, lastcollidedBrick->getUprleft().x, uprLft.y, lastcollidedBrick->getUprleft().y, radius, 60, radius, 30))) {
 			thetta = PI - thetta; // Reflect horizontally
-			collidedWithWallRight = collidedWithWallLeft = false;
+			collidedWithWallRight= collidedWithWallLeft = collidedWithBrick= false;
+            lastcollidedBrick = nullptr;
+
 		}
         else if (collidedWithWallTop || lastcollidedBrick != nullptr && is_collided(uprLft.y, lastcollidedBrick->getUprleft().y, uprLft.x, lastcollidedBrick->getUprleft().x, -30, -radius, 60, radius)) {
             thetta = -thetta; // Reflect vertically
-            collidedWithWallTop = false;
+            collidedWithWallTop = collidedWithBrick=false;
+            lastcollidedBrick = nullptr;
         }
         else if (collidedWithWallBottom) { //destrust ball and respawn on paddle and decrement life by 1
             pGame->setLives(pGame->getLives() - 1);
@@ -167,15 +169,17 @@ void Ball::collisionAction() {
     }
 
     //collision action with paddle
-     if (collidedWithPaddle) {
-        int relativeHitPoint;
-        relativeHitPoint = uprLft.x + this->radius -(ptpaddle->getUpperLeft().x+ptpaddle->getWidth());
-        //relativeHitPoint.y = uprLft.y - ptpaddle->getUpperLeft().y;
-        double normalizedHitPos = relativeHitPoint / (ptpaddle->getWidth()/2);
-        double newTheta = (PI / 2) - (PI / 4) * normalizedHitPos;
+    else if (collidedWithPaddle) {
+        point collisionPoint = CheckCollision(this, ptpaddle);
+        cout << "collided with paddle";
+        double relativeHitPoint;
+        relativeHitPoint = (collisionPoint.x) - (ptpaddle->getUpperLeft().x + (ptpaddle->getWidth()) / 2.0);
+        double normalizedHitPos = relativeHitPoint / (ptpaddle->getWidth() / 2.0);
+        double newTheta = (PI / 2) - ((PI / 4) * normalizedHitPos);
         thetta = newTheta;
         collidedWithPaddle = false;
     }
+    
     xt = 0;
     yt = 0;
 
