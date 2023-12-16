@@ -4,10 +4,7 @@
 #include "gameConfig.h"
 
 paddle::paddle(const point& r_uprleft, int r_width, int r_height, game* r_pGame) :
-    collidable(r_uprleft, r_width, r_height, r_pGame),
-    uprLft(r_uprleft),
-    width(r_width),
-    height(r_height)
+    collidable(r_uprleft, r_width, r_height, r_pGame)
 {
 
     cout << "this was called in draw new";
@@ -68,9 +65,11 @@ void paddle::movePaddle(char key) {
 
             }
 
-            uprLft.x = uprLft.x - step;
+            uprLft.x -= step;
+
             this->pGame->getWind()->SetPen(0.5, 0.1, 0.9, 0);
             this->pGame->getWind()->SetBrush(0.5, 0.1, 0.9);
+
             if (pBall->isAttatched()) {
                 pBall->MoveAttatchedBall();
                 pBall->draw();
@@ -90,7 +89,7 @@ void paddle::movePaddle(char key) {
                 pWin->DrawCircle(pBall->getUprleft().x + pBall->getRadius(), pBall->getUprleft().y + pBall->getRadius(), pBall->getRadius());
             }
 
-            uprLft.x = uprLft.x + step;
+            uprLft.x += step;
 
             this->pGame->getWind()->SetPen(0.5, 0.1, 0.9, 0);
             this->pGame->getWind()->SetBrush(0.5, 0.1, 0.9);

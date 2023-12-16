@@ -114,6 +114,10 @@ void game::setMode(int gameMode) const {//0 for design mode 1 for play mode
 	*this->gameMode = MODE(gameMode);
 }
 
+int game::getMode()const {
+	return int(*this->gameMode);
+}
+
 string game::getSrting() const
 {
 	string Label;
@@ -179,12 +183,14 @@ void game::go() const
 		if (*gameMode == MODE_DSIGN)		//Game is in the Desgin mode
 		{
 			//[1] If user clicks on the Toolbar
+			this->bricksGrid->draw();
 			if (y >= 0 && y < config.toolBarHeight)
 			{
 				isExit = gameToolbar->handleClick(x, y);
 			}
 		}
 		if (*gameMode == MODE_PLAY) {
+			this->bricksGrid->draw();
 			printMessage("Play!");
 			while (true) {
 
@@ -223,7 +229,6 @@ void game::go() const
 				//pWind->GetKeyPress
 			}
 		}
-		//i++;
 
 	} while (!isExit);
 
