@@ -56,7 +56,7 @@ game::~game()
 }
 
 
-clicktype game::getMouseClick(int& x, int& y) const
+clicktype game::waitMouseClick(int& x, int& y) const
 {
 	return pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
@@ -70,7 +70,7 @@ void game::movePaddle() {
 }
 
 
-keytype game::getKeyboardClick(char& key) const{
+keytype game::waitKeyboardClick(char& key) const{
 	point newpos;
 	newpos.x = 10;
 	newpos.y = 10;
@@ -168,7 +168,8 @@ void game::go() const
 		//getKeyboardClick(Key);
 		printMessage("Ready...");
 		//thepaddle->movePaddle(Key, thepaddle);
-		getMouseClick(x, y);	//Get the coordinates of the user click
+
+		waitMouseClick(x, y);	//Get the coordinates of the user click
 		if (gameMode == MODE_DSIGN)		//Game is in the Desgin mode
 		{
 			//[1] If user clicks on the Toolbar

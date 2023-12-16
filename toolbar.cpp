@@ -43,7 +43,7 @@ void iconDelBrick::onClick()
 
 	pGame->printMessage("Click on bricks cells to delete  ==> Right-Click to stop <==");
 	int x, y;
-	clicktype t = pGame->getMouseClick(x, y);
+	clicktype t = pGame->waitMouseClick(x, y);
 	while (t == LEFT_CLICK)
 	{	
 		if (y > config.toolBarHeight) {
@@ -56,7 +56,7 @@ void iconDelBrick::onClick()
 				delete pGame->getGrid()->getMatrix()[(clicked.y - uprLft.y) / config.brickHeight - 1][clicked.x / config.brickWidth];
 			};
 			pGrid->draw();
-			t = pGame->getMouseClick(x, y);
+			t = pGame->waitMouseClick(x, y);
 		}
 	}
 	pGame->printMessage("");
@@ -126,7 +126,7 @@ void iconAddNormalBrick::onClick()
 
 	pGame->printMessage("Click on empty cells to add Normal Bricks  ==> Right-Click to stop <==");
 	int x, y;
-	clicktype t = pGame->getMouseClick(x, y);
+	clicktype t = pGame->waitMouseClick(x, y);
 	while (t == LEFT_CLICK)
 	{
 		point clicked;
@@ -135,7 +135,7 @@ void iconAddNormalBrick::onClick()
 		grid* pGrid = pGame->getGrid();
 		pGrid->addBrick(BRK_NRM, clicked);
 		pGrid->draw();
-		t = pGame->getMouseClick(x, y);
+		t = pGame->waitMouseClick(x, y);
 	}
 	pGame->printMessage("");
 

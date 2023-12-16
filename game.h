@@ -36,8 +36,8 @@ public:
 	~game();
 
 	//Get coordinate where user clicks and returns click type (left/right)
-	clicktype getMouseClick(int& x, int& y) const;
-	keytype getKeyboardClick(char& key) const;
+	clicktype waitMouseClick(int& x, int& y) const;
+	keytype waitKeyboardClick(char& key) const;
 	string getSrting() const;	 //Returns a string entered by the user
 
 
