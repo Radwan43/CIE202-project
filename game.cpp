@@ -190,6 +190,10 @@ void game::go() const
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - Brick Breaker (CIE202-project) - - - - - - - - - -");
 	//int i = 0;
+
+	GameTimer gameTimer;
+	gameTimer.start();
+
 	do
 	{	
 		//getKeyboardClick(Key);
@@ -214,6 +218,33 @@ void game::go() const
 			printMessage("Play!");
 			while (true) {
 
+
+
+					pWind->SetPen(RED,1);
+					pWind->SetBrush(RED);
+					pWind->DrawRectangle(700 , 10, 10 + 700, 20);
+					pWind->DrawRectangle(720, 10, 10 + 720, 20);
+					pWind->DrawRectangle(740, 10, 10 + 740, 20);
+
+					pWind->SetPen(LAVENDER, 1);
+					pWind->SetBrush(LAVENDER);
+					pWind->DrawRectangle(900, config.toolBarHeight - 20, 920, 40);
+					pWind->SetPen(config.penColor, 50);
+					pWind->SetFont(24, BOLD, BY_NAME, "Arial");
+					pWind->DrawString(900, config.toolBarHeight - 20, gameTimer.getElapsedTimeString());
+					//pWind->SetPen(LAVENDER, 1);
+					//pWind->SetBrush(LAVENDER);
+					//pWind->DrawRectangle(900, config.toolBarHeight - 20, 920, 50);
+
+
+				/*	if (ball->getLife() = 2) {
+
+						pWind->SetPen(RED, 1);
+						pWind->SetBrush(RED);
+						pWind->DrawRectangle(740, 10, 10 + 740, 20);
+
+					}*/
+				
 				//pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
 				ktype = pWind->GetKeyPress(Key);
 				switch (ktype) {

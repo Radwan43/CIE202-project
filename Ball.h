@@ -32,8 +32,10 @@ private:
     brick* lastcollidedBrick;
     bool moving, attatched;
     double xt, yt;
+    int life;
 
 public:
+    int getLife();
     bool isMoving();
     bool isAttatched();
     void set_motion(bool moving);

@@ -6,6 +6,7 @@
 #include "Ball.h"
 #include <iostream>
 #include "gameConfig.h"
+#include "GameTimer.h"
 
 class grid;
 class Ball;
