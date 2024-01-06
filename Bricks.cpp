@@ -58,10 +58,6 @@ void hardBrick::collisionAction()
 	*(pGame->getScore())+=1;
 	//strength check	
 	strengthCheck();
-	//Add reflection
-	
-	//score change
-	pGame->setScore(pGame->getScore() + 1);
 }
 
 ////////////////////////////////////////////////////  class rockBrick  /////////////////////////////////
@@ -73,9 +69,7 @@ rockBrick::rockBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 }
 
 void rockBrick::collisionAction()
-{
-	//Add reflection
-}
+{}
 
 ////////////////////////////////////////////////////  class bombBrick  /////////////////////////////////
 bombBrick::bombBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) :
@@ -87,10 +81,17 @@ bombBrick::bombBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 
 void bombBrick::collisionAction()
 {
-	strengthCheck();
-	//Add reflection
-
-	//Add score change
-	pGame->setScore(pGame->getScore() + 4);
-	//Add explosion
+	//score change
+	*(pGame->getScore()) += 1;
+	//destruct touching bricks
+	int row = (uprLft.y - config.toolBarHeight) / config.brickHeight;
+	int col = uprLft.x / config.brickWidth;
+	brick*** brickMatrix = pGame->getGrid()->getMatrix();
+	for (int i = row - 1; i <= row + 1; i++) {
+		for (int j = col - 1; j <= col + 1; j++) {
+			if (brickMatrix[i][j]) {
+				delete brickMatrix[i][j];
+			}
+		}
+	}
 }
