@@ -34,9 +34,9 @@ class game
 	const string lives= "Lives: ";
 	const string score = "Score: ";
 	const string time = "Time (s): ";
-	int livesPtr;
-	int scorePtr;
-	int timePtr;
+	int* livesPtr;
+	int* scorePtr;
+	int* timePtr;
 
 public:
 	game();
@@ -50,15 +50,10 @@ public:
 
 	window* CreateWind(int, int, int, int) const; //creates the game window
 
-	void setScore(int score);
-	int getScore();
+	int* getScore()const;
 
-	void setTimer(int time);
-	int getTimer();
-	void startTimer();
-
-	void setLives(int lives);
-	int getLives();
+	int* getTimer()const;
+	int* getLives()const;
 
 	void clearStatusBar() const;	//Clears the status bar
 
@@ -68,8 +63,6 @@ public:
 	void go() const;
 
 	window* getWind() const;		//returns a pointer to the graphics window
-
-	void movePaddle();
 
 	void setMode(int gameMode) const;
 	

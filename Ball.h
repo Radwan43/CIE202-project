@@ -8,7 +8,6 @@
 #include "Bricks.h"
 #include <iostream> 
 
-#define MAX_ANGLE 0.785f //45 degrees in radians
 class brick;
 class Ball : public collidable
 {
@@ -30,7 +29,6 @@ private:
     bool collidedWithWallLeft = false;
     bool collidedWithWallRight = false;
     paddle* ptpaddle;
-    float maxAngle = MAX_ANGLE;
     brick* lastcollidedBrick;
     bool moving, attatched;
     double xt, yt;

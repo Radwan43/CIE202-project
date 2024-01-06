@@ -37,11 +37,10 @@ normalBrick::normalBrick(point r_uprleft, int r_width, int r_height, game* r_pGa
 
 void normalBrick::collisionAction()
 {
+	//score change
+	*(pGame->getScore()) += 1;
+	//strength check	
 	strengthCheck();
-	//Add reflection
-
-	//Add score change
-	pGame->setScore(pGame->getScore() + 1);
 }
 
 
@@ -54,7 +53,10 @@ hardBrick::hardBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 }
 
 void hardBrick::collisionAction()
-{
+{	
+	//score change
+	*(pGame->getScore())+=1;
+	//strength check	
 	strengthCheck();
 	//Add reflection
 	
