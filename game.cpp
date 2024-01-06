@@ -42,9 +42,12 @@ game::game()
 	clearStatusBar();
 
 	//7- Create the score, time, and lives
-	timePtr = 0;
-	livesPtr = 3;
-	scorePtr = 0;
+	timePtr = new int;
+	*timePtr = 0;
+	livesPtr = new int;
+	*livesPtr = 3;
+	scorePtr = new int;
+	*scorePtr = 0;
 	
 }
 
@@ -61,13 +64,7 @@ clicktype game::waitMouseClick(int& x, int& y) const
 	return pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
-void game::movePaddle() {
-	thisGame->getWind()->SetPen(LAVENDER, 1);
-	thisGame->getWind()->SetBrush(LAVENDER);
-	point point = { 200,500 };
-	thisGame->getWind()->DrawRectangle(point.x, point.y, 100, 20);
 
-}
 
 
 keytype game::waitKeyboardClick(char& key) const{
@@ -162,36 +159,20 @@ Ball* game::getBall() const {
 	return ball;
 }
 
-void game::setScore(int score) {
-	scorePtr = score;
-}
 
-int game::getScore() {
+
+int* game::getScore() const {
 	return scorePtr;
 }
 
-void game::setTimer(int time) {
-	timePtr = time;
-}
 
-int game::getTimer() {
+
+int* game::getTimer() const {
 	return timePtr;
 }
 
-void game::startTimer() {
-	while (true) {
-		timePtr++;
-		pWind->SetPen(config.penColor, 50);
-		pWind->SetFont(24, BOLD, BY_NAME, "Arial");
-		pWind->DrawString(10, config.windHeight - (int)(0.85 * config.statusBarHeight), time + to_string(timePtr));
-	}
-}
 
-void game::setLives(int lives) {
-	livesPtr = lives;
-}
-
-int game::getLives() {
+int* game::getLives() const {
 	return livesPtr;
 }
 
