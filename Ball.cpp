@@ -165,7 +165,7 @@ void Ball::collisionAction() {
             collidedWithWallTop = collidedWithBrick=false;
             lastcollidedBrick = nullptr;
         }
-        else if (collidedWithWallBottom) { //destrust ball and respawn on paddle and decrement life by 1
+        else if (collidedWithWallBottom) { //destruct ball and respawn on paddle and decrement life by 1
             pGame->setLives(pGame->getLives() - 1);
             this->setAttatched(1);
             this->MoveAttatchedBall();

@@ -40,6 +40,52 @@ void iconAddHardBrick::onClick()
 	pGame->printMessage("");
 }
 
+////////////////////////////////////////////////////  class iconAddRockBrick   //////////////////////////////////////////////
+iconAddRockBrick::iconAddRockBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) :
+	toolbarIcon(r_uprleft, r_width, r_height, r_pGame)
+{}
+
+void iconAddRockBrick::onClick()
+{
+	pGame->printMessage("Click on empty cells to add Rock Bricks  ==> Right-Click to stop <==");
+	int x, y;
+	clicktype t = pGame->waitMouseClick(x, y);
+	while (t == LEFT_CLICK)
+	{
+		point clicked;
+		clicked.x = x;
+		clicked.y = y;
+		grid* pGrid = pGame->getGrid();
+		pGrid->addBrick(BRK_RCK, clicked);
+		pGrid->draw();
+		t = pGame->waitMouseClick(x, y);
+	}
+	pGame->printMessage("");
+}
+
+////////////////////////////////////////////////////  class iconAddBombBrick   //////////////////////////////////////////////
+iconAddBombBrick::iconAddBombBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) :
+	toolbarIcon(r_uprleft, r_width, r_height, r_pGame)
+{}
+
+void iconAddBombBrick::onClick()
+{
+	pGame->printMessage("Click on empty cells to add Bomb Bricks  ==> Right-Click to stop <==");
+	int x, y;
+	clicktype t = pGame->waitMouseClick(x, y);
+	while (t == LEFT_CLICK)
+	{
+		point clicked;
+		clicked.x = x;
+		clicked.y = y;
+		grid* pGrid = pGame->getGrid();
+		pGrid->addBrick(BRK_BMB, clicked);
+		pGrid->draw();
+		t = pGame->waitMouseClick(x, y);
+	}
+	pGame->printMessage("");
+}
+
 ////////////////////////////////////////////////////  class iconSaveLevel   //////////////////////////////////////////////
 
 iconSaveLevel::iconSaveLevel(point r_uprleft, int r_width, int r_height, game* r_pGame) :
@@ -188,6 +234,8 @@ toolbar::toolbar(point r_uprleft, int wdth, int hght, game* pG) :
 	//To control the order of these images in the menu, reoder them in enum ICONS above	
 	iconsImages[ICON_ADD_NORM] = "images\\ToolbarIcons\\NormalBrickIcon.jpg";
 	iconsImages[ICON_ADD_HARD] = "images\\ToolbarIcons\\rock.jpg";
+	iconsImages[ICON_ADD_ROCK] = "images\\ToolbarIcons\\rock.jpg";
+	iconsImages[ICON_ADD_BOMB] = "images\\ToolbarIcons\\bomb.jpg";
 	iconsImages[ICON_SAVE] = "images\\ToolbarIcons\\SaveLevel.jpg";
 	iconsImages[ICON_DEL] = "images\\ToolbarIcons\\delete.jpg";
 	iconsImages[ICON_LOAD] = "images\\ToolbarIcons\\load.jpg";
@@ -209,9 +257,12 @@ toolbar::toolbar(point r_uprleft, int wdth, int hght, game* pG) :
 	p.x += config.iconWidth;
 	iconsList[ICON_ADD_HARD] = new iconAddHardBrick(p, config.iconWidth, height, pGame);
 	p.x += config.iconWidth;
+	iconsList[ICON_ADD_ROCK] = new iconAddRockBrick(p, config.iconWidth, height, pGame);
+	p.x += config.iconWidth;
+	iconsList[ICON_ADD_BOMB] = new iconAddBombBrick(p, config.iconWidth, height, pGame);
+	p.x += config.iconWidth;
 	iconsList[ICON_SAVE] = new iconSaveLevel(p, config.iconWidth, height, pGame);
 	p.x += config.iconWidth;
-	//I REPLACED THE POSITIONS AND MADE THE "LOAD ICON" DO THE DELETE BRICK FUNCTION
 	iconsList[ICON_DEL] = new iconDelBrick(p, config.iconWidth, height, pGame);
 	p.x += config.iconWidth;
 	iconsList[ICON_LOAD] = new iconLoadLevel(p, config.iconWidth, height, pGame);
@@ -258,7 +309,7 @@ bool toolbar::handleClick(int x, int y)
 		return false;
 
 
-	//Check whick icon was clicked
+	//Check which icon was clicked
 	//==> This assumes that menu icons are lined up horizontally <==
 	//Divide x coord of the point clicked by the icon width (int division)
 	//if division result is 0 ==> first icon is clicked, if 1 ==> 2nd icon and so on

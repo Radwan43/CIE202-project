@@ -49,7 +49,7 @@ void normalBrick::collisionAction()
 hardBrick::hardBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) :
 	brick(r_uprleft, r_width, r_height, r_pGame, BRK_HRD)
 {
-	imageName = "images\\bricks\\NormalBrick.jpg";
+	imageName = "images\\bricks\\HardBrick.jpg";
 	this->strength = 3;
 }
 
@@ -60,4 +60,35 @@ void hardBrick::collisionAction()
 	
 	//score change
 	pGame->setScore(pGame->getScore() + 1);
+}
+
+////////////////////////////////////////////////////  class rockBrick  /////////////////////////////////
+rockBrick::rockBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) :
+	brick(r_uprleft, r_width, r_height, r_pGame, BRK_RCK)
+{
+	imageName = "images\\bricks\\RockBrick.jpg";
+	this->strength = 5;
+}
+
+void rockBrick::collisionAction()
+{
+	//Add reflection
+}
+
+////////////////////////////////////////////////////  class bombBrick  /////////////////////////////////
+bombBrick::bombBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) :
+	brick(r_uprleft, r_width, r_height, r_pGame, BRK_BMB)
+{
+	imageName = "images\\bricks\\BombBrick.jpg";
+	this->strength = 1;
+}
+
+void bombBrick::collisionAction()
+{
+	strengthCheck();
+	//Add reflection
+
+	//Add score change
+	pGame->setScore(pGame->getScore() + 4);
+	//Add explosion
 }
