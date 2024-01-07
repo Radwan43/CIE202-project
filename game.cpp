@@ -72,9 +72,7 @@ keytype game::waitKeyboardClick(char& key) const{
 	newpos.x = 10;
 	newpos.y = 10;
 	
-	//paddle* newpaddle = new normalpaddle(newpos, 100, 20, thisGame);
-	//newpaddle->draw();
-	//delete thepaddle;
+
 	return pWind->WaitKeyPress(key);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -189,7 +187,7 @@ void game::go() const
 
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - Brick Breaker (CIE202-project) - - - - - - - - - -");
-	//int i = 0;
+
 
 	GameTimer gameTimer;
 	gameTimer.start();
@@ -220,32 +218,22 @@ void game::go() const
 
 
 
-					pWind->SetPen(RED,1);
-					pWind->SetBrush(RED);
-					pWind->DrawRectangle(700 , 10, 10 + 700, 20);
-					pWind->DrawRectangle(720, 10, 10 + 720, 20);
-					pWind->DrawRectangle(740, 10, 10 + 740, 20);
+				pWind->SetPen(RED,1);
+				pWind->SetBrush(RED);
+				pWind->DrawRectangle(700 , 10, 10 + 700, 20);
+				pWind->DrawRectangle(720, 10, 10 + 720, 20);
+				pWind->DrawRectangle(740, 10, 10 + 740, 20);
 
-					pWind->SetPen(LAVENDER, 1);
-					pWind->SetBrush(LAVENDER);
-					pWind->DrawRectangle(900, config.toolBarHeight - 20, 920, 40);
-					pWind->SetPen(config.penColor, 50);
-					pWind->SetFont(24, BOLD, BY_NAME, "Arial");
-					pWind->DrawString(900, config.toolBarHeight - 20, gameTimer.getElapsedTimeString());
-					//pWind->SetPen(LAVENDER, 1);
-					//pWind->SetBrush(LAVENDER);
-					//pWind->DrawRectangle(900, config.toolBarHeight - 20, 920, 50);
+				pWind->SetPen(LAVENDER, 1);
+				pWind->SetBrush(LAVENDER);
+				pWind->DrawRectangle(900, config.toolBarHeight - 20, 920, 40);
+				pWind->SetPen(config.penColor, 50);
+				pWind->SetFont(24, BOLD, BY_NAME, "Arial");
+				pWind->DrawString(900, config.toolBarHeight - 20, gameTimer.getElapsedTimeString());
 
 
-				/*	if (ball->getLife() = 2) {
 
-						pWind->SetPen(RED, 1);
-						pWind->SetBrush(RED);
-						pWind->DrawRectangle(740, 10, 10 + 740, 20);
-
-					}*/
-				
-				//pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
+			
 				ktype = pWind->GetKeyPress(Key);
 				switch (ktype) {
 				case ESCAPE:
@@ -263,11 +251,26 @@ void game::go() const
 					break;
 				}
 
+				//part for moving the power ups
+				//still need to make the array of powerups
+
+				/*for (int i = 0; i < numPowerUps; i++) {
+					if(powerups[i]!=nullptr)
+					*powerups[i]->move();
+				}*/
+
 				ball->moveBall();
 
+				
+				
 				thepaddle->movePaddle(Key);
 
+
+
 				if (*gameMode == MODE_DSIGN) break;
+
+
+
 
 
 

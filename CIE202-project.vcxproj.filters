@@ -124,6 +124,7 @@
     <ClCompile Include="paddle.cpp" />
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="GameTimer.cpp" />
+    <ClCompile Include="PowerUp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -204,6 +205,7 @@
     <ClInclude Include="paddle.h" />
     <ClInclude Include="Ball.h" />
     <ClInclude Include="GameTimer.h" />
+    <ClInclude Include="PowerUp.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Base Classes">

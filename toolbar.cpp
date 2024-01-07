@@ -32,9 +32,11 @@ void iconAddHardBrick::onClick()
 		point clicked;
 		clicked.x = x;
 		clicked.y = y;
-		grid* pGrid = pGame->getGrid();
-		pGrid->addBrick(BRK_HRD, clicked);
-		pGrid->draw();
+		if (y > config.toolBarHeight && y < config.gridHeight + config.toolBarHeight) {
+			grid* pGrid = pGame->getGrid();
+			pGrid->addBrick(BRK_HRD, clicked);
+			pGrid->draw();
+		};
 		t = pGame->waitMouseClick(x, y);
 	}
 	pGame->printMessage("");
@@ -69,7 +71,7 @@ void iconDelBrick::onClick()
 	clicktype t = pGame->waitMouseClick(x, y);
 	while (t == LEFT_CLICK)
 	{	
-		if (y > config.toolBarHeight) {
+		if (y > config.toolBarHeight&& y< config.gridHeight + config.toolBarHeight) {
 
 			point clicked;
 			clicked.x = x;
@@ -77,8 +79,8 @@ void iconDelBrick::onClick()
 			grid* pGrid = pGame->getGrid();
 			if (pGame->getGrid()->getMatrix()[(clicked.y - uprLft.y) / config.brickHeight - 1][clicked.x / config.brickWidth] != NULL) {
 				delete pGame->getGrid()->getMatrix()[(clicked.y - uprLft.y) / config.brickHeight - 1][clicked.x / config.brickWidth];
+				pGrid->draw();
 			};
-			pGrid->draw();
 			t = pGame->waitMouseClick(x, y);
 		}
 	}
@@ -156,9 +158,12 @@ void iconAddNormalBrick::onClick()
 		point clicked;
 		clicked.x = x;
 		clicked.y = y;
-		grid* pGrid = pGame->getGrid();
-		pGrid->addBrick(BRK_NRM, clicked);
-		pGrid->draw();
+		if (y > config.toolBarHeight && y < config.gridHeight + config.toolBarHeight) {
+
+			grid* pGrid = pGame->getGrid();
+			pGrid->addBrick(BRK_NRM, clicked);
+			pGrid->draw();
+		};
 		t = pGame->waitMouseClick(x, y);
 	}
 	pGame->printMessage("");

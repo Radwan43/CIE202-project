@@ -26,6 +26,7 @@ public:
 	void strengthCheck();
 	~brick();
 	point getUprleft();
+
 };
 
 
@@ -34,7 +35,7 @@ class normalBrick :public brick
 {
 public:
 	normalBrick(point r_uprleft, int r_width, int r_height, game* r_pGame);
-	void collisionAction();
+	void collisionAction() override;
 };
 
 ////////////////////////////////////////////////////  class hardBrick  /////////////////////////////////
@@ -42,6 +43,6 @@ class hardBrick :public brick
 {
 public:
 	hardBrick(point r_uprleft, int r_width, int r_height, game* r_pGame);
-	void collisionAction();
+	void collisionAction() override;
 };
 
