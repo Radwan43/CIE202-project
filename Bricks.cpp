@@ -51,7 +51,7 @@ void normalBrick::collisionAction()
 {
 
 	//score change
-	*(pGame->getScore()) += 1;
+	*(pGame->getScore()) += 1*pGame->getScoreMultiplier();
 	//strength check	
 	strengthCheck();
 }
@@ -71,10 +71,11 @@ void powerBrick::collisionAction()
 	activePowerUps.push_back(PowerUp(uprLft, pGame));
 
 	//score change
-	*(pGame->getScore()) += 1;
+	*(pGame->getScore()) += 1 * pGame->getScoreMultiplier();
 	//strength check	
 	strengthCheck();
 }
+
 
 ////////////////////////////////////////////////////  class hardBrick  /////////////////////////////////
 hardBrick::hardBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) :
@@ -87,7 +88,7 @@ hardBrick::hardBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 void hardBrick::collisionAction()
 {	
 	//score change
-	*(pGame->getScore())+=1;
+	*(pGame->getScore())+=1 * pGame->getScoreMultiplier();
 	//strength check	
 	strengthCheck();
 }
@@ -103,7 +104,7 @@ lifeBrick::lifeBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 void lifeBrick::collisionAction()
 {
 	//score change
-	*(pGame->getScore()) += 1;
+	*(pGame->getScore()) += 1 * pGame->getScoreMultiplier();
 	//life change
 	*(pGame->getLives()) += 1;
 	//strength check	
@@ -132,7 +133,7 @@ bombBrick::bombBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 void bombBrick::collisionAction()
 {
 	//score change
-	*(pGame->getScore()) += 4;
+	*(pGame->getScore()) += 4 * pGame->getScoreMultiplier();
 	//destruct touching bricks
 	int row = (uprLft.y - config.toolBarHeight) / config.brickHeight;
 	int col = uprLft.x / config.brickWidth;

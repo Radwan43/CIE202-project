@@ -50,6 +50,10 @@ game::game()
 	*livesPtr = 3;
 	scorePtr = new int;
 	*scorePtr = 0;
+	scoremultiplier = new int;
+	*scoremultiplier = 1;
+
+
 	
 }
 
@@ -67,7 +71,13 @@ clicktype game::waitMouseClick(int& x, int& y) const
 }
 
 
+void game::setScoreMultiplier(int multiplier) const {
+	*scoremultiplier = multiplier;
+}
 
+int game::getScoreMultiplier() const {
+	return *scoremultiplier;
+}
 
 keytype game::waitKeyboardClick(char& key) const{
 	point newpos;
@@ -249,6 +259,10 @@ void game::go() const
 				pWind->SetPen(config.penColor, 50);
 				pWind->SetFont(24, BOLD, BY_NAME, "Arial");
 				pWind->DrawString(300, 10, gameTimer.getElapsedTimeString());
+				pWind->DrawString(950, 10, std::to_string(*scorePtr));
+
+
+
 
 
 				if (!ball->isAttatched()&&!ball->isMoving()) {
