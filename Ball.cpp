@@ -59,7 +59,7 @@ void Ball::moveBall() {
 
     if (moving == 1) {
         window* pWin = pGame->getWind();
-
+        point CollisionPoint;
         int br = 0;
         pWin->SetBrush(config.bkGrndColor);
         pWin->SetPen(config.bkGrndColor, 1);
@@ -83,17 +83,27 @@ void Ball::moveBall() {
             for (int row = 0; row < pGame->getGrid()->getrows(); row++) {
                 for (int col = 0; col < pGame->getGrid()->getcols(); col++) {
                     if (pGame->getGrid()->getMatrix()[row][col]) {
-                        point CollisionPoint = CheckCollision(this, pGame->getGrid()->getMatrix()[row][col]);
+                        CollisionPoint = CheckCollision(this, pGame->getGrid()->getMatrix()[row][col]);
                         if (CollisionPoint.x != 0 || CollisionPoint.y != 0) {
                             collidedWithBrick = true;
                             lastcollidedBrick = pGame->getGrid()->getMatrix()[row][col];
+
+                            cout <<endl<< "collided with brick" << endl;
+
+                            cout << endl << "ball x: " << this->uprLft.x;
+                            cout << endl << "ball y: " << this->uprLft.y;
+                            cout << endl << "brick x: " << pGame->getGrid()->getMatrix()[row][col]->getUprleft().x;
+                            cout << endl << "brick y: " << pGame->getGrid()->getMatrix()[row][col]->getUprleft().y;
                             this->collisionAction();
                             pGame->getGrid()->getMatrix()[row][col]->collisionAction();
+
+
                             br = 1;
                             break;
                         }
                     }
                 }
+                if (br == 1) break;
             }
 
             // Check collisions with paddle
@@ -107,17 +117,14 @@ void Ball::moveBall() {
                 else if (uprLft.y <= config.toolBarHeight) {
                     collidedWithWallTop = true;
                     this->collisionAction();
-                    uprLft.y++;
                 }
                 else if (uprLft.x <= 0) {
                     collidedWithWallLeft = true;
                     this->collisionAction();
-                    uprLft.x++;
                 }
                 else if (uprLft.x + this->width >= config.windWidth) {
                     collidedWithWallRight = true;
                     this->collisionAction();
-                    uprLft.x--;
                 }
                 else if (uprLft.y + this->height + config.statusBarHeight >= config.windHeight) {
                     collidedWithWallBottom = true;
@@ -149,7 +156,7 @@ void Ball::collisionAction() {
     bool topRcol = false;
     bool bottomLcol = false;
     bool bottomRcol = false;
-    point brickuprlft;
+    point brickuprlft= { 0,0 };
     if (lastcollidedBrick) {
         brickuprlft = lastcollidedBrick->getUprleft();
     }
@@ -160,7 +167,7 @@ void Ball::collisionAction() {
         else if ((brickuprlft.x == (uprLft.x + radius)) && (brickuprlft.y == (uprLft.y))) { topRcol = true; }
         else if ((brickuprlft.x == (uprLft.x + radius)) && (brickuprlft.y == (uprLft.y + radius))) { bottomRcol = true; }
         else if ((brickuprlft.x == (uprLft.x)) && (brickuprlft.y == (uprLft.y + radius))) { bottomLcol = true; }
-    }
+    };
 
     //collision action with bricks and walls
     if (topLcol || topRcol || bottomLcol || bottomRcol) {
@@ -171,14 +178,28 @@ void Ball::collisionAction() {
     else if (collidedWithBrick || collidedWithWallBottom || collidedWithWallLeft || collidedWithWallRight || collidedWithWallTop) {
         if (collidedWithWallLeft || collidedWithWallRight || lastcollidedBrick!=nullptr &&(is_collided(uprLft.x, brickuprlft.x, uprLft.y, brickuprlft.y, this->width, config.brickWidth, this->height, config.brickHeight))) {
 			thetta = PI - thetta; // Reflect horizontally
+
+            if (collidedWithWallRight||uprLft.x +this->width== brickuprlft.x) {
+                uprLft.x--;
+            }
+            else {
+                uprLft.x++;
+            };
 			collidedWithWallRight= false; 
             collidedWithWallLeft = false; 
             collidedWithBrick= false;
             lastcollidedBrick = nullptr;
 
 		}
-        else if (collidedWithWallTop || lastcollidedBrick != nullptr && is_collided(uprLft.y, brickuprlft.y, uprLft.x, brickuprlft.x, -this->height, -config.brickHeight, config.brickWidth, this->width)) {
+        else if (collidedWithWallTop || lastcollidedBrick != nullptr && is_collided(uprLft.y, brickuprlft.y, uprLft.x, brickuprlft.x, -config.brickHeight, -this->height, config.brickWidth, this->width)) {
             thetta = -thetta; // Reflect vertically
+
+            if ((uprLft.y + this->height)== brickuprlft.y) {
+                uprLft.y--;
+            }
+            else {
+                uprLft.y++;
+            };
             collidedWithWallTop = false;
             collidedWithBrick = false;
             lastcollidedBrick = nullptr;
