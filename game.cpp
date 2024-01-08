@@ -190,7 +190,6 @@ void game::go() const
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - Brick Breaker (CIE202-project) - - - - - - - - - -");
 
-	bool printcounter = 0;
 
 	GameTimer gameTimer;
 	do
@@ -217,42 +216,39 @@ void game::go() const
 			pWind->FlushKeyQueue();
 			pWind->FlushMouseQueue();
 
+			pWind->SetPen(RED, 1);
+			pWind->SetBrush(RED);
+			pWind->DrawImage("images\\lifeheart.jpg", 150, 10, 20, 20);
+			pWind->DrawImage("images\\lifeheart.jpg", 180, 10, 20, 20);
+			pWind->DrawImage("images\\lifeheart.jpg", 210, 10, 20, 20);
 			printMessage("Play!");
 			while (true) {
 
 
 
-				pWind->SetPen(RED, 1);
-				pWind->SetBrush(RED);
-				if (!printcounter) {
-					pWind->DrawImage("images\\lifeheart.jpg", 750, 10, 20, 20);
-					pWind->DrawImage("images\\lifeheart.jpg", 780, 10, 20, 20);
-					pWind->DrawImage("images\\lifeheart.jpg", 810, 10, 20, 20);
-					printcounter = 1;
-				}
 
 				if (*livesPtr == 2) {
-					pWind->SetPen(config.bkGrndColor, 1);
-					pWind->SetBrush(config.bkGrndColor);
-					pWind->DrawRectangle(810, 10, 840, 30);
+					pWind->SetPen(config.statusBarColor, 1);
+					pWind->SetBrush(config.statusBarColor);
+					pWind->DrawRectangle(210, 10, 240, 30);
 				}
 				else if (*livesPtr == 1) {
-					pWind->SetPen(config.bkGrndColor, 1);
-					pWind->SetBrush(config.bkGrndColor);
-					pWind->DrawRectangle(780, 10, 810, 30);
+					pWind->SetPen(config.statusBarColor, 1);
+					pWind->SetBrush(config.statusBarColor);
+					pWind->DrawRectangle(180, 10, 210, 30);
 				}
 				else if (*livesPtr == 0) {
-					pWind->SetPen(config.bkGrndColor, 1);
-					pWind->SetBrush(config.bkGrndColor);
-					pWind->DrawRectangle(750, 10, 780, 30);
+					pWind->SetPen(config.statusBarColor, 1);
+					pWind->SetBrush(config.statusBarColor);
+					pWind->DrawRectangle(150, 10, 180, 30);
 				}
 
-				pWind->SetPen(LAVENDER, 1);
-				pWind->SetBrush(LAVENDER);
-				pWind->DrawRectangle(900, 10, 1100, 40);
+				pWind->SetPen(config.statusBarColor, 1);
+				pWind->SetBrush(config.statusBarColor);
+				pWind->DrawRectangle(300, 10, 500, 40);
 				pWind->SetPen(config.penColor, 50);
 				pWind->SetFont(24, BOLD, BY_NAME, "Arial");
-				pWind->DrawString(900, 10, gameTimer.getElapsedTimeString());
+				pWind->DrawString(300, 10, gameTimer.getElapsedTimeString());
 
 
 				if (!ball->isAttatched()&&!ball->isMoving()) {
