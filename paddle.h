@@ -28,5 +28,5 @@ public:
     normalpaddle(const point& r_uprleft, int r_width, int r_height, game* r_pGame);
 
      void collisionAction() override;
-     void draw();
+     //void draw();
 };

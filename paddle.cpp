@@ -8,7 +8,7 @@ paddle::paddle(const point& r_uprleft, int r_width, int r_height, game* r_pGame)
 {
 
     cout << "this was called in draw new";
-    this->pGame->getWind()->DrawImage("images\\bricks\\NormalBrick.jpg", uprLft.x, getUpperLeft().y, 100, 20);
+    this->pGame->getWind()->DrawImage("images\\paddle.jpg", uprLft.x, getUpperLeft().y, 100, 20);
     this->draw();
 
 
@@ -74,7 +74,7 @@ void paddle::movePaddle(char key) {
                 pBall->MoveAttatchedBall();
                 pBall->draw();
             }
-            this->pGame->getWind()->DrawImage("images\\bricks\\NormalBrick.jpg", uprLft.x, getUpperLeft().y, 100, 20);
+            this->pGame->getWind()->DrawImage("images\\paddle.jpg", uprLft.x, getUpperLeft().y, 100, 20);
             this->draw();
         }
         break;
@@ -99,7 +99,7 @@ void paddle::movePaddle(char key) {
                 pBall->draw();
             }
 
-            this->pGame->getWind()->DrawImage("images\\bricks\\NormalBrick.jpg", uprLft.x, getUpperLeft().y, 100, 20);
+            this->pGame->getWind()->DrawImage("images\\paddle.jpg", uprLft.x, getUpperLeft().y, 100, 20);
             this->draw();
         }
         break;
@@ -109,7 +109,7 @@ void paddle::movePaddle(char key) {
 normalpaddle::normalpaddle(const point& r_uprleft, int r_width, int r_height, game* r_pGame) :
     paddle({ r_uprleft.x-r_width/2,r_uprleft.y }, r_width, r_height, r_pGame)
 {
-        imageName = "images\\bricks\\NormalBrick.jpg";
+        imageName = "images\\paddle.jpg";
       
 
 }
@@ -119,17 +119,13 @@ void normalpaddle::collisionAction() {
     // Implement collision action for normalpaddle
 }
 
-void normalpaddle::draw() {
-    cout << "this was called in draw new";
-}
-
 
 
 void paddle::draw() {
 
     while (int i = 0) {
         cout << "this was called in draw new";
-        this->pGame->getWind()->DrawImage("images\\bricks\\NormalBrick.jpg", uprLft.x, getUpperLeft().y, 100, 20);
+        this->pGame->getWind()->DrawImage("images\\paddle.jpg", uprLft.x, getUpperLeft().y, 100, 20);
         this->drawable::draw();
 
 

@@ -1,5 +1,5 @@
 #include "Bricks.h"
-
+#include "PowerUps.h"
 
 ////////////////////////////////////////////////////  class brick  ///////////////////////////////////////
 brick::brick(point r_uprleft, int r_width, int r_height, game* r_pGame,BrickType type):
@@ -40,8 +40,11 @@ void normalBrick::collisionAction()
 	strengthCheck();
 	//Add reflection
 
+	PowerUps fireball(getUprleft(), pGame);
+	//fireball.se(true);
+
 	//Add score change
-	pGame->setScore(pGame->getScore() + 1);
+	//pGame->setScore(pGame->getScore() + 1);
 }
 
 
@@ -59,5 +62,54 @@ void hardBrick::collisionAction()
 	//Add reflection
 	
 	//score change
-	pGame->setScore(pGame->getScore() + 1);
+	//pGame->setScore(pGame->getScore() + 1);
+}
+
+fireBrick::fireBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) :
+	brick(r_uprleft, r_width, r_height, r_pGame, BRK_FIRE)
+{
+	imageName = "images\\bricks\\NormalBrick.jpg";
+	this->strength = 1;
+}
+
+void fireBrick::collisionAction()
+{
+	strengthCheck();
+
+
+
+	//score change
+	//pGame->setScore(pGame->getScore() + 1);
+}
+
+movementBrick::movementBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) :
+	brick(r_uprleft, r_width, r_height, r_pGame, BRK_MVMNT)
+{
+	imageName = "images\\bricks\\NormalBrick.jpg";
+	this->strength = 1;
+}
+
+void movementBrick::collisionAction()
+{
+	strengthCheck();
+	//Add reflection
+
+	//score change
+	//pGame->setScore(pGame->getScore() + 1);
+}
+
+sizeBrick::sizeBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) :
+	brick(r_uprleft, r_width, r_height, r_pGame, BRK_SIZE)
+{
+	imageName = "images\\bricks\\NormalBrick.jpg";
+	this->strength = 1;
+}
+
+void sizeBrick::collisionAction()
+{
+	strengthCheck();
+	//Add reflection
+
+	//score change
+	//pGame->setScore(pGame->getScore() + 1);
 }

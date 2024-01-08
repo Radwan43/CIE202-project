@@ -121,9 +121,16 @@
     <ClCompile Include="collidable.cpp">
       <Filter>Base Classes</Filter>
     </ClCompile>
-    <ClCompile Include="paddle.cpp" />
-    <ClCompile Include="Ball.cpp" />
-    <ClCompile Include="GameTimer.cpp" />
+    <ClCompile Include="Ball.cpp">
+      <Filter>GameElements</Filter>
+    </ClCompile>
+    <ClCompile Include="paddle.cpp">
+      <Filter>GameElements</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTimer.cpp">
+      <Filter>GameElements</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUps.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -201,9 +208,16 @@
     <ClInclude Include="collidable.h">
       <Filter>Base Classes</Filter>
     </ClInclude>
-    <ClInclude Include="paddle.h" />
-    <ClInclude Include="Ball.h" />
-    <ClInclude Include="GameTimer.h" />
+    <ClInclude Include="Ball.h">
+      <Filter>GameElements</Filter>
+    </ClInclude>
+    <ClInclude Include="paddle.h">
+      <Filter>GameElements</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTimer.h">
+      <Filter>GameElements</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUps.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Base Classes">
@@ -217,6 +231,9 @@
     </Filter>
     <Filter Include="Bricks Classes">
       <UniqueIdentifier>{5e150dff-8a89-44f3-b58a-731df9cea925}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameElements">
+      <UniqueIdentifier>{4dab4c2a-4d0e-4787-9b8f-14f923cfc1fb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

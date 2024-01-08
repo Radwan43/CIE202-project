@@ -1,5 +1,4 @@
 #include "game.h"
-
 enum MODE;
 
 game* thisGame; 
@@ -9,6 +8,7 @@ game::game()
 	//Initialize playgrond parameters
 	gameMode = new MODE(MODE_DSIGN);
 
+	powerup->set_motion(false);
 
 	//1 - Create the main window
 	pWind = CreateWind(config.windWidth, config.windHeight, config.wx, config.wy);
@@ -276,12 +276,16 @@ void game::go() const
 						if (!ball->isMoving()) {
 							ball->set_motion(1);
 							ball->setAttatched(0);
+
 						}
 						break;
 					}
 					break;
 				}
 
+				if (powerup->isMoving()) {
+					powerup->set_motion(1);
+				}
 				ball->moveBall();
 
 				thepaddle->movePaddle(Key);

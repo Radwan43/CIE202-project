@@ -7,6 +7,7 @@
 #include <iostream>
 #include "gameConfig.h"
 #include "GameTimer.h"
+#include "PowerUps.h"
 
 class grid;
 class Ball;
@@ -31,6 +32,7 @@ class game
 	grid* bricksGrid;
 	paddle* thepaddle;
 	Ball* ball;
+	PowerUps* powerup;
 	const string lives= "Lives: ";
 	const string score = "Score: ";
 	const string time = "Time (s): ";
