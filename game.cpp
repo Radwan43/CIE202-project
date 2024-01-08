@@ -266,10 +266,28 @@ void game::go() const
 				thepaddle->movePaddle(Key);
 
 
+				int BrickNumber = 0;
+				
+				for (int row = 0; row < bricksGrid->getrows(); row++) {
+					for (int col = 0; col < bricksGrid->getcols(); col++) {
+						if ((bricksGrid->getMatrix()[row][col]!=nullptr)&& bricksGrid->getMatrix()[row][col]->getType()!=BRK_RCK) {
+							BrickNumber++;
+						}
+					}
+				}
+
+				if (BrickNumber == 0) {
+					//END GAME SEQUENCE
+
+				}
 
 				if (*gameMode == MODE_DSIGN) break;
 
+				if (*gameMode == MODE_PAUSE) {
+					if (ball->isMoving())
+						ball->set_motion(false);
 
+				}
 
 
 

@@ -8,7 +8,8 @@
 enum BrickType	//add more brick types
 {
 	BRK_NRM,	//Normal Brick
-	BRK_HRD		//Hard Brick
+	BRK_HRD,		//Hard Brick
+	BRK_RCK
 
 	//TODO: Add more types
 };
@@ -26,6 +27,7 @@ public:
 	void strengthCheck();
 	~brick();
 	point getUprleft();
+	BrickType getType();
 
 };
 
