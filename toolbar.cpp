@@ -185,7 +185,7 @@ iconPause::iconPause(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 void iconPause::onClick()
 {
 	//TO DO: add code for cleanup and game exit here
-
+	pGame->setMode(MODE_PAUSE);
 }
 ////////////////////////////////////////////////////  class iconContinue   //////////////////////////////////////////////
 
@@ -195,6 +195,7 @@ iconContinue::iconContinue(point r_uprleft, int r_width, int r_height, game* r_p
 
 void iconContinue::onClick()
 {
+	pGame->setMode(MODE_PLAY);
 	//TO DO: add code for cleanup and game exit here
 
 }
@@ -207,6 +208,7 @@ iconStop::iconStop(point r_uprleft, int r_width, int r_height, game* r_pGame) :
 
 void iconStop::onClick()
 {
+	pGame->setMode(MODE_DSIGN);
 	//TO DO: add code for cleanup and game exit here
 
 }
@@ -257,7 +259,7 @@ toolbar::toolbar(point r_uprleft, int wdth, int hght, game* pG) :
 	//First prepare List of images for each icon
 	//To control the order of these images in the menu, reoder them in enum ICONS above	
 	iconsImages[ICON_ADD_NORM] = "images\\ToolbarIcons\\NormalBrickIcon.jpg";
-	iconsImages[ICON_ADD_HARD] = "images\\ToolbarIcons\\rock.jpg";
+	iconsImages[ICON_ADD_HARD] = "images\\ToolbarIcons\\HardBrick.jpg";
 	iconsImages[ICON_ADD_ROCK] = "images\\ToolbarIcons\\rock.jpg";
 	iconsImages[ICON_ADD_BOMB] = "images\\ToolbarIcons\\bomb.jpg";
 	iconsImages[ICON_SAVE] = "images\\ToolbarIcons\\SaveLevel.jpg";

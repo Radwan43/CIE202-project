@@ -233,7 +233,11 @@ void game::go() const
 
 
 
-			
+				pWind->GetMouseClick(x, y);
+				if (y >= 0 && y < config.toolBarHeight)
+				{
+					isExit = gameToolbar->handleClick(x, y);
+				};
 				ktype = pWind->GetKeyPress(Key);
 				switch (ktype) {
 				case ESCAPE:

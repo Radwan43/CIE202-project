@@ -69,7 +69,7 @@ rockBrick::rockBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 	brick(r_uprleft, r_width, r_height, r_pGame, BRK_RCK)
 {
 	imageName = "images\\bricks\\RockBrick.jpg";
-	this->strength = 5;
+	this->strength = -1;
 }
 
 void rockBrick::collisionAction()
@@ -91,11 +91,18 @@ void bombBrick::collisionAction()
 	int row = (uprLft.y - config.toolBarHeight) / config.brickHeight;
 	int col = uprLft.x / config.brickWidth;
 	brick*** brickMatrix = pGame->getGrid()->getMatrix();
+	int maxRow = pGame->getGrid()->getrows();
+	int maxCol = pGame->getGrid()->getcols();
 	for (int i = row - 1; i <= row + 1; i++) {
-		for (int j = col - 1; j <= col + 1; j++) {
-			if (brickMatrix[i][j]) {
-				delete brickMatrix[i][j];
+		if (i >= 0 && i < maxRow) {
+			for (int j = col - 1; j <= col + 1; j++) {
+				if (j >= 0 && j < maxCol) {
+
+					if (brickMatrix[i][j]) {
+						delete brickMatrix[i][j];
+					}
+				};
 			}
-		}
+		};
 	}
 }
