@@ -234,7 +234,9 @@ void game::go() const
 				pWind->SetFont(24, BOLD, BY_NAME, "Arial");
 				pWind->DrawString(900, config.toolBarHeight - 20, gameTimer.getElapsedTimeString());
 
-
+				if (!ball->isAttatched()&&!ball->isMoving()) {
+					ball->set_motion(true);
+				}
 
 				pWind->GetMouseClick(x, y);
 				if (y >= 0 && y < config.toolBarHeight)
