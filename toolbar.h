@@ -28,6 +28,22 @@ public:
 	virtual void onClick();
 };
 
+////////////////////////////////////////////////////  class iconAddRockBrick   //////////////////////////////////////////////
+class iconAddRockBrick :public toolbarIcon
+{
+public:
+	iconAddRockBrick(point r_uprleft, int r_width, int r_height, game* r_pGame);
+	virtual void onClick();
+};
+
+////////////////////////////////////////////////////  class iconAddBombBrick   //////////////////////////////////////////////
+class iconAddBombBrick :public toolbarIcon
+{
+public:
+	iconAddBombBrick(point r_uprleft, int r_width, int r_height, game* r_pGame);
+	virtual void onClick();
+};;
+
 //////////////////////////////////////////////////////  class iconSaveLevel   //////////////////////////////////////////////
 class iconSaveLevel :public toolbarIcon
 {
@@ -101,6 +117,8 @@ class toolbar :public drawable
 		//If you want to change the menu icons order, change the order here
 		ICON_ADD_NORM,	//add normal brick
 		ICON_ADD_HARD,	//add hard brick
+		ICON_ADD_ROCK,	//add rock brick
+		ICON_ADD_BOMB,	//add bomb brick
 
 		//TODO: Add more icons names here
 

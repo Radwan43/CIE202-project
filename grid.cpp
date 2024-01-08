@@ -112,8 +112,12 @@ int grid::addBrick(BrickType brkType, point clickedPoint)
 	case BRK_HRD:
 		brickMatrix[gridCellRowIndex][gridCellColIndex] = new hardBrick(newBrickUpleft, config.brickWidth, config.brickHeight, pGame);
 		break;
-		//TODO: 
-		// handle more types
+	case BRK_RCK:
+		brickMatrix[gridCellRowIndex][gridCellColIndex] = new rockBrick(newBrickUpleft, config.brickWidth, config.brickHeight, pGame);
+		break;
+	case BRK_BMB:
+		brickMatrix[gridCellRowIndex][gridCellColIndex] = new bombBrick(newBrickUpleft, config.brickWidth, config.brickHeight, pGame);
+		break;
 	}
 	return 1;
 }
