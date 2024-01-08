@@ -167,6 +167,11 @@ void game::incScore()
 	//}
 }
 
+void game::setScore(int newScore)
+{
+	*scorePtr = newScore;
+}
+
 
 int game::getLives() const {
 	return lifes;

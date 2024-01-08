@@ -18,7 +18,7 @@ void PowerUp::collisionAction()
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    std::uniform_int_distribution<> dis(1, 6);
+    std::uniform_int_distribution<> dis(1, 8);
 
     int random_number = dis(gen);
 
@@ -47,8 +47,16 @@ void PowerUp::collisionAction()
     else if (random_number == 6) {
         pGame->getPaddle()->setSpeed(15);
     }
+    else if (random_number == 7) {
+        //fireball
+        pGame->getBall()->setIsFireBall(true);
+    } 
+    else if (random_number == 8) {
+        //fireball
+        pGame->setScore(pGame->getScore() * 2);
+    }
 
-    if (random_number >= 1 && random_number <= 6) {
+    if (random_number >= 1 && random_number <= 8) {
         powerUpStartTime = std::stoi(gameTimer->getElapsedTimeString()); // Assuming getElapsedTimeString returns time in seconds as a string
         powerUpActive = true;
         activePowerUp = random_number;

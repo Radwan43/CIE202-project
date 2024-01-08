@@ -77,7 +77,7 @@ public:
 
 	int getScore() const;
 	void incScore();
-
+	void setScore(int newScore);
 	// add the ball
 
 	// add the platform 

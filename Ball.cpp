@@ -39,6 +39,11 @@ int Ball::getRadius() {
     return radius;
 }
 
+void Ball::setIsFireBall(bool change)
+{
+    isFireBall = change;
+}
+
 void Ball::set_motion(bool moving) {
     this->moving = moving;
 }
