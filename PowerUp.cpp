@@ -62,7 +62,7 @@ void PowerUp::disable(GameTimer* gameTimerr) {
         int currentTime = std::stoi(gameTimer->getElapsedTimeString());
         int elapsedTime = currentTime - powerUpStartTime;
 
-        if (elapsedTime >= 15) {
+        if (elapsedTime >= 60) {
             revertPowerUp();
             powerUpActive = false;
         }
