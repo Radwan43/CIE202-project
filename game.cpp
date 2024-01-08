@@ -311,9 +311,7 @@ void game::go() const
 
 					if (powerUp.CheckCollision(&powerUp, thepaddle).y != 0) {
 						powerUp.collisionAction();
-						if (powerUp.CheckCollision(&powerUp, thepaddle).y != 0) {
-							powerUp.collisionAction();
-						}
+
 					
 					}
 					powerUp.disable(&gameTimer);

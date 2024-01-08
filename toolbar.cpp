@@ -18,6 +18,30 @@ iconAddNormalBrick::iconAddNormalBrick(point r_uprleft, int r_width, int r_heigh
 	toolbarIcon(r_uprleft, r_width, r_height, r_pGame)
 {}
 
+void iconAddNormalBrick::onClick()
+{
+	if (pGame->getMode() == MODE_DSIGN) {
+
+		pGame->printMessage("Click on empty cells to add Normal Bricks  ==> Right-Click to stop <==");
+		int x, y;
+		clicktype t = pGame->waitMouseClick(x, y);
+		while (t == LEFT_CLICK)
+		{
+			point clicked;
+			clicked.x = x;
+			clicked.y = y;
+			if (y > config.toolBarHeight && y < config.gridHeight + config.toolBarHeight) {
+
+				grid* pGrid = pGame->getGrid();
+				pGrid->addBrick(BRK_NRM, clicked);
+				pGrid->draw();
+			};
+			t = pGame->waitMouseClick(x, y);
+		}
+		pGame->printMessage("");
+
+	};
+}
 ////////////////////////////////////////////////////  class iconAddHardBrick   //////////////////////////////////////////////
 iconAddHardBrick::iconAddHardBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) :
 	toolbarIcon(r_uprleft, r_width, r_height, r_pGame)
@@ -121,6 +145,33 @@ void iconAddLifeBrick::onClick()
 			if (y > config.toolBarHeight && y < config.gridHeight + config.toolBarHeight) {
 				grid* pGrid = pGame->getGrid();
 				pGrid->addBrick(BRK_LIF, clicked);
+				pGrid->draw();
+			};
+			t = pGame->waitMouseClick(x, y);
+		}
+		pGame->printMessage("");
+	}
+}
+
+////////////////////////////////////////////////////  class iconAddPowerBrick   //////////////////////////////////////////////
+iconAddPowerBrick::iconAddPowerBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) :
+	toolbarIcon(r_uprleft, r_width, r_height, r_pGame)
+{}
+
+void iconAddPowerBrick::onClick()
+{
+	if (pGame->getMode() == MODE_DSIGN) {
+		pGame->printMessage("Click on empty cells to add Power Bricks  ==> Right-Click to stop <==");
+		int x, y;
+		clicktype t = pGame->waitMouseClick(x, y);
+		while (t == LEFT_CLICK)
+		{
+			point clicked;
+			clicked.x = x;
+			clicked.y = y;
+			if (y > config.toolBarHeight && y < config.gridHeight + config.toolBarHeight) {
+				grid* pGrid = pGame->getGrid();
+				pGrid->addBrick(BRK_PWR, clicked);
 				pGrid->draw();
 			};
 			t = pGame->waitMouseClick(x, y);
@@ -299,30 +350,6 @@ void iconStop::onClick()
 }
 
 
-void iconAddNormalBrick::onClick()
-{
-	if (pGame->getMode() == MODE_DSIGN) {
-
-		pGame->printMessage("Click on empty cells to add Normal Bricks  ==> Right-Click to stop <==");
-		int x, y;
-		clicktype t = pGame->waitMouseClick(x, y);
-		while (t == LEFT_CLICK)
-		{
-			point clicked;
-			clicked.x = x;
-			clicked.y = y;
-			if (y > config.toolBarHeight && y < config.gridHeight + config.toolBarHeight) {
-
-				grid* pGrid = pGame->getGrid();
-				pGrid->addBrick(BRK_NRM, clicked);
-				pGrid->draw();
-			};
-			t = pGame->waitMouseClick(x, y);
-		}
-		pGame->printMessage("");
-
-	};
-}
 
 ////////////////////////////////////////////////////  class iconExit   //////////////////////////////////////////////
 iconExit::iconExit(point r_uprleft, int r_width, int r_height, game* r_pGame) :
@@ -351,6 +378,7 @@ toolbar::toolbar(point r_uprleft, int wdth, int hght, game* pG) :
 	iconsImages[ICON_ADD_ROCK] = "images\\ToolbarIcons\\rock.jpg";
 	iconsImages[ICON_ADD_BOMB] = "images\\ToolbarIcons\\bomb.jpg";
 	iconsImages[ICON_ADD_LIFE] = "images\\ToolbarIcons\\life.jpg";
+	iconsImages[ICON_ADD_POWR] = "images\\ToolbarIcons\\power.jpg";
 	iconsImages[ICON_SAVE] = "images\\ToolbarIcons\\SaveLevel.jpg";
 	iconsImages[ICON_DEL] = "images\\ToolbarIcons\\delete.jpg";
 	iconsImages[ICON_LOAD] = "images\\ToolbarIcons\\load.jpg";
@@ -377,6 +405,8 @@ toolbar::toolbar(point r_uprleft, int wdth, int hght, game* pG) :
 	iconsList[ICON_ADD_BOMB] = new iconAddBombBrick(p, config.iconWidth, height, pGame);
 	p.x += config.iconWidth;
 	iconsList[ICON_ADD_LIFE] = new iconAddLifeBrick(p, config.iconWidth, height, pGame);
+	p.x += config.iconWidth;
+	iconsList[ICON_ADD_POWR] = new iconAddPowerBrick(p, config.iconWidth, height, pGame);
 	p.x += config.iconWidth;
 	iconsList[ICON_SAVE] = new iconSaveLevel(p, config.iconWidth, height, pGame);
 	p.x += config.iconWidth;
@@ -413,14 +443,14 @@ void toolbar::draw() const
 {
 	if (pGame->getMode() == 0){
 		pGame->getWind()->DrawRectangle(0, 0, pGame->getWind()->GetWidth(), height);
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < 9; i++)
 			iconsList[i]->draw();
 		iconsList[ICON_EXIT]->draw();
 		iconsList[ICON_PLAY]->draw();
 	}
 	else if (pGame->getMode() == 1) {
 		pGame->getWind()->DrawRectangle(0, 0, pGame->getWind()->GetWidth(), height);
-		for (int i = 8; i < ICON_COUNT; i++)
+		for (int i = 9; i < ICON_COUNT; i++)
 			iconsList[i]->draw();
 	}
 	window* pWind = pGame->getWind();

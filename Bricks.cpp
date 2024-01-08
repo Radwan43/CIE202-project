@@ -49,7 +49,6 @@ normalBrick::normalBrick(point r_uprleft, int r_width, int r_height, game* r_pGa
 
 void normalBrick::collisionAction()
 {
-	activePowerUps.push_back(PowerUp(uprLft, pGame));
 
 	//score change
 	*(pGame->getScore()) += 1;
@@ -57,6 +56,25 @@ void normalBrick::collisionAction()
 	strengthCheck();
 }
 
+
+////////////////////////////////////////////////////  class powerBrick  /////////////////////////////////
+powerBrick::powerBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) :
+	brick(r_uprleft, r_width, r_height, r_pGame, BRK_PWR)
+{
+	imageName = "images\\bricks\\PowerBrick.jpg";
+	this->strength = 1;
+
+}
+
+void powerBrick::collisionAction()
+{
+	activePowerUps.push_back(PowerUp(uprLft, pGame));
+
+	//score change
+	*(pGame->getScore()) += 1;
+	//strength check	
+	strengthCheck();
+}
 
 ////////////////////////////////////////////////////  class hardBrick  /////////////////////////////////
 hardBrick::hardBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) :

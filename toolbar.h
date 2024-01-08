@@ -20,6 +20,7 @@ public:
 	virtual void onClick();
 };
 
+
 ////////////////////////////////////////////////////  class iconAddHardBrick   //////////////////////////////////////////////
 class iconAddHardBrick :public toolbarIcon
 {
@@ -52,6 +53,13 @@ public:
 	virtual void onClick();
 };
 
+////////////////////////////////////////////////////  class iconAddPowerBrick   //////////////////////////////////////////////
+class iconAddPowerBrick :public toolbarIcon
+{
+public:
+	iconAddPowerBrick(point r_uprleft, int r_width, int r_height, game* r_pGame);
+	virtual void onClick();
+};
 //////////////////////////////////////////////////////  class iconSaveLevel   //////////////////////////////////////////////
 class iconSaveLevel :public toolbarIcon
 {
@@ -128,6 +136,7 @@ class toolbar :public drawable
 		ICON_ADD_ROCK,	//add rock brick
 		ICON_ADD_BOMB,	//add bomb brick
 		ICON_ADD_LIFE,	//add bomb brick
+		ICON_ADD_POWR,  //add power brick
 
 		//TODO: Add more icons names here
 

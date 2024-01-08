@@ -40,6 +40,7 @@ void PowerUp::collisionAction()
     else if (random_number == 4) {
         pGame->getBall()->setAttatched(true);
         pGame->getBall()->set_motion(false);
+        pGame->getBall()->setTrajectory(pGame->getBall()->getPI() / 2);
     }
     else if (random_number == 5) {
         pGame->getPaddle()->setSpeed(5);

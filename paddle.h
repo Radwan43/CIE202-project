@@ -4,7 +4,6 @@
 class paddle : public collidable {
 
 private:
-    int width = 100;
     bool inverted = 0;
     int speed = 10;
 public:

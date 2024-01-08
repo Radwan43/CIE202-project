@@ -13,7 +13,8 @@ enum BrickType	//add more brick types
 	BRK_HRD,	//Hard Brick
 	BRK_RCK,	//Rock Brick
 	BRK_BMB, 	//Bomb Brick
-	BRK_LIF		//Life Brick
+	BRK_LIF,	//Life Brick
+	BRK_PWR		//Power Brick   
 
 };
 
@@ -42,6 +43,14 @@ class normalBrick :public brick
 {
 public:
 	normalBrick(point r_uprleft, int r_width, int r_height, game* r_pGame);
+	void collisionAction() override;
+};
+
+////////////////////////////////////////////////////  class powerBrick  /////////////////////////////////
+class powerBrick :public brick
+{
+public:
+	powerBrick(point r_uprleft, int r_width, int r_height, game* r_pGame);
 	void collisionAction() override;
 };
 

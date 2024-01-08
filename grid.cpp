@@ -119,6 +119,9 @@ int grid::addBrick(BrickType brkType, point clickedPoint)
 	case BRK_LIF:
 		brickMatrix[gridCellRowIndex][gridCellColIndex] = new lifeBrick(newBrickUpleft, config.brickWidth, config.brickHeight, pGame);
 		break;
+	case BRK_PWR:
+		brickMatrix[gridCellRowIndex][gridCellColIndex] = new powerBrick(newBrickUpleft, config.brickWidth, config.brickHeight, pGame);
+		break;
 	}
 	return 1;
 }
