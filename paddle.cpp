@@ -105,6 +105,7 @@ void paddle::movePaddle(char key) {
             this->pGame->getWind()->SetBrush(0.5, 0.1, 0.9);
 
             if (pBall->isAttatched()) {
+
                 pBall->MoveAttatchedBall();
                 pBall->draw();
             }

@@ -14,7 +14,6 @@ PowerUp::PowerUp(const point& r_uprleft, game* r_pGame) :
 
 void PowerUp::collisionAction()
 {
-
     std::random_device rd;
     std::mt19937 gen(rd());
 
@@ -29,6 +28,7 @@ void PowerUp::collisionAction()
             , pGame->getPaddle()->getUpperLeft().x + pGame->getPaddle()->getWidth(), pGame->getPaddle()->getUpperLeft().y + 20);
 
         pGame->getPaddle()->setWidth(75);
+        pGame->getPaddle()->draw();
 
     }
     else if (random_number == 2) {
@@ -127,7 +127,7 @@ void PowerUp::movePowerUp() {
     
     this->draw();
 
-    if (uprLft.y > 520) {
+    if (uprLft.y > 500) {
       //  pWin->DrawRectangle(uprLft.x, uprLft.y, uprLft.x + config.brickHeight, uprLft.y + config.brickHeight);
     } else  if (uprLft.y > 600 - config.statusBarHeight) {
         shouldBeRemoved = true;
