@@ -86,7 +86,7 @@ bombBrick::bombBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 void bombBrick::collisionAction()
 {
 	//score change
-	*(pGame->getScore()) += 1;
+	*(pGame->getScore()) += 4;
 	//destruct touching bricks
 	int row = (uprLft.y - config.toolBarHeight) / config.brickHeight;
 	int col = uprLft.x / config.brickWidth;
