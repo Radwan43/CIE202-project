@@ -1,11 +1,14 @@
 #include "GameTimer.h"
 #include <sstream>
+#include <chrono>
 
-GameTimer::GameTimer() : running(false) {}
+GameTimer::GameTimer() : running(false), totalElapsedTime(0) {}
 
 void GameTimer::start() {
-    startTime = std::chrono::steady_clock::now();
-    running = true;
+    if (!running) {
+        startTime = std::chrono::steady_clock::now();
+        running = true;
+    }
 }
 
 
@@ -13,6 +16,13 @@ bool GameTimer::isRunning() {
     return running;
 }
 
+void GameTimer::pause() {
+    if (running) {
+        auto currentTime = std::chrono::steady_clock::now();
+        totalElapsedTime += std::chrono::duration_cast<std::chrono::seconds>(currentTime - startTime).count();
+        running = false;
+    }
+}
 
 void GameTimer::update() {
     // Implementation remains the same as in the previous version
@@ -25,13 +35,15 @@ void GameTimer::stop() {
 std::string GameTimer::getElapsedTimeString() const {
     if (running) {
         auto currentTime = std::chrono::steady_clock::now();
-        auto elapsedTime = std::chrono::duration_cast<std::chrono::seconds>(currentTime - startTime).count();
+        auto elapsedTime = totalElapsedTime + std::chrono::duration_cast<std::chrono::seconds>(currentTime - startTime).count();
 
         std::stringstream ss;
-        ss << elapsedTime;
+        ss << elapsedTime << " seconds";
         return ss.str();
     }
     else {
-        return "0 seconds";
+        std::stringstream ss;
+        ss << totalElapsedTime << " seconds";
+        return ss.str();
     }
 }

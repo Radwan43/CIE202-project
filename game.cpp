@@ -285,7 +285,7 @@ void game::go() const
 								ball->set_motion(false);
 						};
 						if (gameTimer.isRunning()) {
-							gameTimer.stop();
+							gameTimer.pause();
 						}
 					}
 					break;
