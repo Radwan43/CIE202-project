@@ -192,8 +192,6 @@ void game::go() const
 	GameTimer gameTimer;
 	do
 	{	
-		//getKeyboardClick(Key);
-		//thepaddle->movePaddle(Key, thepaddle);
 
 		pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
 
@@ -274,13 +272,7 @@ void game::go() const
 					break;
 				}
 
-				//part for moving the power ups
-				//still need to make the array of powerups
 
-				/*for (int i = 0; i < numPowerUps; i++) {
-					if(powerups[i]!=nullptr)
-					*powerups[i]->move();
-				}*/
 
 				ball->moveBall();
 
@@ -327,11 +319,7 @@ void game::go() const
 					break;
 				}
 
-				if (*gameMode == MODE_PAUSE) {
-					if (ball->isMoving())
-						ball->set_motion(false);
 
-				}
 
 
 

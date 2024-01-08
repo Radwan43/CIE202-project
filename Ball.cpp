@@ -59,7 +59,7 @@ void Ball::setSpeed(double speed) {
 
 void Ball::moveBall() {
 
-    if (moving == 1) {
+    if (moving == 1&& pGame->getMode()!=MODE_PAUSE) {
         window* pWin = pGame->getWind();
         point CollisionPoint;
         int br = 0;
