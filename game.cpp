@@ -301,10 +301,18 @@ void game::go() const
 					if (powerUp.CheckCollision(&powerUp, thepaddle).y != 0) {
 						if (powerUp.CheckCollision(&powerUp, thepaddle).y != 0) {
 							powerUp.collisionAction();
+
+							for (int i = (*activePowerUps).size() - 1; i >= 0; --i) {
+								if (powerUp.shouldBeRemoved) {
+									(*activePowerUps).erase((*activePowerUps).begin() + i);
+								}
+							}
 						}
 					
 					}
 					powerUp.disable(&gameTimer);
+					this->clearStatusBar();
+
 				}
 
 				if (*gameMode == MODE_DSIGN) break;

@@ -57,7 +57,7 @@ void PowerUp::collisionAction()
     }
 
     if (random_number >= 1 && random_number <= 8) {
-        powerUpStartTime = std::stoi(gameTimer->getElapsedTimeString()); // Assuming getElapsedTimeString returns time in seconds as a string
+        powerUpStartTime = std::stoi(gameTimer->getElapsedTimeString()); 
         powerUpActive = true;
         activePowerUp = random_number;
     }
@@ -80,18 +80,23 @@ void PowerUp::disable(GameTimer* gameTimerr) {
 void PowerUp::revertPowerUp() {
     if (activePowerUp == 1) {
 		pGame->getPaddle()->setWidth(100);
+        shouldBeRemoved = true;
 	}
     else if (activePowerUp == 2) {
 		pGame->getPaddle()->setWidth(100);
+        shouldBeRemoved = true;
 	}
     else if (activePowerUp == 3) {
 		pGame->getPaddle()->setInverted(false);
+        shouldBeRemoved = true;
 	}
     else if (activePowerUp == 5) {
 		pGame->getPaddle()->setSpeed(10);
+        shouldBeRemoved = true;
 	}
     else if (activePowerUp == 6) {
 		pGame->getPaddle()->setSpeed(10);
+        shouldBeRemoved = true;
     }
 }
 
@@ -118,12 +123,18 @@ void PowerUp::movePowerUp() {
                 pGrid->getMatrix()[row + 1][column]->draw();
         };
     };
-    uprLft.y = uprLft.y + 3;
+        uprLft.y = uprLft.y + 3;
+    
     this->draw();
 
     if (uprLft.y > 520) {
-        pWin->DrawRectangle(uprLft.x, uprLft.y, uprLft.x + config.brickHeight, uprLft.y + config.brickHeight);
+      //  pWin->DrawRectangle(uprLft.x, uprLft.y, uprLft.x + config.brickHeight, uprLft.y + config.brickHeight);
+    } else  if (uprLft.y > 600 - config.statusBarHeight) {
+        shouldBeRemoved = true;
+        
     }
+
+
 
 }
 

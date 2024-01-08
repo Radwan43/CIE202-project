@@ -21,7 +21,7 @@ enum MODE	//Game mode
 class game
 {
 
-	MODE* gameMoMODE_PAUSEde;
+	MODE* gameMode;
 
 	/// Add more members if needed
 
