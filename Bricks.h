@@ -1,9 +1,11 @@
 #pragma once
 #include "gameConfig.h"
 #include "game.h"
-
+#include "PowerUp.h"
 //This file contains all classes bricks classes 
 #include "collidable.h"
+#include <vector>
+
 
 enum BrickType	//add more brick types
 {
@@ -15,6 +17,7 @@ enum BrickType	//add more brick types
 
 ////////////////////////////////////////////////////  class brick  ///////////////////////////////////////
 //Base class for all bricks
+class PowerUp;
 class brick :public collidable
 {
 private:
@@ -24,6 +27,7 @@ protected:
 public:
 	brick(point r_uprleft, int r_width, int r_height, game* r_pGame,BrickType type);
 	void strengthCheck();
+	static std::vector<PowerUp>* getActivePowerUps();
 	~brick();
 	point getUprleft();
 };

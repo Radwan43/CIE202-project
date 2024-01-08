@@ -32,19 +32,27 @@ private:
     brick* lastcollidedBrick;
     bool moving, attatched;
     double xt, yt;
-    int life;
+
+    int lifes;
+    bool isFireBall;
 
 public:
-    int getLife();
+    double getPI() const;
     bool isMoving();
     bool isAttatched();
     void set_motion(bool moving);
     void setTrajectory(double thetta);
     void setSpeed(double speed);
     void setAttatched(bool attatched);
+    int getLife();
+    void setLife(int life);
     void moveBall();
     void MoveAttatchedBall();
     point getUprleft();
     int getRadius();
+
+    bool getIsFireBall();
+
+    void setIsFireBall(bool change);
 
 };

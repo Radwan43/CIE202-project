@@ -8,7 +8,7 @@ paddle::paddle(const point& r_uprleft, int r_width, int r_height, game* r_pGame)
 {
 
     cout << "this was called in draw new";
-    this->pGame->getWind()->DrawImage("images\\bricks\\NormalBrick.jpg", uprLft.x, getUpperLeft().y, 100, 20);
+    this->pGame->getWind()->DrawImage("images\\bricks\\NormalBrick.jpg", uprLft.x, getUpperLeft().y, getWidth(), 20);
     this->draw();
 
 
@@ -52,21 +52,26 @@ void paddle::movePaddle(char key) {
     
     Ball* pBall = pGame->getBall();
     window* pWin = this->pGame->getWind();
-    int step=10;
+    int step = paddle::speed;
     switch (key) {
     case 'A':
     case 'a':
         if(uprLft.x != 0){
             pWin->SetPen(LAVENDER, 1);
             pWin->SetBrush(LAVENDER);
-            pWin->DrawRectangle(uprLft.x, uprLft.y, uprLft.x + 100, uprLft.y + 20);
+            pWin->DrawRectangle(uprLft.x, uprLft.y, uprLft.x + getWidth(), uprLft.y + 20);
             if (pBall->isAttatched()) {
             pWin->DrawCircle(pBall->getUprleft().x + pBall->getRadius(), pBall->getUprleft().y + pBall->getRadius(), pBall->getRadius());
 
             }
 
-            uprLft.x -= step;
-
+            if (!paddle::inverted) {
+                uprLft.x -= step;
+            }
+            else
+            {
+                uprLft.x += step;
+            }
             this->pGame->getWind()->SetPen(0.5, 0.1, 0.9, 0);
             this->pGame->getWind()->SetBrush(0.5, 0.1, 0.9);
 
@@ -74,7 +79,7 @@ void paddle::movePaddle(char key) {
                 pBall->MoveAttatchedBall();
                 pBall->draw();
             }
-            this->pGame->getWind()->DrawImage("images\\bricks\\NormalBrick.jpg", uprLft.x, getUpperLeft().y, 100, 20);
+            this->pGame->getWind()->DrawImage("images\\bricks\\NormalBrick.jpg", uprLft.x, getUpperLeft().y, getWidth(), 20);
             this->draw();
         }
         break;
@@ -83,14 +88,19 @@ void paddle::movePaddle(char key) {
         if (uprLft.x != 1100) {
             this->pGame->getWind()->SetPen(LAVENDER, 1);
             this->pGame->getWind()->SetBrush(LAVENDER);
-            this->pGame->getWind()->DrawRectangle(uprLft.x, getUpperLeft().y, uprLft.x + 100, uprLft.y + 20);
+            this->pGame->getWind()->DrawRectangle(uprLft.x, getUpperLeft().y, uprLft.x + getWidth(), uprLft.y + 20);
             
             if (pBall->isAttatched()) {
                 pWin->DrawCircle(pBall->getUprleft().x + pBall->getRadius(), pBall->getUprleft().y + pBall->getRadius(), pBall->getRadius());
             }
 
-            uprLft.x += step;
-
+            if (!paddle::inverted) {
+                uprLft.x += step;
+            }
+            else
+            {
+                uprLft.x -= step;
+            }
             this->pGame->getWind()->SetPen(0.5, 0.1, 0.9, 0);
             this->pGame->getWind()->SetBrush(0.5, 0.1, 0.9);
 
@@ -99,11 +109,21 @@ void paddle::movePaddle(char key) {
                 pBall->draw();
             }
 
-            this->pGame->getWind()->DrawImage("images\\bricks\\NormalBrick.jpg", uprLft.x, getUpperLeft().y, 100, 20);
+            this->pGame->getWind()->DrawImage("images\\bricks\\NormalBrick.jpg", uprLft.x, getUpperLeft().y, getWidth(), 20);
             this->draw();
         }
         break;
     }
+}
+
+void paddle::setInverted(bool r_inverted)
+{
+	inverted = r_inverted;
+}
+
+void paddle::setSpeed(int r_speed)
+{
+	speed = r_speed;
 }
 
 normalpaddle::normalpaddle(const point& r_uprleft, int r_width, int r_height, game* r_pGame) :
@@ -129,7 +149,7 @@ void paddle::draw() {
 
     while (int i = 0) {
         cout << "this was called in draw new";
-        this->pGame->getWind()->DrawImage("images\\bricks\\NormalBrick.jpg", uprLft.x, getUpperLeft().y, 100, 20);
+        this->pGame->getWind()->DrawImage("images\\bricks\\NormalBrick.jpg", uprLft.x, getUpperLeft().y, getWidth(), 20);
         this->drawable::draw();
 
 

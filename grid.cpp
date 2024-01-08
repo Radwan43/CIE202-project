@@ -72,8 +72,6 @@ void grid::draw() const
 		for (int j = 0; j < cols; j++)
 			if (brickMatrix[i][j])
 				brickMatrix[i][j]->draw();	//draw exisiting bricks
-
-
 }
 
 brick*** grid::getMatrix() { 

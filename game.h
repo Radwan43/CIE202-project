@@ -34,7 +34,7 @@ class game
 	const string lives= "Lives: ";
 	const string score = "Score: ";
 	const string time = "Time (s): ";
-	int* livesPtr;
+	int lifes;
 	int* scorePtr;
 	int* timePtr;
 
@@ -53,7 +53,10 @@ public:
 	int* getScore()const;
 
 	int* getTimer()const;
-	int* getLives()const;
+
+	int getLives()const;
+	void setLives(int life);
+
 
 	void clearStatusBar() const;	//Clears the status bar
 
@@ -73,6 +76,7 @@ public:
 	paddle* getPaddle() const;
 
 	Ball* getBall() const;
+
 
 	// add the ball
 

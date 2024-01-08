@@ -1,12 +1,12 @@
 #include "collidable.h"
 
 collidable::collidable(point r_uprleft, int r_width, int r_height, game* r_pGame) :
-    drawable(r_uprleft, r_width, r_height, r_pGame)
+	drawable(r_uprleft, r_width, r_height, r_pGame)
 {
 }
 
 collidable::collidable(point r_uprleft, int r_width, int r_height, game* r_pGame, const string& shapeType) :
-    drawable(r_uprleft, r_width, r_height, r_pGame, shapeType)
+	drawable(r_uprleft, r_width, r_height, r_pGame, shapeType)
 {
 }
 
@@ -59,9 +59,9 @@ point collidable::CheckCollision(collidable* object1, collidable* object2) {
 		}
 
 	}
-	else if (is_collided(point1.y, point2.y, point1.x, point2.x, -height1, -height2, width2, width1)) { //collision on vertical
+	else if (is_collided(point1.y, point2.y, point1.x, point2.x, -height2, -height1, width2, width1)) { //collision on vertical
 
-		if (point1.y == point2.y - height2) { CollisionPoint.y = point1.y; }
+		if (point1.y == point2.y + height2) { CollisionPoint.y = point1.y; }
 		else { CollisionPoint.y = point2.y; };
 
 		if (point1.x >= point2.x) {

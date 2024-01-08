@@ -2,6 +2,8 @@
 
 enum MODE;
 
+static std::vector<PowerUp>* activePowerUps;
+
 game* thisGame; 
 game::game()
 {
@@ -44,8 +46,6 @@ game::game()
 	//7- Create the score, time, and lives
 	timePtr = new int;
 	*timePtr = 0;
-	livesPtr = new int;
-	*livesPtr = 3;
 	scorePtr = new int;
 	*scorePtr = 0;
 	
@@ -172,8 +172,13 @@ int* game::getTimer() const {
 }
 
 
-int* game::getLives() const {
-	return livesPtr;
+int game::getLives() const {
+	return lifes;
+}
+
+void game::setLives(int life)
+{
+	lifes = life;
 }
 
 
@@ -193,6 +198,7 @@ void game::go() const
 
 	GameTimer gameTimer;
 	gameTimer.start();
+	bool printcounter = 0;
 
 	do
 	{	
@@ -220,21 +226,37 @@ void game::go() const
 
 
 
-					pWind->SetPen(RED,1);
-					pWind->SetBrush(RED);
-					pWind->DrawRectangle(700 , 10, 10 + 700, 20);
-					pWind->DrawRectangle(720, 10, 10 + 720, 20);
-					pWind->DrawRectangle(740, 10, 10 + 740, 20);
+				pWind->SetPen(RED, 1);
+				pWind->SetBrush(RED);
+				if (!printcounter) {
+					pWind->DrawImage("images\\lifeheart.jpg", 750, 10, 20, 20);
+					pWind->DrawImage("images\\lifeheart.jpg", 780, 10, 20, 20);
+					pWind->DrawImage("images\\lifeheart.jpg", 810, 10, 20, 20);
+					printcounter = 1;
+				}
 
-					pWind->SetPen(LAVENDER, 1);
-					pWind->SetBrush(LAVENDER);
-					pWind->DrawRectangle(900, config.toolBarHeight - 20, 920, 40);
-					pWind->SetPen(config.penColor, 50);
-					pWind->SetFont(24, BOLD, BY_NAME, "Arial");
-					pWind->DrawString(900, config.toolBarHeight - 20, gameTimer.getElapsedTimeString());
-					//pWind->SetPen(LAVENDER, 1);
-					//pWind->SetBrush(LAVENDER);
-					//pWind->DrawRectangle(900, config.toolBarHeight - 20, 920, 50);
+				if (getLives() == 2) {
+					pWind->SetPen(config.bkGrndColor, 1);
+					pWind->SetBrush(config.bkGrndColor);
+					pWind->DrawRectangle(810, 10, 840, 30);
+				}
+				else if (getLives() == 1) {
+					pWind->SetPen(config.bkGrndColor, 1);
+					pWind->SetBrush(config.bkGrndColor);
+					pWind->DrawRectangle(780, 10, 810, 30);
+				}
+				else if (getLives() == 0) {
+					pWind->SetPen(config.bkGrndColor, 1);
+					pWind->SetBrush(config.bkGrndColor);
+					pWind->DrawRectangle(750, 10, 780, 30);
+				}
+
+				pWind->SetPen(LAVENDER, 1);
+				pWind->SetBrush(LAVENDER);
+				pWind->DrawRectangle(900, 10, 1100, 40);
+				pWind->SetPen(config.penColor, 50);
+				pWind->SetFont(24, BOLD, BY_NAME, "Arial");
+				pWind->DrawString(900, 10, gameTimer.getElapsedTimeString());
 
 
 				/*	if (ball->getLife() = 2) {
@@ -266,6 +288,22 @@ void game::go() const
 				ball->moveBall();
 
 				thepaddle->movePaddle(Key);
+
+
+				activePowerUps = brick::getActivePowerUps();
+
+				for (PowerUp& powerUp : *activePowerUps) {
+					powerUp.movePowerUp();
+
+					if (powerUp.CheckCollision(&powerUp, thepaddle).y != 0) {
+						powerUp.collisionAction();
+						if (powerUp.CheckCollision(&powerUp, thepaddle).y != 0) {
+							powerUp.collisionAction();
+						}
+					
+					}
+					powerUp.disable(gameTimer);
+				}
 
 				if (*gameMode == MODE_DSIGN) break;
 
