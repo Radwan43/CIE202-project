@@ -50,20 +50,22 @@ iconAddRockBrick::iconAddRockBrick(point r_uprleft, int r_width, int r_height, g
 
 void iconAddRockBrick::onClick()
 {
-	pGame->printMessage("Click on empty cells to add Rock Bricks  ==> Right-Click to stop <==");
-	int x, y;
-	clicktype t = pGame->waitMouseClick(x, y);
-	while (t == LEFT_CLICK)
-	{
-		point clicked;
-		clicked.x = x;
-		clicked.y = y;
-		grid* pGrid = pGame->getGrid();
-		pGrid->addBrick(BRK_RCK, clicked);
-		pGrid->draw();
-		t = pGame->waitMouseClick(x, y);
+	if (pGame->getMode() == 0) {
+		pGame->printMessage("Click on empty cells to add Rock Bricks  ==> Right-Click to stop <==");
+		int x, y;
+		clicktype t = pGame->waitMouseClick(x, y);
+		while (t == LEFT_CLICK)
+		{
+			point clicked;
+			clicked.x = x;
+			clicked.y = y;
+			grid* pGrid = pGame->getGrid();
+			pGrid->addBrick(BRK_RCK, clicked);
+			pGrid->draw();
+			t = pGame->waitMouseClick(x, y);
+		}
+		pGame->printMessage("");
 	}
-	pGame->printMessage("");
 }
 
 ////////////////////////////////////////////////////  class iconAddBombBrick   //////////////////////////////////////////////
@@ -73,20 +75,22 @@ iconAddBombBrick::iconAddBombBrick(point r_uprleft, int r_width, int r_height, g
 
 void iconAddBombBrick::onClick()
 {
-	pGame->printMessage("Click on empty cells to add Bomb Bricks  ==> Right-Click to stop <==");
-	int x, y;
-	clicktype t = pGame->waitMouseClick(x, y);
-	while (t == LEFT_CLICK)
-	{
-		point clicked;
-		clicked.x = x;
-		clicked.y = y;
-		grid* pGrid = pGame->getGrid();
-		pGrid->addBrick(BRK_BMB, clicked);
-		pGrid->draw();
-		t = pGame->waitMouseClick(x, y);
+	if (pGame->getMode() == 0) {
+		pGame->printMessage("Click on empty cells to add Bomb Bricks  ==> Right-Click to stop <==");
+		int x, y;
+		clicktype t = pGame->waitMouseClick(x, y);
+		while (t == LEFT_CLICK)
+		{
+			point clicked;
+			clicked.x = x;
+			clicked.y = y;
+			grid* pGrid = pGame->getGrid();
+			pGrid->addBrick(BRK_BMB, clicked);
+			pGrid->draw();
+			t = pGame->waitMouseClick(x, y);
+		}
+		pGame->printMessage("");
 	}
-	pGame->printMessage("");
 }
 
 ////////////////////////////////////////////////////  class iconSaveLevel   //////////////////////////////////////////////
@@ -97,26 +101,28 @@ iconSaveLevel::iconSaveLevel(point r_uprleft, int r_width, int r_height, game* r
 
 void iconSaveLevel::onClick()
 {
-	ofstream saveFile("save.txt");
-	if (saveFile.is_open())
-	{
+	if (pGame->getMode() == 0) {
+		ofstream saveFile("save.txt");
+		if (saveFile.is_open())
+		{
 			for (int i = 0; i < pGame->getGrid()->getrows(); i++)
 			{
 				for (int j = 0; j < pGame->getGrid()->getcols(); j++)
 				{
 					if (pGame->getGrid()->getMatrix()[i][j] != NULL)
 					{
-						saveFile << i << "\t" << j << "\t" << pGame->getGrid()->getMatrix()[i][j]->getType()<< endl;
+						saveFile << i << "\t" << j << "\t" << pGame->getGrid()->getMatrix()[i][j]->getType() << endl;
 					}
 				}
 			}
 			saveFile.close();
-			
+
 		}
-	else
-	{
+		else
+		{
 			pGame->printMessage("Error opening save file");
 		}
+	}
 		
 
 }
@@ -129,28 +135,28 @@ iconDelBrick::iconDelBrick(point r_uprleft, int r_width, int r_height, game* r_p
 
 void iconDelBrick::onClick()
 {
+	if (pGame->getMode() == 0) {
+		pGame->printMessage("Click on bricks cells to delete  ==> Right-Click to stop <==");
+		int x, y;
+		clicktype t = pGame->waitMouseClick(x, y);
+		while (t == LEFT_CLICK)
+		{
 
+			if (y > config.toolBarHeight && y < config.gridHeight + config.toolBarHeight) {
 
-
-	pGame->printMessage("Click on bricks cells to delete  ==> Right-Click to stop <==");
-	int x, y;
-	clicktype t = pGame->waitMouseClick(x, y);
-	while (t == LEFT_CLICK)
-	{	
-		if (y > config.toolBarHeight&& y< config.gridHeight + config.toolBarHeight) {
-
-			point clicked;
-			clicked.x = x;
-			clicked.y = y;
-			grid* pGrid = pGame->getGrid();
-			if (pGame->getGrid()->getMatrix()[(clicked.y - uprLft.y) / config.brickHeight - 1][clicked.x / config.brickWidth] != NULL) {
-				delete pGame->getGrid()->getMatrix()[(clicked.y - uprLft.y) / config.brickHeight - 1][clicked.x / config.brickWidth];
-				pGrid->draw();
-			};
-			t = pGame->waitMouseClick(x, y);
+				point clicked;
+				clicked.x = x;
+				clicked.y = y;
+				grid* pGrid = pGame->getGrid();
+				if (pGame->getGrid()->getMatrix()[(clicked.y - uprLft.y) / config.brickHeight - 1][clicked.x / config.brickWidth] != NULL) {
+					delete pGame->getGrid()->getMatrix()[(clicked.y - uprLft.y) / config.brickHeight - 1][clicked.x / config.brickWidth];
+					pGrid->draw();
+				};
+				t = pGame->waitMouseClick(x, y);
+			}
 		}
-	}
-	pGame->printMessage("");
+		pGame->printMessage("");
+	};
 
 }
 
@@ -162,6 +168,39 @@ iconLoadLevel::iconLoadLevel(point r_uprleft, int r_width, int r_height, game* r
 
 void iconLoadLevel::onClick()
 {
+	if (pGame->getMode() == 0) {
+			ifstream loadFile("save.txt");
+			if (loadFile.is_open())
+			{
+				for (int i = 0; i < pGame->getGrid()->getrows(); i++)
+				{
+					for (int j = 0; j < pGame->getGrid()->getcols(); j++)
+					{
+						if (pGame->getGrid()->getMatrix()[i][j] != NULL)
+						{
+							delete pGame->getGrid()->getMatrix()[i][j];
+						}
+					}
+				}
+				pGame->getGrid()->draw();
+				int row, col;
+				int type;
+				while (loadFile >> row >> col >> type)
+				{
+					point index;
+					index.x = col * config.brickWidth;
+					index.y = row * config.brickHeight + config.toolBarHeight;
+					grid* pGrid = pGame->getGrid();
+					pGrid->addBrick((BrickType)type, index);
+					pGrid->draw();
+				}
+				loadFile.close();
+			}
+			else
+			{
+				pGame->printMessage("Error opening save file, make sure the ''save.txt'' file is in the game directory");
+			}
+		}
 
 }
 ////////////////////////////////////////////////////  class iconPlay   //////////////////////////////////////////////
@@ -244,7 +283,8 @@ iconExit::iconExit(point r_uprleft, int r_width, int r_height, game* r_pGame) :
 
 void iconExit::onClick()
 {
-	//TO DO: add code for cleanup and game exit here
+	
+
 }
 
 
@@ -320,8 +360,18 @@ toolbar::~toolbar()
 
 void toolbar::draw() const
 {
-	for (int i = 0; i < ICON_COUNT; i++)
-		iconsList[i]->draw();
+	if (pGame->getMode() == 0){
+		pGame->getWind()->DrawRectangle(0, 0, pGame->getWind()->GetWidth(), height);
+		for (int i = 0; i < 7; i++)
+			iconsList[i]->draw();
+		iconsList[ICON_EXIT]->draw();
+		iconsList[ICON_PLAY]->draw();
+	}
+	else if (pGame->getMode() == 1) {
+		pGame->getWind()->DrawRectangle(0, 0, pGame->getWind()->GetWidth(), height);
+		for (int i = 7; i < ICON_COUNT; i++)
+			iconsList[i]->draw();
+	}
 	window* pWind = pGame->getWind();
 	pWind->SetPen(RED, 3);
 	pWind->DrawLine(0, height, pWind->GetWidth(), height);
