@@ -7,7 +7,6 @@ Ball::Ball(point r_uprleft, int r_radius, game* r_pGame) :
 {
     thetta = PI/2;
 
-    life = 3;
 
     speed = 4;
     xt = 0;
@@ -57,13 +56,7 @@ void Ball::setSpeed(double speed) {
     this->speed = speed;
 }
 
-void Ball::setLife(int Life) {
-    this->life = Life;
-}
 
-int Ball::getLife() {
-    return life;
-}
 void Ball::moveBall() {
 
     if (moving == 1) {

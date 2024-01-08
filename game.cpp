@@ -290,6 +290,13 @@ void game::go() const
 					}
 				}
 
+				if (*livesPtr == 0) {
+					//GAME OVER SEQUENCE
+					string scoreSTR = to_string(*scorePtr);
+					printMessage("GAME OVER! Your score is: " + scoreSTR);
+					*gameMode = MODE_DSIGN;
+				};
+
 				if (BrickNumber == 0) {
 					//END GAME SEQUENCE
 					string scoreSTR = to_string(*scorePtr);
@@ -301,12 +308,12 @@ void game::go() const
 				if (*gameMode == MODE_DSIGN) {
 					ball->setAttatched(1);
 					ball->set_motion(false);
-					ball->setLife(3);
+					*livesPtr=3;
 					ball->setTrajectory(ball->getPI() / 2);
 					ball->setSpeed(4);
 					thepaddle->CentrePaddle();
 					*scorePtr = 0;
-
+					
 
 					break;
 				}

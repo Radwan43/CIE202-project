@@ -32,18 +32,15 @@ private:
     brick* lastcollidedBrick;
     bool moving, attatched;
     double xt, yt;
-    int life;
 
 public:
     double getPI() const;
-    int getLife();
     bool isMoving();
     bool isAttatched();
     void set_motion(bool moving);
     void setTrajectory(double thetta);
     void setSpeed(double speed);
     void setAttatched(bool attatched);
-    void setLife(int Lives);
     void moveBall();
     void MoveAttatchedBall();
     point getUprleft();
