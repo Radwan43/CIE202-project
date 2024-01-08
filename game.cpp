@@ -7,6 +7,7 @@ static std::vector<PowerUp>* activePowerUps;
 game* thisGame; 
 game::game()
 {
+	score = 0;
 	thisGame = this;
 	//Initialize playgrond parameters
 	gameMode = new MODE(MODE_DSIGN);
@@ -249,6 +250,10 @@ void game::go() const
 				pWind->SetPen(config.penColor, 50);
 				pWind->SetFont(24, BOLD, BY_NAME, "Arial");
 				pWind->DrawString(300, 10, gameTimer.getElapsedTimeString());
+				pWind->DrawString(950, 10, std::to_string(*scorePtr));
+
+
+
 
 
 				if (!ball->isAttatched()&&!ball->isMoving()) {
