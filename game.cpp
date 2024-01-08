@@ -231,17 +231,17 @@ void game::go() const
 					printcounter = 1;
 				}
 
-				if (getLives() == 2) {
+				if (*livesPtr == 2) {
 					pWind->SetPen(config.bkGrndColor, 1);
 					pWind->SetBrush(config.bkGrndColor);
 					pWind->DrawRectangle(810, 10, 840, 30);
 				}
-				else if (getLives() == 1) {
+				else if (*livesPtr == 1) {
 					pWind->SetPen(config.bkGrndColor, 1);
 					pWind->SetBrush(config.bkGrndColor);
 					pWind->DrawRectangle(780, 10, 810, 30);
 				}
-				else if (getLives() == 0) {
+				else if (*livesPtr == 0) {
 					pWind->SetPen(config.bkGrndColor, 1);
 					pWind->SetBrush(config.bkGrndColor);
 					pWind->DrawRectangle(750, 10, 780, 30);
