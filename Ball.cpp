@@ -5,7 +5,7 @@ Ball::Ball(point r_uprleft, int r_radius, game* r_pGame) :
     collidable({ r_uprleft.x - r_radius ,r_uprleft.y }, 2 * r_radius, 2 * r_radius, r_pGame, "circle"),
     radius(r_radius)
 {
-    thetta = PI/2;
+    thetta = PI / 2;
 
 
     speed = 4;
@@ -74,11 +74,11 @@ void Ball::moveBall() {
 
 
             if (abs(xt) >= 1) {
-                this->uprLft.x += xt/ abs(xt);
+                this->uprLft.x += xt / abs(xt);
                 xt -= xt / abs(xt);
             };
             if (abs(yt) >= 1) {
-                this->uprLft.y -= yt/abs(yt);
+                this->uprLft.y -= yt / abs(yt);
                 yt -= yt / abs(yt);
             };
 
@@ -90,7 +90,7 @@ void Ball::moveBall() {
                             collidedWithBrick = true;
                             lastcollidedBrick = pGame->getGrid()->getMatrix()[row][col];
 
-                            cout <<endl<< "collided with brick" << endl;
+                            cout << endl << "collided with brick" << endl;
 
                             cout << endl << "ball x: " << this->uprLft.x;
                             cout << endl << "ball y: " << this->uprLft.y;
@@ -158,7 +158,7 @@ void Ball::collisionAction() {
     bool topRcol = false;
     bool bottomLcol = false;
     bool bottomRcol = false;
-    point brickuprlft= { 0,0 };
+    point brickuprlft = { 0,0 };
     if (lastcollidedBrick) {
         brickuprlft = lastcollidedBrick->getUprleft();
     }
@@ -174,7 +174,7 @@ void Ball::collisionAction() {
     //collision action with bricks and walls
     if (topLcol || topRcol || bottomLcol || bottomRcol) {
         thetta = PI + thetta;
-        topLcol= topRcol= bottomLcol= bottomRcol = false;
+        topLcol = topRcol = bottomLcol = bottomRcol = false;
         collidedWithBrick = false;
     }
     else if (collidedWithBrick || collidedWithWallBottom || collidedWithWallLeft || collidedWithWallRight || collidedWithWallTop) {
@@ -199,7 +199,7 @@ void Ball::collisionAction() {
             uprLft.y++;
         }
         else if (collidedWithWallBottom) { //destrust ball and respawn on paddle and decrement life by 1
-            *(pGame->getLives())-=1;
+            pGame->setLives(getLife() - 1);
             this->setAttatched(1);
             this->MoveAttatchedBall();
             this->set_motion(0);
@@ -240,17 +240,17 @@ void Ball::collisionAction() {
         thetta = newTheta;
         collidedWithPaddle = false;
     }
-    
+
     xt = 0;
     yt = 0;
     pGame->getGrid()->draw();
 
     return;
-}   
+}
 
 
 void Ball::MoveAttatchedBall() {
     paddle* pPaddle = pGame->getPaddle();
-    this->uprLft.x = pPaddle->getUpperLeft().x + pPaddle->getWidth()/2 - this->radius;
+    this->uprLft.x = pPaddle->getUpperLeft().x + pPaddle->getWidth() / 2 - this->radius;
     this->uprLft.y = 480;
 }

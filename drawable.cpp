@@ -10,7 +10,6 @@ drawable::drawable(point r_uprleft, int r_width, int r_height, game* r_pGame, co
 
 void drawable::draw() const
 {
-    cout << endl << "drawing function called" << endl << uprLft.x;
 
     // Draw image or shape based on the drawType
     window* pWind = pGame->getWind();

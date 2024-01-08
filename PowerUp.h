@@ -2,17 +2,29 @@
 #include "collidable.h"
 #include "Bricks.h"
 #include "game.h"
+#include "GameTimer.h"
 
-enum PowerType {
-
-};
-
-class Power :public collidable{
+class brick;
+class PowerUp : public collidable
+{
 private:
-	PowerType type;
-public:
-	Power(const point& r_uprleft, game* r_pGame,PowerType power);
-	void movePower();
-	//void collisionAction() override;
+	bool isActivated = false;
 
+	int powerUpStartTime;
+	bool powerUpActive = false;
+	int activePowerUp = 0;
+
+public:
+	PowerUp(const point& r_uprleft, game* r_pGame);
+
+	void collisionAction() override;
+
+	void disable(GameTimer& gameTimer);
+
+	void revertPowerUp();
+
+	void movePowerUp();
+
+	void activatePowerUp();
+	bool isActivatedPowerUp();
 };
