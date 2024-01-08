@@ -24,23 +24,26 @@ iconAddHardBrick::iconAddHardBrick(point r_uprleft, int r_width, int r_height, g
 {}
 
 void iconAddHardBrick::onClick()
-{
-	pGame->printMessage("Click on empty cells to add Hard Bricks  ==> Right-Click to stop <==");
-	int x, y;
-	clicktype t = pGame->waitMouseClick(x, y);
-	while (t == LEFT_CLICK)
-	{
-		point clicked;
-		clicked.x = x;
-		clicked.y = y;
-		if (y > config.toolBarHeight && y < config.gridHeight + config.toolBarHeight) {
-			grid* pGrid = pGame->getGrid();
-			pGrid->addBrick(BRK_HRD, clicked);
-			pGrid->draw();
-		};
-		t = pGame->waitMouseClick(x, y);
-	}
-	pGame->printMessage("");
+{	
+	if (pGame->getMode() == MODE_DSIGN) {
+
+		pGame->printMessage("Click on empty cells to add Hard Bricks  ==> Right-Click to stop <==");
+		int x, y;
+		clicktype t = pGame->waitMouseClick(x, y);
+		while (t == LEFT_CLICK)
+		{
+			point clicked;
+			clicked.x = x;
+			clicked.y = y;
+			if (y > config.toolBarHeight && y < config.gridHeight + config.toolBarHeight) {
+				grid* pGrid = pGame->getGrid();
+				pGrid->addBrick(BRK_HRD, clicked);
+				pGrid->draw();
+			};
+			t = pGame->waitMouseClick(x, y);
+		}
+		pGame->printMessage("");
+	};
 }
 
 ////////////////////////////////////////////////////  class iconAddRockBrick   //////////////////////////////////////////////
@@ -50,7 +53,7 @@ iconAddRockBrick::iconAddRockBrick(point r_uprleft, int r_width, int r_height, g
 
 void iconAddRockBrick::onClick()
 {
-	if (pGame->getMode() == 0) {
+	if (pGame->getMode() == MODE_DSIGN) {
 		pGame->printMessage("Click on empty cells to add Rock Bricks  ==> Right-Click to stop <==");
 		int x, y;
 		clicktype t = pGame->waitMouseClick(x, y);
@@ -59,9 +62,12 @@ void iconAddRockBrick::onClick()
 			point clicked;
 			clicked.x = x;
 			clicked.y = y;
-			grid* pGrid = pGame->getGrid();
-			pGrid->addBrick(BRK_RCK, clicked);
-			pGrid->draw();
+			if (y > config.toolBarHeight && y < config.gridHeight + config.toolBarHeight) {
+
+				grid* pGrid = pGame->getGrid();
+				pGrid->addBrick(BRK_RCK, clicked);
+				pGrid->draw();
+			};
 			t = pGame->waitMouseClick(x, y);
 		}
 		pGame->printMessage("");
@@ -75,7 +81,7 @@ iconAddBombBrick::iconAddBombBrick(point r_uprleft, int r_width, int r_height, g
 
 void iconAddBombBrick::onClick()
 {
-	if (pGame->getMode() == 0) {
+	if (pGame->getMode() == MODE_DSIGN) {
 		pGame->printMessage("Click on empty cells to add Bomb Bricks  ==> Right-Click to stop <==");
 		int x, y;
 		clicktype t = pGame->waitMouseClick(x, y);
@@ -84,9 +90,11 @@ void iconAddBombBrick::onClick()
 			point clicked;
 			clicked.x = x;
 			clicked.y = y;
-			grid* pGrid = pGame->getGrid();
-			pGrid->addBrick(BRK_BMB, clicked);
-			pGrid->draw();
+			if (y > config.toolBarHeight && y < config.gridHeight + config.toolBarHeight) {
+				grid* pGrid = pGame->getGrid();
+				pGrid->addBrick(BRK_BMB, clicked);
+				pGrid->draw();
+			};
 			t = pGame->waitMouseClick(x, y);
 		}
 		pGame->printMessage("");
@@ -101,7 +109,7 @@ iconSaveLevel::iconSaveLevel(point r_uprleft, int r_width, int r_height, game* r
 
 void iconSaveLevel::onClick()
 {
-	if (pGame->getMode() == 0) {
+	if (pGame->getMode() == MODE_DSIGN) {
 		ofstream saveFile("save.txt");
 		if (saveFile.is_open())
 		{
@@ -135,7 +143,7 @@ iconDelBrick::iconDelBrick(point r_uprleft, int r_width, int r_height, game* r_p
 
 void iconDelBrick::onClick()
 {
-	if (pGame->getMode() == 0) {
+	if (pGame->getMode() == MODE_DSIGN) {
 		pGame->printMessage("Click on bricks cells to delete  ==> Right-Click to stop <==");
 		int x, y;
 		clicktype t = pGame->waitMouseClick(x, y);
@@ -168,7 +176,7 @@ iconLoadLevel::iconLoadLevel(point r_uprleft, int r_width, int r_height, game* r
 
 void iconLoadLevel::onClick()
 {
-	if (pGame->getMode() == 0) {
+	if (pGame->getMode() == MODE_DSIGN) {
 			ifstream loadFile("save.txt");
 			if (loadFile.is_open())
 			{
@@ -210,7 +218,7 @@ iconPlay::iconPlay(point r_uprleft, int r_width, int r_height, game* r_pGame) :
 {}
 
 void iconPlay::onClick()
-{
+{	
 	pGame->setMode(MODE_PLAY);
 	//TO DO: add code for cleanup and game exit here
 
@@ -222,9 +230,12 @@ iconPause::iconPause(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 {}
 
 void iconPause::onClick()
-{
-	//TO DO: add code for cleanup and game exit here
-	pGame->setMode(MODE_PAUSE);
+{	
+	if (pGame->getMode() == MODE_PLAY) {
+
+		//TO DO: add code for cleanup and game exit here
+		pGame->setMode(MODE_PAUSE);
+	};
 }
 ////////////////////////////////////////////////////  class iconContinue   //////////////////////////////////////////////
 
@@ -234,8 +245,11 @@ iconContinue::iconContinue(point r_uprleft, int r_width, int r_height, game* r_p
 
 void iconContinue::onClick()
 {
-	pGame->setMode(MODE_PLAY);
-	//TO DO: add code for cleanup and game exit here
+	if (pGame->getMode() == MODE_PAUSE) {
+
+		pGame->setMode(MODE_PLAY);
+		//TO DO: add code for cleanup and game exit here
+	};
 
 }
 
@@ -247,33 +261,38 @@ iconStop::iconStop(point r_uprleft, int r_width, int r_height, game* r_pGame) :
 
 void iconStop::onClick()
 {
-	pGame->setMode(MODE_DSIGN);
-	//TO DO: add code for cleanup and game exit here
+	if (pGame->getMode() == MODE_PAUSE || pGame->getMode() == MODE_PLAY) {
+
+		pGame->setMode(MODE_DSIGN);
+		//TO DO: add code for cleanup and game exit here
+	};
 
 }
 
 
 void iconAddNormalBrick::onClick()
 {
+	if (pGame->getMode() == MODE_DSIGN) {
 
-	pGame->printMessage("Click on empty cells to add Normal Bricks  ==> Right-Click to stop <==");
-	int x, y;
-	clicktype t = pGame->waitMouseClick(x, y);
-	while (t == LEFT_CLICK)
-	{
-		point clicked;
-		clicked.x = x;
-		clicked.y = y;
-		if (y > config.toolBarHeight && y < config.gridHeight + config.toolBarHeight) {
+		pGame->printMessage("Click on empty cells to add Normal Bricks  ==> Right-Click to stop <==");
+		int x, y;
+		clicktype t = pGame->waitMouseClick(x, y);
+		while (t == LEFT_CLICK)
+		{
+			point clicked;
+			clicked.x = x;
+			clicked.y = y;
+			if (y > config.toolBarHeight && y < config.gridHeight + config.toolBarHeight) {
 
-			grid* pGrid = pGame->getGrid();
-			pGrid->addBrick(BRK_NRM, clicked);
-			pGrid->draw();
-		};
-		t = pGame->waitMouseClick(x, y);
-	}
-	pGame->printMessage("");
+				grid* pGrid = pGame->getGrid();
+				pGrid->addBrick(BRK_NRM, clicked);
+				pGrid->draw();
+			};
+			t = pGame->waitMouseClick(x, y);
+		}
+		pGame->printMessage("");
 
+	};
 }
 
 ////////////////////////////////////////////////////  class iconExit   //////////////////////////////////////////////
