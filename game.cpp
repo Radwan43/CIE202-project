@@ -255,11 +255,11 @@ void game::go() const
 
 				pWind->SetPen(config.statusBarColor, 1);
 				pWind->SetBrush(config.statusBarColor);
-				pWind->DrawRectangle(300, 10, 500, 40);
+				pWind->DrawRectangle(300, 10, 550, 40);
 				pWind->SetPen(config.penColor, 50);
 				pWind->SetFont(24, BOLD, BY_NAME, "Arial");
 				pWind->DrawString(300, 10, gameTimer.getElapsedTimeString());
-				pWind->DrawString(950, 10, std::to_string(*scorePtr));
+				pWind->DrawString(450, 10, "score: "+std::to_string(*scorePtr));
 
 
 
