@@ -7,6 +7,7 @@ static std::vector<PowerUp>* activePowerUps;
 game* thisGame; 
 game::game()
 {
+	score = 0;
 	thisGame = this;
 	//Initialize playgrond parameters
 	gameMode = new MODE(MODE_DSIGN);
@@ -43,11 +44,6 @@ game::game()
 	//6- Create and clear the status bar
 	clearStatusBar();
 
-	//7- Create the score, time, and lives
-	timePtr = new int;
-	*timePtr = 0;
-	scorePtr = new int;
-	*scorePtr = 0;
 	
 }
 
@@ -159,16 +155,16 @@ Ball* game::getBall() const {
 	return ball;
 }
 
-
-
-int* game::getScore() const {
-	return scorePtr;
+int game::getScore() const
+{
+	return *scorePtr; // Dereferencing the pointer to get the value of score
 }
 
-
-
-int* game::getTimer() const {
-	return timePtr;
+void game::incScore()
+{
+	//if (scorePtr){
+	//(*scorePtr)++; 
+	//}
 }
 
 
@@ -257,6 +253,8 @@ void game::go() const
 				pWind->SetPen(config.penColor, 50);
 				pWind->SetFont(24, BOLD, BY_NAME, "Arial");
 				pWind->DrawString(900, 10, gameTimer.getElapsedTimeString());
+				int scoreDisplay = getScore();
+				pWind->DrawString(950, 10, std::to_string(scoreDisplay));
 
 
 				/*	if (ball->getLife() = 2) {
@@ -296,7 +294,6 @@ void game::go() const
 					powerUp.movePowerUp();
 
 					if (powerUp.CheckCollision(&powerUp, thepaddle).y != 0) {
-						powerUp.collisionAction();
 						if (powerUp.CheckCollision(&powerUp, thepaddle).y != 0) {
 							powerUp.collisionAction();
 						}

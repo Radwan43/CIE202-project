@@ -16,8 +16,6 @@ Ball::Ball(point r_uprleft, int r_radius, game* r_pGame) :
     lastcollidedBrick = nullptr;
     moving = 0;
     attatched = 1;
-
-    lifes = 3;
 }
 
 double Ball::getPI() const {
@@ -54,11 +52,6 @@ int Ball::getLife()
     return lifes;
 }
 
-void Ball::setLife(int life)
-{
-	lifes = life;
-}
-
 void Ball::setTrajectory(double thetta) {
     this->thetta = thetta;
 
@@ -71,7 +64,7 @@ void Ball::setSpeed(double speed) {
 
 void Ball::moveBall() {
 
-    if (moving == 1) {
+    if (moving == 1 && pGame->getMode() != MODE_PAUSE) {
         window* pWin = pGame->getWind();
         point CollisionPoint;
         int br = 0;
@@ -210,6 +203,7 @@ void Ball::collisionAction() {
             collidedWithWallTop = false;
             uprLft.y++;
         }
+
         else if (collidedWithWallBottom) { //destrust ball and respawn on paddle and decrement life by 1
             pGame->setLives(getLife() - 1);
             this->setAttatched(1);

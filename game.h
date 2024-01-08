@@ -11,16 +11,17 @@
 class grid;
 class Ball;
 //Main class that coordinates the game operation
+
+enum MODE	//Game mode
+{
+	MODE_DSIGN,	//Desing mode (startup mode)
+	MODE_PLAY,
+	MODE_PAUSE
+};
 class game
 {
 
-	enum MODE	//Game mode
-	{
-		MODE_DSIGN,	//Desing mode (startup mode)
-		MODE_PLAY	//Playing mode
-	};
-
-	MODE* gameMode;
+	MODE* gameMoMODE_PAUSEde;
 
 	/// Add more members if needed
 
@@ -32,11 +33,10 @@ class game
 	paddle* thepaddle;
 	Ball* ball;
 	const string lives= "Lives: ";
-	const string score = "Score: ";
 	const string time = "Time (s): ";
 	int lifes;
-	int* scorePtr;
-	int* timePtr;
+	int score = 0;        
+	int* scorePtr = &score; 
 
 public:
 	game();
@@ -50,9 +50,7 @@ public:
 
 	window* CreateWind(int, int, int, int) const; //creates the game window
 
-	int* getScore()const;
 
-	int* getTimer()const;
 
 	int getLives()const;
 	void setLives(int life);
@@ -77,6 +75,8 @@ public:
 
 	Ball* getBall() const;
 
+	int getScore() const;
+	void incScore();
 
 	// add the ball
 

@@ -49,9 +49,10 @@ void normalBrick::collisionAction()
 	activePowerUps.push_back(PowerUp(uprLft, pGame));
 
 	//score change
-	*(pGame->getScore()) += 1;
 	//strength check	
 	strengthCheck();
+	pGame->incScore();
+
 }
 
 
@@ -61,12 +62,13 @@ hardBrick::hardBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 {
 	imageName = "images\\bricks\\NormalBrick.jpg";
 	this->strength = 3;
+
+	pGame->incScore();
 }
 
 void hardBrick::collisionAction()
 {
 	//score change
-	*(pGame->getScore()) += 1;
 	//strength check	
 	strengthCheck();
 }
