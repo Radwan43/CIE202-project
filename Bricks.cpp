@@ -64,6 +64,24 @@ void hardBrick::collisionAction()
 	strengthCheck();
 }
 
+////////////////////////////////////////////////////  class lifeBrick  /////////////////////////////////
+lifeBrick::lifeBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) :
+	brick(r_uprleft, r_width, r_height, r_pGame, BRK_LIF)
+{
+	imageName = "images\\bricks\\LifeBrick.jpg";
+	this->strength = 1;
+}
+
+void lifeBrick::collisionAction()
+{
+	//score change
+	*(pGame->getScore()) += 1;
+	//life change
+	*(pGame->getLives()) += 1;
+	//strength check	
+	strengthCheck();
+}
+
 ////////////////////////////////////////////////////  class rockBrick  /////////////////////////////////
 rockBrick::rockBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) :
 	brick(r_uprleft, r_width, r_height, r_pGame, BRK_RCK)

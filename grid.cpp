@@ -118,6 +118,9 @@ int grid::addBrick(BrickType brkType, point clickedPoint)
 	case BRK_BMB:
 		brickMatrix[gridCellRowIndex][gridCellColIndex] = new bombBrick(newBrickUpleft, config.brickWidth, config.brickHeight, pGame);
 		break;
+	case BRK_LIF:
+		brickMatrix[gridCellRowIndex][gridCellColIndex] = new lifeBrick(newBrickUpleft, config.brickWidth, config.brickHeight, pGame);
+		break;
 	}
 	return 1;
 }
