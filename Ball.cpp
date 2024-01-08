@@ -193,18 +193,10 @@ void Ball::collisionAction() {
             lastcollidedBrick = nullptr;
 
 		}
-        else if (collidedWithWallTop || lastcollidedBrick != nullptr && is_collided(uprLft.y, brickuprlft.y, uprLft.x, brickuprlft.x, -config.brickHeight, -this->height, config.brickWidth, this->width)) {
+        else if (collidedWithWallTop ) {
             thetta = -thetta; // Reflect vertically
-
-            if ((uprLft.y + this->height)== brickuprlft.y) {
-                uprLft.y--;
-            }
-            else {
-                uprLft.y++;
-            };
             collidedWithWallTop = false;
-            collidedWithBrick = false;
-            lastcollidedBrick = nullptr;
+            uprLft.y++;
         }
         else if (collidedWithWallBottom) { //destrust ball and respawn on paddle and decrement life by 1
             *(pGame->getLives())-=1;
@@ -215,6 +207,25 @@ void Ball::collisionAction() {
 
             collidedWithWallBottom = false;
             //respawn ball on paddle
+        }
+        else if (lastcollidedBrick != nullptr && is_collided(uprLft.y, brickuprlft.y, uprLft.x, brickuprlft.x, -config.brickHeight, -this->height, config.brickWidth, this->width)) {
+            point collisionPoint = CheckCollision(this, lastcollidedBrick);
+
+            double relativeHitPoint;
+            relativeHitPoint = (collisionPoint.x) - (lastcollidedBrick->getUprleft().x + config.brickWidth / 2.0);
+            double normalizedHitPos = relativeHitPoint / (ptpaddle->getWidth() / 2.0);
+            double newTheta = (PI / 2) - ((PI / 4) * normalizedHitPos);
+
+            if ((uprLft.y + this->height)== brickuprlft.y) {
+                uprLft.y--;
+                thetta = newTheta;
+            }
+            else {
+                uprLft.y++;
+                thetta = -newTheta;
+            };
+            collidedWithBrick = false;
+            lastcollidedBrick = nullptr;
         }
     }
 
