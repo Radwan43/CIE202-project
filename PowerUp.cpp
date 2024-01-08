@@ -53,8 +53,8 @@ void PowerUp::collisionAction()
         pGame->getBall()->setIsFireBall(true);
     } 
     else if (random_number == 8) {
-        //fireball
-        pGame->setScore(pGame->getScore() * 2);
+        //score multiplier
+        pGame->setScoreMultiplier(2);
     }
 
     if (random_number >= 1 && random_number <= 8) {

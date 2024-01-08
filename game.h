@@ -40,6 +40,7 @@ class game
 	int* livesPtr;
 	int* scorePtr;
 	int* timePtr;
+	int* scoremultiplier;
 
 public:
 	game();
@@ -76,6 +77,10 @@ public:
 	paddle* getPaddle() const;
 
 	Ball* getBall() const;
+
+	void setScoreMultiplier(int multiplier) const;
+
+	int getScoreMultiplier() const;
 
 	// add the ball
 

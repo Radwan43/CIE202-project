@@ -7,7 +7,6 @@ static std::vector<PowerUp>* activePowerUps;
 game* thisGame; 
 game::game()
 {
-	score = 0;
 	thisGame = this;
 	//Initialize playgrond parameters
 	gameMode = new MODE(MODE_DSIGN);
@@ -51,6 +50,10 @@ game::game()
 	*livesPtr = 3;
 	scorePtr = new int;
 	*scorePtr = 0;
+	scoremultiplier = new int;
+	*scoremultiplier = 1;
+
+
 	
 }
 
@@ -68,7 +71,13 @@ clicktype game::waitMouseClick(int& x, int& y) const
 }
 
 
+void game::setScoreMultiplier(int multiplier) const {
+	*scoremultiplier = multiplier;
+}
 
+int game::getScoreMultiplier() const {
+	return *scoremultiplier;
+}
 
 keytype game::waitKeyboardClick(char& key) const{
 	point newpos;
