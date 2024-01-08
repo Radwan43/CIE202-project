@@ -158,7 +158,7 @@ void Ball::collisionAction() {
     bool topRcol = false;
     bool bottomLcol = false;
     bool bottomRcol = false;
-    point brickuprlft= { 0,0 };
+    point brickuprlft = { 0,0 };
     if (lastcollidedBrick) {
         brickuprlft = lastcollidedBrick->getUprleft();
     }
@@ -174,7 +174,7 @@ void Ball::collisionAction() {
     //collision action with bricks and walls
     if (topLcol || topRcol || bottomLcol || bottomRcol) {
         thetta = PI + thetta;
-        topLcol= topRcol= bottomLcol= bottomRcol = false;
+        topLcol = topRcol = bottomLcol = bottomRcol = false;
         collidedWithBrick = false;
     }
     else if (collidedWithBrick || collidedWithWallBottom || collidedWithWallLeft || collidedWithWallRight || collidedWithWallTop) {

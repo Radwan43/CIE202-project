@@ -1,6 +1,8 @@
 #include "Bricks.h"
 
 
+static std::vector<PowerUp> activePowerUps;
+
 ////////////////////////////////////////////////////  class brick  ///////////////////////////////////////
 brick::brick(point r_uprleft, int r_width, int r_height, game* r_pGame,BrickType type):
 	collidable(r_uprleft, r_width, r_height, r_pGame)
@@ -23,6 +25,11 @@ void brick::strengthCheck() {
 	};
 }
 
+std::vector<PowerUp>* brick::getActivePowerUps()
+{
+	return &activePowerUps;
+}
+
 point brick::getUprleft() {
 	return this->uprLft;
 }
@@ -37,10 +44,13 @@ normalBrick::normalBrick(point r_uprleft, int r_width, int r_height, game* r_pGa
 {
 	imageName = "images\\bricks\\NormalBrick.jpg";
 	this->strength = 1;
+
 }
 
 void normalBrick::collisionAction()
 {
+	activePowerUps.push_back(PowerUp(uprLft, pGame));
+
 	//score change
 	*(pGame->getScore()) += 1;
 	//strength check	

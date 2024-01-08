@@ -33,6 +33,8 @@ private:
     bool moving, attatched;
     double xt, yt;
 
+    bool isFireBall;
+
 public:
     double getPI() const;
     bool isMoving();
@@ -45,5 +47,9 @@ public:
     void MoveAttatchedBall();
     point getUprleft();
     int getRadius();
+
+    bool getIsFireBall();
+
+    void setIsFireBall(bool change);
 
 };
