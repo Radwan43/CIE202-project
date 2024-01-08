@@ -14,6 +14,7 @@ Ball::Ball(point r_uprleft, int r_radius, game* r_pGame) :
 
     ptpaddle = pGame->getPaddle();
     lastcollidedBrick = nullptr;
+    isFireBall = false;
     moving = 0;
     attatched = 1;
 }
@@ -43,6 +44,11 @@ void Ball::setIsFireBall(bool change)
 {
     isFireBall = change;
 }
+
+bool Ball::getIsFireBall() {
+    return isFireBall;
+}
+
 
 void Ball::set_motion(bool moving) {
     this->moving = moving;
@@ -183,55 +189,61 @@ void Ball::collisionAction() {
         collidedWithBrick = false;
     }
     else if (collidedWithBrick || collidedWithWallBottom || collidedWithWallLeft || collidedWithWallRight || collidedWithWallTop) {
-        if (collidedWithWallLeft || collidedWithWallRight || lastcollidedBrick!=nullptr &&(is_collided(uprLft.x, brickuprlft.x, uprLft.y, brickuprlft.y, this->width, config.brickWidth, this->height, config.brickHeight))) {
-			thetta = PI - thetta; // Reflect horizontally
+        if (collidedWithWallLeft || collidedWithWallRight || lastcollidedBrick != nullptr && (is_collided(uprLft.x, brickuprlft.x, uprLft.y, brickuprlft.y, this->width, config.brickWidth, this->height, config.brickHeight))) {
+            if (!isFireBall || collidedWithWallRight || collidedWithWallLeft) {
 
-            if (collidedWithWallRight||uprLft.x +this->width== brickuprlft.x) {
-                uprLft.x--;
-            }
-            else {
-                uprLft.x++;
+                thetta = PI - thetta; // Reflect horizontally
+
+                if (collidedWithWallRight || uprLft.x + this->width == brickuprlft.x) {
+                    uprLft.x--;
+                }
+                else {
+                    uprLft.x++;
+                };
             };
-			collidedWithWallRight= false; 
-            collidedWithWallLeft = false; 
-            collidedWithBrick= false;
+            collidedWithWallRight = false;
+            collidedWithWallLeft = false;
+            collidedWithBrick = false;
             lastcollidedBrick = nullptr;
 
-		}
-        else if (collidedWithWallTop ) {
+        }
+        else if (collidedWithWallTop) {
             thetta = -thetta; // Reflect vertically
             collidedWithWallTop = false;
             uprLft.y++;
         }
         else if (collidedWithWallBottom) { //destrust ball and respawn on paddle and decrement life by 1
-            *(pGame->getLives())-=1;
+            *(pGame->getLives()) -= 1;
             this->setAttatched(1);
             this->MoveAttatchedBall();
             this->set_motion(0);
             this->setTrajectory(PI / 2);
-
+            this->setIsFireBall(false);
             collidedWithWallBottom = false;
             //respawn ball on paddle
         }
         else if (lastcollidedBrick != nullptr && is_collided(uprLft.y, brickuprlft.y, uprLft.x, brickuprlft.x, -config.brickHeight, -this->height, config.brickWidth, this->width)) {
-            point collisionPoint = CheckCollision(this, lastcollidedBrick);
+            if (!isFireBall) {
 
-            double relativeHitPoint;
-            relativeHitPoint = (collisionPoint.x) - (lastcollidedBrick->getUprleft().x + config.brickWidth / 2.0);
-            double normalizedHitPos = relativeHitPoint / (ptpaddle->getWidth() / 2.0);
-            double newTheta = (PI / 2) - ((PI / 4) * normalizedHitPos);
+                point collisionPoint = CheckCollision(this, lastcollidedBrick);
 
-            if ((uprLft.y + this->height)== brickuprlft.y) {
-                uprLft.y--;
-                thetta = newTheta;
-            }
-            else {
-                uprLft.y++;
-                thetta = -newTheta;
+                double relativeHitPoint;
+                relativeHitPoint = (collisionPoint.x) - (lastcollidedBrick->getUprleft().x + config.brickWidth / 2.0);
+                double normalizedHitPos = relativeHitPoint / (ptpaddle->getWidth() / 2.0);
+                double newTheta = (PI / 2) - ((PI / 4) * normalizedHitPos);
+
+                if ((uprLft.y + this->height) == brickuprlft.y) {
+                    uprLft.y--;
+                    thetta = newTheta;
+                }
+                else {
+                    uprLft.y++;
+                    thetta = -newTheta;
+                };
             };
             collidedWithBrick = false;
             lastcollidedBrick = nullptr;
-        }
+        };
     }
 
     //collision action with paddle

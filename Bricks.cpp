@@ -49,11 +49,18 @@ normalBrick::normalBrick(point r_uprleft, int r_width, int r_height, game* r_pGa
 
 void normalBrick::collisionAction()
 {
-
+	if (!pGame->getBall()->getIsFireBall()) {
 	//score change
 	*(pGame->getScore()) += 1*pGame->getScoreMultiplier();
 	//strength check	
 	strengthCheck();
+	return;
+	}
+	else {
+		*(pGame->getScore()) += this->strength * pGame->getScoreMultiplier();
+		this->strength = 0;
+		strengthCheck();
+	}
 }
 
 
@@ -70,10 +77,18 @@ void powerBrick::collisionAction()
 {
 	activePowerUps.push_back(PowerUp(uprLft, pGame));
 
-	//score change
-	*(pGame->getScore()) += 1 * pGame->getScoreMultiplier();
-	//strength check	
-	strengthCheck();
+	if (!pGame->getBall()->getIsFireBall()) {
+		//score change
+		*(pGame->getScore()) += 1 * pGame->getScoreMultiplier();
+		//strength check	
+		strengthCheck();
+		return;
+	}
+	else {
+		*(pGame->getScore()) += this->strength * pGame->getScoreMultiplier();
+		this->strength = 0;
+		strengthCheck();
+	}
 }
 
 
@@ -87,10 +102,18 @@ hardBrick::hardBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 
 void hardBrick::collisionAction()
 {	
-	//score change
-	*(pGame->getScore())+=1 * pGame->getScoreMultiplier();
-	//strength check	
-	strengthCheck();
+	if (!pGame->getBall()->getIsFireBall()) {
+		//score change
+		*(pGame->getScore()) += 1 * pGame->getScoreMultiplier();
+		//strength check	
+		strengthCheck();
+		return;
+	}
+	else {
+		*(pGame->getScore()) += this->strength * pGame->getScoreMultiplier();
+		this->strength = 0;
+		strengthCheck();
+	}
 }
 
 ////////////////////////////////////////////////////  class lifeBrick  /////////////////////////////////
@@ -103,12 +126,19 @@ lifeBrick::lifeBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 
 void lifeBrick::collisionAction()
 {
-	//score change
-	*(pGame->getScore()) += 1 * pGame->getScoreMultiplier();
-	//life change
 	*(pGame->getLives()) += 1;
-	//strength check	
-	strengthCheck();
+	if (!pGame->getBall()->getIsFireBall()) {
+		//score change
+		*(pGame->getScore()) += 1 * pGame->getScoreMultiplier();
+		//strength check	
+		strengthCheck();
+		return;
+	}
+	else {
+		*(pGame->getScore()) += this->strength * pGame->getScoreMultiplier();
+		this->strength = 0;
+		strengthCheck();
+	}
 }
 
 ////////////////////////////////////////////////////  class rockBrick  /////////////////////////////////
@@ -116,11 +146,20 @@ rockBrick::rockBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 	brick(r_uprleft, r_width, r_height, r_pGame, BRK_RCK)
 {
 	imageName = "images\\bricks\\RockBrick.jpg";
-	this->strength = -1;
+	this->strength = 5;
 }
 
 void rockBrick::collisionAction()
-{}
+{
+	if (!pGame->getBall()->getIsFireBall()) {
+		return;
+	}
+	else {
+		*(pGame->getScore()) += this->strength * pGame->getScoreMultiplier();
+		this->strength = 0;
+		strengthCheck();
+	}
+}
 
 ////////////////////////////////////////////////////  class bombBrick  /////////////////////////////////
 bombBrick::bombBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) :
