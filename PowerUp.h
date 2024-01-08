@@ -12,13 +12,14 @@ private:
 	int powerUpStartTime;
 	bool powerUpActive = false;
 	int activePowerUp = 0;
+	GameTimer* gameTimer;
 
 public:
 	PowerUp(const point& r_uprleft, game* r_pGame);
 
 	void collisionAction() override;
 
-	void disable(GameTimer& gameTimer);
+	void disable(GameTimer* gameTimer);
 
 	void revertPowerUp();
 

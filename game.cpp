@@ -302,7 +302,7 @@ void game::go() const
 						}
 					
 					}
-					powerUp.disable(gameTimer);
+					powerUp.disable(&gameTimer);
 				}
 
 				if (*gameMode == MODE_DSIGN) break;

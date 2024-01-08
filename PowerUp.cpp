@@ -48,18 +48,18 @@ void PowerUp::collisionAction()
         pGame->getPaddle()->setSpeed(15);
     }
 
-    GameTimer gameTimer;
     if (random_number >= 1 && random_number <= 6) {
-        powerUpStartTime = std::stoi(gameTimer.getElapsedTimeString()); // Assuming getElapsedTimeString returns time in seconds as a string
+        powerUpStartTime = std::stoi(gameTimer->getElapsedTimeString()); // Assuming getElapsedTimeString returns time in seconds as a string
         powerUpActive = true;
         activePowerUp = random_number;
     }
 
 }
 
-void PowerUp::disable(GameTimer& gameTimer) {
+void PowerUp::disable(GameTimer* gameTimerr) {
+    gameTimer = gameTimerr;
     if (powerUpActive) {
-        int currentTime = std::stoi(gameTimer.getElapsedTimeString());
+        int currentTime = std::stoi(gameTimer->getElapsedTimeString());
         int elapsedTime = currentTime - powerUpStartTime;
 
         if (elapsedTime >= 15) {
