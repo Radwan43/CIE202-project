@@ -33,7 +33,7 @@ private:
     bool moving, attatched;
     double xt, yt;
 
-    int lifes;
+    int lifes = 3;
     bool isFireBall;
 
 public:

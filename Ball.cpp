@@ -57,6 +57,11 @@ int Ball::getLife()
     return lifes;
 }
 
+void Ball::setLife(int life)
+{
+    lifes = life;
+}
+
 void Ball::setTrajectory(double thetta) {
     this->thetta = thetta;
 
@@ -210,7 +215,8 @@ void Ball::collisionAction() {
         }
 
         else if (collidedWithWallBottom) { //destrust ball and respawn on paddle and decrement life by 1
-            pGame->setLives(getLife() - 1);
+            setLife(getLife() - 1);
+            cout << "life: " << getLife();
             this->setAttatched(1);
             this->MoveAttatchedBall();
             this->set_motion(0);
