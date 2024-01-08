@@ -28,4 +28,7 @@ public:
 
 	void activatePowerUp();
 	bool isActivatedPowerUp();
+
+	bool shouldBeRemoved = false;
+
 };
