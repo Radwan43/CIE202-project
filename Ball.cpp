@@ -19,6 +19,11 @@ Ball::Ball(point r_uprleft, int r_radius, game* r_pGame) :
     attatched = 1;
 }
 
+double Ball::getPI() const {
+    return this->PI;
+}
+
+
 bool Ball::isMoving() {
     return this->moving;
 }
@@ -50,6 +55,10 @@ void Ball::setTrajectory(double thetta) {
 
 void Ball::setSpeed(double speed) {
     this->speed = speed;
+}
+
+void Ball::setLife(int Life) {
+    this->life = Life;
 }
 
 int Ball::getLife() {

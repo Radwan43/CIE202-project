@@ -33,7 +33,7 @@ grid::~grid()
 
 void grid::draw() const
 {	
-	if (pGame->getMode() == 0) {
+	if (pGame->getMode() == MODE_DSIGN) {
 
 		window* pWind = pGame->getWind();
 		//draw lines showing the grid
@@ -50,7 +50,7 @@ void grid::draw() const
 			pWind->DrawLine(x, uprLft.y, x, uprLft.y + rows * config.brickHeight);
 		}
 	}
-	else if (pGame->getMode() == 1) {
+	else if (pGame->getMode() == MODE_PLAY) {
 
 		window* pWind = pGame->getWind();
 		//draw lines showing the grid

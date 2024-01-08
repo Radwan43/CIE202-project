@@ -67,9 +67,9 @@ public:
 
 	window* getWind() const;		//returns a pointer to the graphics window
 
-	void setMode(int gameMode) const;
+	void setMode(MODE gameMode) const;
 	
-	int getMode()const;
+	MODE getMode()const;
 
 	grid* getGrid() const;
 

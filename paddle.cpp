@@ -48,8 +48,8 @@ void paddle::drawFirst() {
 }
 
 void paddle::movePaddle(char key) {
+    if ((pGame->getMode() == MODE_PAUSE) || (pGame->getMode() == MODE_DSIGN)) return;
     point newpos;
-    
     Ball* pBall = pGame->getBall();
     window* pWin = this->pGame->getWind();
     int step=10;
@@ -76,6 +76,7 @@ void paddle::movePaddle(char key) {
             }
             this->pGame->getWind()->DrawImage("images\\bricks\\NormalBrick.jpg", uprLft.x, getUpperLeft().y, 100, 20);
             this->draw();
+        cout << endl << "move paddle called"<<endl;
         }
         break;
     case 'D':
@@ -102,6 +103,7 @@ void paddle::movePaddle(char key) {
             this->pGame->getWind()->DrawImage("images\\bricks\\NormalBrick.jpg", uprLft.x, getUpperLeft().y, 100, 20);
             this->draw();
         }
+        cout << endl << "move paddle called" << endl;
         break;
     }
 }
@@ -123,7 +125,26 @@ void normalpaddle::draw() {
     cout << "this was called in draw new";
 }
 
+void paddle::CentrePaddle() {
+    Ball* pBall = pGame->getBall();
+    window* pWin = this->pGame->getWind();
+    pWin->SetPen(LAVENDER, 1);
+    pWin->SetBrush(LAVENDER);
+    pWin->DrawRectangle(uprLft.x, uprLft.y, uprLft.x + 100, uprLft.y + 20);
+    if (pBall->isAttatched()) {
+        pWin->DrawCircle(pBall->getUprleft().x + pBall->getRadius(), pBall->getUprleft().y + pBall->getRadius(), pBall->getRadius());
 
+    };
+
+    this->uprLft.x = config.windWidth / 2 - width / 2;
+    this->pGame->getWind()->DrawImage("images\\bricks\\NormalBrick.jpg", uprLft.x, getUpperLeft().y, 100, 20);
+    this->pGame->getWind()->SetPen(0.5, 0.1, 0.9, 0);
+    this->pGame->getWind()->SetBrush(0.5, 0.1, 0.9);
+    if (pBall->isAttatched()) {
+        pBall->MoveAttatchedBall();
+        pBall->draw();
+    }
+}
 
 void paddle::draw() {
 

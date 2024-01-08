@@ -8,6 +8,12 @@ void GameTimer::start() {
     running = true;
 }
 
+
+bool GameTimer::isRunning() {
+    return running;
+}
+
+
 void GameTimer::update() {
     // Implementation remains the same as in the previous version
 }

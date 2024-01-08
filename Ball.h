@@ -35,6 +35,7 @@ private:
     int life;
 
 public:
+    double getPI() const;
     int getLife();
     bool isMoving();
     bool isAttatched();
@@ -42,6 +43,7 @@ public:
     void setTrajectory(double thetta);
     void setSpeed(double speed);
     void setAttatched(bool attatched);
+    void setLife(int Lives);
     void moveBall();
     void MoveAttatchedBall();
     point getUprleft();

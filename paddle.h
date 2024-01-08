@@ -19,7 +19,7 @@ public:
 
     void movePaddle(char key);
 
-
+    void CentrePaddle();
 
 };
 

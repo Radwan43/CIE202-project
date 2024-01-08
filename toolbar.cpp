@@ -107,7 +107,7 @@ iconPlay::iconPlay(point r_uprleft, int r_width, int r_height, game* r_pGame) :
 
 void iconPlay::onClick()
 {
-	pGame->setMode(1);
+	pGame->setMode(MODE_PLAY);
 	//TO DO: add code for cleanup and game exit here
 
 }

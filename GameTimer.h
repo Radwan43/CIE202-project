@@ -12,7 +12,7 @@ public:
     void start();
     void update(); // Update the timer (call this in your game loop)
     void stop();
-
+    bool isRunning();
     std::string getElapsedTimeString() const; // Get the elapsed time as a string
 
 private:

@@ -111,12 +111,12 @@ window* game::getWind() const		//returns a pointer to the graphics window
 	return pWind;
 }
 
-void game::setMode(int gameMode) const {//0 for design mode 1 for play mode
-	*this->gameMode = MODE(gameMode);
+void game::setMode(MODE gameMode) const {
+	*this->gameMode = gameMode;
 }
 
-int game::getMode()const {
-	return int(*this->gameMode);
+MODE game::getMode()const {
+	return *(this->gameMode);
 }
 
 string game::getSrting() const
@@ -190,20 +190,17 @@ void game::go() const
 
 
 	GameTimer gameTimer;
-	gameTimer.start();
-
 	do
 	{	
 		//getKeyboardClick(Key);
-		printMessage("Ready...");
 		//thepaddle->movePaddle(Key, thepaddle);
 
 		pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
-		//if (i == 1) { *gameMode = MODE_PLAY; }
-		//else { *gameMode = MODE_DSIGN; };
+
 
 		if (*gameMode == MODE_DSIGN)		//Game is in the Desgin mode
 		{
+			printMessage("Ready...");
 			//[1] If user clicks on the Toolbar
 			this->bricksGrid->draw();
 			if (y >= 0 && y < config.toolBarHeight)
@@ -213,6 +210,9 @@ void game::go() const
 		}
 		if (*gameMode == MODE_PLAY) {
 			this->bricksGrid->draw();
+			pWind->FlushKeyQueue();
+			pWind->FlushMouseQueue();
+
 			printMessage("Play!");
 			while (true) {
 
@@ -242,11 +242,25 @@ void game::go() const
 
 				case ASCII:
 					if (Key == ' ') {
+						if (*gameMode != MODE_PLAY)
+							*gameMode = MODE_PLAY;
 						if (!ball->isMoving()) {
 							ball->set_motion(1);
 							ball->setAttatched(0);
 						}
-						break;
+						if (!gameTimer.isRunning()) {
+							gameTimer.start();
+						}
+					}
+					else if (Key == 'q' || Key == 'Q') {
+						if (*gameMode != MODE_PAUSE) {
+							*gameMode = MODE_PAUSE;
+							if (ball->isMoving())
+								ball->set_motion(false);
+						};
+						if (gameTimer.isRunning()) {
+							gameTimer.stop();
+						}
 					}
 					break;
 				}
@@ -278,17 +292,30 @@ void game::go() const
 
 				if (BrickNumber == 0) {
 					//END GAME SEQUENCE
+					string scoreSTR = to_string(*scorePtr);
+					printMessage("Congrats! You finished the level! Your score is: " + scoreSTR);
+					*gameMode = MODE_DSIGN;
+					
+				};
 
+				if (*gameMode == MODE_DSIGN) {
+					ball->setAttatched(1);
+					ball->set_motion(false);
+					ball->setLife(3);
+					ball->setTrajectory(ball->getPI() / 2);
+					ball->setSpeed(4);
+					thepaddle->CentrePaddle();
+					*scorePtr = 0;
+
+
+					break;
 				}
-
-				if (*gameMode == MODE_DSIGN) break;
 
 				if (*gameMode == MODE_PAUSE) {
 					if (ball->isMoving())
 						ball->set_motion(false);
 
 				}
-
 
 
 
