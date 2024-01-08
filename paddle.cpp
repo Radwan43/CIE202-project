@@ -52,7 +52,7 @@ void paddle::movePaddle(char key) {
     point newpos;
     Ball* pBall = pGame->getBall();
     window* pWin = this->pGame->getWind();
-    int step = paddle::speed;
+    int step = this->speed;
     switch (key) {
     case 'A':
     case 'a':
