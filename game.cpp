@@ -207,6 +207,8 @@ void game::go() const
 		if (*gameMode == MODE_DSIGN)		//Game is in the Desgin mode
 		{
 			//[1] If user clicks on the Toolbar
+
+			this->gameToolbar->draw();
 			this->bricksGrid->draw();
 			if (y >= 0 && y < config.toolBarHeight)
 			{
@@ -214,6 +216,7 @@ void game::go() const
 			}
 		}
 		if (*gameMode == MODE_PLAY) {
+			this->gameToolbar->draw();
 			this->bricksGrid->draw();
 			printMessage("Play!");
 			while (true) {
