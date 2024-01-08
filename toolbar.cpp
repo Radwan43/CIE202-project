@@ -2,7 +2,8 @@
 #include "game.h"
 #include "grid.h"
 #include "gameConfig.h"
-
+#include <fstream>
+using namespace std;
 
 ////////////////////////////////////////////////////  class toolbarIcon   ////////////////////////////////////////////////////
 toolbarIcon::toolbarIcon(point r_uprleft, int r_width, int r_height, game* r_pGame) :
@@ -94,7 +95,27 @@ iconSaveLevel::iconSaveLevel(point r_uprleft, int r_width, int r_height, game* r
 
 void iconSaveLevel::onClick()
 {
-	//TO DO: add code for cleanup and game exit here
+	ofstream saveFile("save.txt");
+	if (saveFile.is_open())
+	{
+			for (int i = 0; i < pGame->getGrid()->getrows(); i++)
+			{
+				for (int j = 0; j < pGame->getGrid()->getcols(); j++)
+				{
+					if (pGame->getGrid()->getMatrix()[i][j] != NULL)
+					{
+						saveFile << i << "\t" << j << "\t" << pGame->getGrid()->getMatrix()[i][j]->getType()<< endl;
+					}
+				}
+			}
+			saveFile.close();
+			
+		}
+	else
+	{
+			pGame->printMessage("Error opening save file");
+		}
+		
 
 }
 
@@ -107,7 +128,6 @@ iconDelBrick::iconDelBrick(point r_uprleft, int r_width, int r_height, game* r_p
 void iconDelBrick::onClick()
 {
 
-	//TO DO: add code for cleanup and game exit here
 
 
 	pGame->printMessage("Click on bricks cells to delete  ==> Right-Click to stop <==");
@@ -140,7 +160,6 @@ iconLoadLevel::iconLoadLevel(point r_uprleft, int r_width, int r_height, game* r
 
 void iconLoadLevel::onClick()
 {
-	//TO DO: add code for cleanup and game exit here
 
 }
 ////////////////////////////////////////////////////  class iconPlay   //////////////////////////////////////////////
@@ -152,7 +171,6 @@ iconPlay::iconPlay(point r_uprleft, int r_width, int r_height, game* r_pGame) :
 void iconPlay::onClick()
 {
 	pGame->setMode(1);
-	//TO DO: add code for cleanup and game exit here
 
 }
 ////////////////////////////////////////////////////  class iconPause   //////////////////////////////////////////////
@@ -315,7 +333,7 @@ bool toolbar::handleClick(int x, int y)
 	//if division result is 0 ==> first icon is clicked, if 1 ==> 2nd icon and so on
 
 	int clickedIconIndex = (x / config.iconWidth);
-	iconsList[clickedIconIndex]->onClick();	//execute onClick action of clicled icon
+	iconsList[clickedIconIndex]->onClick();	//execute onClick action of clicked icon
 
 	if (clickedIconIndex == ICON_EXIT) return true;
 
@@ -323,4 +341,3 @@ bool toolbar::handleClick(int x, int y)
 
 
 }
-

@@ -27,6 +27,7 @@ public:
 	void strengthCheck();
 	~brick();
 	point getUprleft();
+	BrickType getType() { return type; }
 };
 
 
